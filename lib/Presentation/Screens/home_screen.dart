@@ -23,27 +23,25 @@ class _HomeScreenState extends State<HomeScreen> {
       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
     );
 
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.only(left: 24.0, right: 24.0),
-            children: <Widget>[
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(height: 40),
-              MainAppName(),
-              SizedBox(
-                height: 80.0,
-              ),
-              loginButton,
-              SizedBox(height: 300),
-              rightsReserved
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          children: <Widget>[
+            SizedBox(
+              height: 30,
+            ),
+            SizedBox(height: 40),
+            MainAppName(),
+            SizedBox(
+              height: 80.0,
+            ),
+            loginButton,
+            SizedBox(height: 300),
+            rightsReserved
+          ],
         ),
       ),
     );

@@ -36,7 +36,7 @@ class AppRouter {
           ),
         );
         break;
-      case '/modescren':
+      case '/modescreen':
         return MaterialPageRoute(builder: (_) => ModeScreen());
         break;
       case '/reliabilityreportscreen':

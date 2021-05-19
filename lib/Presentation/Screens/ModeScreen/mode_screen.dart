@@ -37,107 +37,105 @@ class _ModeScreenState extends State<ModeScreen> {
       },
     );
 
-    return MaterialApp(
-      home: Scaffold(
-        //drawerScrimColor: Constants.secondaryColor,
-        drawer: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor: Constants.secondaryColor,
-          ),
-          child: Drawer(
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Constants.mainColor,
-                  ),
-                  width: 400,
-                  height: 300,
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 40),
-                      Text(
-                        "Username ID",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25,
-                            color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 40),
-                      Text(
-                        "Hoàng Minh Trí",
-                        style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            fontSize: 25,
-                            color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 30),
-                    ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    SizedBox(width: 15),
-                    Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ),
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/loginscreen');
-                      },
-                      child: Text(
-                        "Đăng xuất",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
+    return Scaffold(
+      //drawerScrimColor: Constants.secondaryColor,
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Constants.secondaryColor,
         ),
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          backgroundColor: Constants.mainColor,
-          //leading: IconButton(
-          //icon: Icon(
-          //Icons.menu,
-          //color: Colors.white,
-          //),
-          // onPressed: () {},
-          //),
-          title: Text("Menu"),
-        ),
-        backgroundColor: Colors.white,
-        body: Center(
+        child: Drawer(
           child: ListView(
             shrinkWrap: true,
-            padding: EdgeInsets.only(left: 24.0, right: 24.0),
-            children: <Widget>[
-              SizedBox(
-                height: 30,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Constants.mainColor,
+                ),
+                width: 400,
+                height: 300,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 40),
+                    Text(
+                      "Username ID",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 40),
+                    Text(
+                      "Hoàng Minh Trí",
+                      style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize: 25,
+                          color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 30),
+                  ],
+                ),
               ),
-              Text(
-                "GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM NẮP BỒN CẦU",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+              Row(
+                children: [
+                  SizedBox(width: 15),
+                  Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.popAndPushNamed(context, '/loginscreen');
+                    },
+                    child: Text(
+                      "Đăng xuất",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                ],
               ),
-              SizedBox(height: 40),
-              logo,
-              SizedBox(
-                height: 80.0,
-              ),
-              reportButton,
-              SizedBox(height: 15.0),
-              monitorButton,
-              SizedBox(height: 100),
             ],
           ),
+        ),
+      ),
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        backgroundColor: Constants.mainColor,
+        //leading: IconButton(
+        //icon: Icon(
+        //Icons.menu,
+        //color: Colors.white,
+        //),
+        // onPressed: () {},
+        //),
+        title: Text("Menu"),
+      ),
+      backgroundColor: Colors.white,
+      body: Center(
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          children: <Widget>[
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM NẮP BỒN CẦU",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+            ),
+            SizedBox(height: 40),
+            logo,
+            SizedBox(
+              height: 80.0,
+            ),
+            reportButton,
+            SizedBox(height: 15.0),
+            monitorButton,
+            SizedBox(height: 100),
+          ],
         ),
       ),
     );
