@@ -1,8 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_app/Presentation/Models/func.dart';
+import 'package:mobile_app/Presentation/Models/login.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
+import 'package:mobile_app/Presentation/Models/func.dart';
 
+// ignore: must_be_immutable
 class ModeScreen extends StatefulWidget {
   @override
   _ModeScreenState createState() => new _ModeScreenState();
@@ -38,7 +41,6 @@ class _ModeScreenState extends State<ModeScreen> {
     );
 
     return Scaffold(
-      //drawerScrimColor: Constants.secondaryColor,
       drawer: Theme(
         data: Theme.of(context).copyWith(
           canvasColor: Constants.secondaryColor,
@@ -58,7 +60,7 @@ class _ModeScreenState extends State<ModeScreen> {
                   children: <Widget>[
                     SizedBox(height: 40),
                     Text(
-                      "Username ID",
+                      employeeLastNameOverall + employeeFirstNameOverall,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
@@ -67,7 +69,7 @@ class _ModeScreenState extends State<ModeScreen> {
                     ),
                     SizedBox(height: 40),
                     Text(
-                      "Hoàng Minh Trí",
+                      employeeIdOverall,
                       style: TextStyle(
                           fontStyle: FontStyle.italic,
                           fontSize: 25,
@@ -85,9 +87,9 @@ class _ModeScreenState extends State<ModeScreen> {
                     Icons.arrow_back,
                     color: Colors.white,
                   ),
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
-                      Navigator.popAndPushNamed(context, '/loginscreen');
+                      logout(context);
                     },
                     child: Text(
                       "Đăng xuất",

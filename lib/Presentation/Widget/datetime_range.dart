@@ -45,9 +45,9 @@ class _DateRangePickerWidgetState extends State<DateRangePickerWidget> {
                     ),
                     color: Colors.white,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(getFrom()),
-                        SizedBox(width: 30),
                         Icon(Icons.calendar_today),
                       ],
                     ),
@@ -74,9 +74,9 @@ class _DateRangePickerWidgetState extends State<DateRangePickerWidget> {
                       ),
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(getUntil()),
-                        SizedBox(width: 30),
                         Icon(Icons.calendar_today),
                       ],
                     ),

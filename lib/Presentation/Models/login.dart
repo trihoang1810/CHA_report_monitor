@@ -1,6 +1,8 @@
 import 'good_issue_data.dart';
 
 String employeeIdOverall = "";
+String employeeLastNameOverall = "";
+String employeeFirstNameOverall = "";
 
 class LoginData {
   Token token;

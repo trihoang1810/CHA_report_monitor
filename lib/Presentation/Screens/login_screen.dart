@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app/Presentation/Dialog/dialog.dart';
 import 'package:mobile_app/Presentation/Models/login.dart';
+import 'package:mobile_app/Presentation/Screens/ModeScreen/mode_screen.dart';
 import 'package:mobile_app/Presentation/Widget/mainAppName.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
@@ -52,8 +53,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 //--------------------------
                 loadingDialog.dismiss();
                 employeeIdOverall = loginState.loginData.employee.employeeId;
+                employeeFirstNameOverall =
+                    loginState.loginData.employee.firstName;
+                employeeLastNameOverall =
+                    loginState.loginData.employee.lastName;
                 print(
                     "First name chính là: ${loginState.loginData.employee.firstName}");
+
                 Navigator.popAndPushNamed(context, '/modescreen');
               } else if (loginState is LoginStateLoginFailure) {
                 print("Đã thất bại");
@@ -154,17 +160,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               passController.text == "" ||
                               _isPasswordErr ||
                               _isUsernameErr)
-                          ? () async {
-                              print("lỗi pass: ${_isPasswordErr}");
-                              print("lỗi user: ${_isUsernameErr}");
-                              print("lỗi pass: ${userController.text == ""}");
-                              print("lỗi user: ${passController.text == ""}");
-                            }
+                          ? null
                           : () async {
-                              print("lỗi pass: ${_isPasswordErr}");
-                              print("lỗi user: ${_isUsernameErr}");
-                              print("lỗi pass: ${userController.text == ""}");
-                              print("lỗi user: ${passController.text == ""}");
                               //Code này cho bản full
                               BlocProvider.of<LoginBloc>(context).add(
                                   LoginEventLoginClicked(
