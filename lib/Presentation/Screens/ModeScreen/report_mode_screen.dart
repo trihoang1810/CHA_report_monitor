@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
+import 'package:mobile_app/business_logic/blocs/reli__report_bloc.dart';
+import 'package:mobile_app/business_logic/states/reli_report_state.dart';
 
 class ReportModeScreen extends StatefulWidget {
   @override
@@ -32,13 +35,6 @@ class _ReportModeScreenState extends State<ReportModeScreen> {
           },
         ),
         backgroundColor: Constants.mainColor,
-        //leading: IconButton(
-        //icon: Icon(
-        //Icons.menu,
-        //color: Colors.white,
-        //),
-        // onPressed: () {},
-        //),
       ),
       backgroundColor: Colors.white,
       body: Center(

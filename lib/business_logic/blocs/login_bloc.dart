@@ -21,8 +21,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       bool _isUsernameErr = true, _isPasswordErr = true;
       _isUsernameErr = event.userName.length < minLength;
       _isPasswordErr = event.passWord.length < minLength;
-      print("lỗi pass: ${event.userName}");
-      print("lỗi user: ${event.passWord}");
       yield LoginStateFormatChecking(
         isUsernameErr: _isUsernameErr,
         isPasswordErr: _isPasswordErr,
@@ -34,8 +32,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield LoginStateLoadingRequest();
       final loginDataOrErr =
           await loginRepository.loginRequest(event.username, event.password);
-      print("lỗi pass: ${event.username}");
-      print("lỗi user: ${event.password}");
       if (loginDataOrErr is LoginData) {
         yield LoginStateLoginSuccessful(
             timestamp: event.timestamp, loginData: loginDataOrErr);

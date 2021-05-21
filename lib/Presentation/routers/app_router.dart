@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,11 +15,16 @@ import 'package:mobile_app/Presentation/Screens/home_screen.dart';
 import 'package:mobile_app/Presentation/Screens/login_screen.dart';
 import 'package:mobile_app/Repos/login_repos.dart';
 import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
+import 'package:mobile_app/business_logic/blocs/reli__report_bloc.dart';
+import 'package:mobile_app/repos/reli_report_repos.dart';
 
 LoginRepository loginRepository =
     new LoginRepository(httpClient: http.Client());
+ReliReportRepository reliReportRepository =
+    new ReliReportRepository(httpClient: http.Client());
 
 class AppRouter {
+  static ReliReportBloc reliReportBloc = ReliReportBloc();
   static LoginBloc loginBloc = LoginBloc();
   void clearBloc() {
     LoginBloc loginBloc = LoginBloc();
@@ -40,10 +47,16 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => ModeScreen());
         break;
       case '/reliabilityreportscreen':
-        return MaterialPageRoute(builder: (_) => ReliabilityReportScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<ReliReportBloc>.value(
+              value: reliReportBloc, child: ReliabilityReportScreen()),
+        );
         break;
       case '/reportmodescreen':
-        return MaterialPageRoute(builder: (_) => ReportModeScreen());
+        return MaterialPageRoute(
+          builder: (_) => ReportModeScreen(),
+        );
+
         break;
       case '/deformationreportscreen':
         return MaterialPageRoute(builder: (_) => DeformationReportScreen());
