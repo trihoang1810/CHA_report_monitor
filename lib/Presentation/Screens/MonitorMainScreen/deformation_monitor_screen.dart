@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/Presentation/Screens/MonitorMainScreen/Model/Deformation/operating_params_deformation.dart';
+import 'package:mobile_app/Presentation/Screens/MonitorMainScreen/Model/deformation/operating_params_deformation.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 
