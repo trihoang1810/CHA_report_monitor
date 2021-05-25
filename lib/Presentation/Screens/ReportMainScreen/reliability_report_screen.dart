@@ -7,6 +7,7 @@ import 'package:mobile_app/Presentation/Widget/widget.dart';
 import 'package:mobile_app/business_logic/blocs/reli__report_bloc.dart';
 import 'package:mobile_app/business_logic/events/reli_report_event.dart';
 import 'package:mobile_app/business_logic/states/reli_report_state.dart';
+import 'package:mobile_app/repos/reli_cb_report_repos.dart';
 import 'package:mobile_app/repos/reli_report_repos.dart';
 
 class ReliabilityReportScreen extends StatefulWidget {
@@ -16,13 +17,6 @@ class ReliabilityReportScreen extends StatefulWidget {
 }
 
 class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
-  String _id = 'null';
-  String _timestamp = 'null';
-  String _name = 'null';
-  String _first = 'null';
-  String _last = 'null';
-  String _trytime = 'null';
-  String _time = 'null';
   @override
   Widget build(BuildContext context) {
     LoadingDialog loadingDialog = LoadingDialog(buildContext: context);
@@ -57,6 +51,21 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
               } else if (reliReportState is ReliReportStateLoadingSuccessful) {
                 loadingDialog.dismiss();
               } else if (reliReportState is ReliReportStateLoadingFailure) {
+                loadingDialog.dismiss();
+                AlertDialogOneBtnCustomized(
+                        context: context,
+                        title: "Truy xuất thất bại",
+                        desc: "Vui lòng thử lại",
+                        textBtn: "OK",
+                        closePressed: () {},
+                        onPressedBtn: () {})
+                    .show();
+              } else if (reliReportState is ReliCBReportStateLoadingRequest) {
+                loadingDialog.show();
+              } else if (reliReportState
+                  is ReliCBReportStateLoadingSuccessful) {
+                loadingDialog.dismiss();
+              } else if (reliReportState is ReliCBReportStateLoadingFailure) {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
                         context: context,
@@ -136,9 +145,10 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                       CustomizedButton(
                           text: "Truy xuất",
                           onPressed: () async {
+                            print('clicking report cb searching');
                             //Code này cho bản full
                             BlocProvider.of<ReliReportBloc>(context)
-                                .add(ReliReportEventSearchingClicked());
+                                .add(ReliCBReportEventSearchingClicked());
                           }),
                       SizedBox(height: 10),
                       Container(
@@ -167,35 +177,19 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                   label: Text('T/gian lên'),
                                 ),
                               ],
-                              rows: <DataRow>[
-                                DataRow(
-                                  cells: <DataCell>[
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                  ],
-                                ),
-                                DataRow(
-                                  cells: <DataCell>[
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                  ],
-                                ),
-                                DataRow(
-                                  cells: <DataCell>[
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                    DataCell(Text('Data')),
-                                  ],
-                                ),
-                              ],
+                              rows: reliCBReportList
+                                  .map(
+                                    (reliCB) => DataRow(
+                                      cells: <DataCell>[
+                                        DataCell(Text('${reliCB.name}')),
+                                        DataCell(Text(reliCB.first)),
+                                        DataCell(Text(reliCB.last)),
+                                        DataCell(Text(reliCB.trytime)),
+                                        DataCell(Text(reliCB.time)),
+                                      ],
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ),
                         ),

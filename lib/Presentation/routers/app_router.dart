@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -14,21 +11,33 @@ import 'package:mobile_app/Presentation/Screens/ReportMainScreen/reliability_rep
 import 'package:mobile_app/Presentation/Screens/home_screen.dart';
 import 'package:mobile_app/Presentation/Screens/login_screen.dart';
 import 'package:mobile_app/Repos/login_repos.dart';
+import 'package:mobile_app/business_logic/blocs/defor_bending_report_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/reli__report_bloc.dart';
+import 'package:mobile_app/models/deformation_rocktest_data.dart';
+import 'package:mobile_app/repos/defor_bending_report_repos.dart';
+import 'package:mobile_app/repos/defor_rock_report_repos.dart';
+import 'package:mobile_app/repos/defor_static_report_repos.dart';
+import 'package:mobile_app/repos/reli_cb_report_repos.dart';
 import 'package:mobile_app/repos/reli_report_repos.dart';
 
+DeforRockReportRepository deforRockReportRepository =
+    new DeforRockReportRepository(httpClient: http.Client());
+DeforStaticReportRepository deforStaticReportRepository =
+    new DeforStaticReportRepository(httpClient: http.Client());
+DeforBendingReportRepository deforBendingReportRepository =
+    new DeforBendingReportRepository(httpClient: http.Client());
 LoginRepository loginRepository =
     new LoginRepository(httpClient: http.Client());
 ReliReportRepository reliReportRepository =
     new ReliReportRepository(httpClient: http.Client());
+ReliCBReportRepository reliCBReportRepository =
+    new ReliCBReportRepository(httpClient: http.Client());
 
 class AppRouter {
   static ReliReportBloc reliReportBloc = ReliReportBloc();
   static LoginBloc loginBloc = LoginBloc();
-  void clearBloc() {
-    LoginBloc loginBloc = LoginBloc();
-  }
+  static DeforReportBloc deforReportBloc = DeforReportBloc();
 
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
@@ -59,7 +68,10 @@ class AppRouter {
 
         break;
       case '/deformationreportscreen':
-        return MaterialPageRoute(builder: (_) => DeformationReportScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<DeforReportBloc>.value(
+              value: deforReportBloc, child: DeformationReportScreen()),
+        );
         break;
       case '/monitormodescreen':
         return MaterialPageRoute(builder: (_) => MonitorModeScreen());

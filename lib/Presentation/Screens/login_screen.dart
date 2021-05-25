@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app/Presentation/Dialog/dialog.dart';
 import 'package:mobile_app/Presentation/Models/login.dart';
-import 'package:mobile_app/Presentation/Widget/mainAppName.dart';
+import 'package:mobile_app/Presentation/Widget/main_app_name.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
 import 'package:mobile_app/business_logic/events/login_event.dart';

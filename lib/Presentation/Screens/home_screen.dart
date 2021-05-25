@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/Presentation/Widget/mainAppName.dart';
+import 'package:mobile_app/Presentation/Widget/main_app_name.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 
 class HomeScreen extends StatefulWidget {

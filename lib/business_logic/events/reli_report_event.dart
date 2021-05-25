@@ -8,3 +8,9 @@ class ReliReportEventSearchingClicked extends ReliReportEvent {
   @override
   List<Object> get props => [timestamp];
 }
+class ReliCBReportEventSearchingClicked extends ReliReportEvent {
+  DateTime timestamp;
+  ReliCBReportEventSearchingClicked({this.timestamp});
+  @override
+  List<Object> get props => [timestamp];
+}

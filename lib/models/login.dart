@@ -1,5 +1,3 @@
-import 'good_issue_data.dart';
-
 String employeeIdOverall = "";
 String employeeLastNameOverall = "";
 String employeeFirstNameOverall = "";
@@ -27,4 +25,11 @@ class Token {
   String authToken;
   int expiredIn;
   Token({this.id, this.authToken, this.expiredIn});
+}
+class Employee {
+  String employeeId;
+  String firstName;
+  String lastName;
+  String name;
+  Employee({this.employeeId, this.firstName, this.lastName});
 }

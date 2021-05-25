@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobile_app/Presentation/Models/error_package.dart';
-import 'package:mobile_app/presentation/models/reliability_data.dart';
+import 'package:mobile_app/models/reliability_data.dart';
 
 abstract class ReliReportState extends Equatable {}
 
@@ -34,6 +34,40 @@ class ReliReportStateLoadingFailure extends ReliReportState {
   DateTime timestamp;
   ErrorPackage errorPackage;
   ReliReportStateLoadingFailure({this.timestamp, this.errorPackage});
+  @override
+  List<Object> get props => [timestamp];
+}
+
+class ReliCBReportStateLoadingRequest extends ReliReportState {
+  DateTime timestamp;
+  ReliCBReportStateLoadingRequest({this.timestamp});
+  @override
+  // TODO: implement props
+  List<Object> get props => [timestamp];
+}
+
+class ReliCBReportStateInit extends ReliReportState {
+  DateTime timestamp;
+  ReliCBReportStateInit({this.timestamp});
+  @override
+  // TODO: implement props
+  List<Object> get props => [timestamp];
+}
+
+class ReliCBReportStateLoadingSuccessful extends ReliReportState {
+  DateTime timestamp;
+  ReliReport reliReport;
+  ReliCBReportStateLoadingSuccessful({this.reliReport, this.timestamp});
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [timestamp];
+}
+
+class ReliCBReportStateLoadingFailure extends ReliReportState {
+  DateTime timestamp;
+  ErrorPackage errorPackage;
+  ReliCBReportStateLoadingFailure({this.timestamp, this.errorPackage});
   @override
   List<Object> get props => [timestamp];
 }

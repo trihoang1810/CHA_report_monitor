@@ -4,14 +4,14 @@ import 'package:mobile_app/Presentation/Widget/constant.dart';
 
 import 'header_widget.dart';
 
+DateTimeRange dateRange;
+
 class DateRangePickerWidget extends StatefulWidget {
   @override
   _DateRangePickerWidgetState createState() => _DateRangePickerWidgetState();
 }
 
 class _DateRangePickerWidgetState extends State<DateRangePickerWidget> {
-  DateTimeRange dateRange;
-
   String getFrom() {
     if (dateRange == null) {
       return 'Từ ngày';
@@ -92,7 +92,7 @@ class _DateRangePickerWidgetState extends State<DateRangePickerWidget> {
   Future pickDateRange(BuildContext context) async {
     final initialDateRange = DateTimeRange(
       start: DateTime.now(),
-      end: DateTime.now().add(Duration(hours: 24 * 3)),
+      end: DateTime.now().subtract(Duration(hours: 24 * 3)),
     );
     final newDateRange = await showDateRangePicker(
       context: context,

@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as mat;
 
 import 'my_app.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  mat.WidgetsFlutterBinding.ensureInitialized();
+  mat.runApp(MyApp());
 }

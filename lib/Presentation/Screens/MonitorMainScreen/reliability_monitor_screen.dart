@@ -65,8 +65,8 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                     child: MonitorOperatingParamsReli(
                         text1: "Thời gian đóng nắp cầu",
                         text2: "Thời gian mở nắp cầu",
-                        text3: "Số lần đóng NBC",
-                        text4: "Thời gian đóng êm",
+                        text3: "Số lần đóng nắp cài đặt",
+                        text4: "Số lần đóng nắp hiện tại",
                         data1: "123",
                         data2: "456",
                         data3: "789",
@@ -154,8 +154,8 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                     child: MonitorOperatingParamsReli(
                         text1: "Thời gian dừng lên",
                         text2: "Thời gian dừng xuống",
-                        text3: "Số lần đóng NBC",
-                        text4: "Thời gian lên",
+                        text3: "Số lần đóng nắp cài đặt",
+                        text4: "Số lần đóng nắp hiện tại",
                         data1: "123",
                         data2: "456",
                         data3: "789",

@@ -4,14 +4,12 @@ import 'package:http/http.dart' as http;
 import 'package:mobile_app/Presentation/Models/error_package.dart';
 import 'package:mobile_app/Presentation/Models/login.dart';
 
-const baseUrl = "https://testweb20201214001633.azurewebsites.net";
+const baseUrl = "https://hung-anh-storage-web-api.herokuapp.com";
 
 class LoginRepository {
   final http.Client httpClient;
   LoginRepository({this.httpClient});
 
-
-  
   Future loginRequest(String userName, String password) async {
     Map<String, String> headers = {"Content-type": "application/json"};
     Map<String, String> body = {

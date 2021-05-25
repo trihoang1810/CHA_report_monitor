@@ -3,7 +3,6 @@ import 'package:mobile_app/Presentation/Models/func.dart';
 import 'package:mobile_app/Presentation/Models/login.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
-import 'package:mobile_app/Presentation/Models/func.dart';
 
 // ignore: must_be_immutable
 class ModeScreen extends StatefulWidget {

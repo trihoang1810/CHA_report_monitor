@@ -1,4 +1,3 @@
-//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
 import 'package:ndialog/ndialog.dart';
@@ -182,6 +181,7 @@ class LoadingDialog {
   void show() {
     progressDialog = ProgressDialog(
       buildContext,
+      title: Text(""),
       message: Text(
         "Đang tải dữ liệu",
         style: TextStyle(fontSize: 20),
