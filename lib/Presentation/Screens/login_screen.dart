@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app/Presentation/Dialog/dialog.dart';
-import 'package:mobile_app/Presentation/Models/login.dart';
+import 'package:mobile_app/models/login.dart';
 import 'package:mobile_app/Presentation/Widget/main_app_name.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
@@ -48,17 +48,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 print("Đang ở loading request");
                 loadingDialog.show();
               } else if (loginState is LoginStateLoginSuccessful) {
-                // print("Đã thành công");
-                //--------------------------
                 loadingDialog.dismiss();
                 employeeIdOverall = loginState.loginData.employee.employeeId;
                 employeeFirstNameOverall =
                     loginState.loginData.employee.firstName;
                 employeeLastNameOverall =
                     loginState.loginData.employee.lastName;
-                print(
-                    "First name chính là: ${loginState.loginData.employee.firstName}");
-
                 Navigator.popAndPushNamed(context, '/modescreen');
               } else if (loginState is LoginStateLoginFailure) {
                 print("Đã thất bại");

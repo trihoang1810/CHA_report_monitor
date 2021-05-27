@@ -14,13 +14,20 @@ import 'package:mobile_app/Repos/login_repos.dart';
 import 'package:mobile_app/business_logic/blocs/defor_bending_report_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/reli__report_bloc.dart';
-import 'package:mobile_app/models/deformation_rocktest_data.dart';
+import 'package:mobile_app/business_logic/blocs/reli_monitor_bloc.dart';
+import 'package:mobile_app/models/reliability_cb_monitor_data.dart';
 import 'package:mobile_app/repos/defor_bending_report_repos.dart';
 import 'package:mobile_app/repos/defor_rock_report_repos.dart';
 import 'package:mobile_app/repos/defor_static_report_repos.dart';
+import 'package:mobile_app/repos/reli_cb_monitor_repos.dart';
 import 'package:mobile_app/repos/reli_cb_report_repos.dart';
+import 'package:mobile_app/repos/reli_monitor_repos.dart';
 import 'package:mobile_app/repos/reli_report_repos.dart';
 
+ReliCBMonitorRepository reliCBMonitorRepository =
+    new ReliCBMonitorRepository(httpClient: http.Client());
+ReliMonitorRepository reliMonitorRepository =
+    new ReliMonitorRepository(httpClient: http.Client());
 DeforRockReportRepository deforRockReportRepository =
     new DeforRockReportRepository(httpClient: http.Client());
 DeforStaticReportRepository deforStaticReportRepository =
@@ -35,6 +42,7 @@ ReliCBReportRepository reliCBReportRepository =
     new ReliCBReportRepository(httpClient: http.Client());
 
 class AppRouter {
+  static ReliMonitorBloc reliMonitorBloc = ReliMonitorBloc();
   static ReliReportBloc reliReportBloc = ReliReportBloc();
   static LoginBloc loginBloc = LoginBloc();
   static DeforReportBloc deforReportBloc = DeforReportBloc();
@@ -77,7 +85,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => MonitorModeScreen());
         break;
       case '/reliabilitymonitorscreen':
-        return MaterialPageRoute(builder: (_) => ReliabilityMonitorScreen());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider<ReliMonitorBloc>.value(
+                value: reliMonitorBloc, child: ReliabilityMonitorScreen()));
         break;
       case '/deformationmonitorscreen':
         return MaterialPageRoute(builder: (_) => DeformationMonitorScreen());

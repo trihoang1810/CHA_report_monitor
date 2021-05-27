@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:mobile_app/Presentation/Models/error_package.dart';
-import 'package:mobile_app/Presentation/Models/login.dart';
+import 'package:mobile_app/models/error_package.dart';
+import 'package:mobile_app/models/login.dart';
 
 const baseUrl = "https://hung-anh-storage-web-api.herokuapp.com";
 

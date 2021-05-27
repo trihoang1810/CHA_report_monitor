@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/Presentation/Screens/MonitorMainScreen/Model/deformation/operating_params_deformation.dart';
+import 'package:mobile_app/presentation/screens/monitormainscreen/model/deformation/operating_params_deformation.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 
@@ -68,9 +68,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                       data1: "123",
                       data2: "456",
                       data3: "789",
-                      data4: "123",
-                      data5: "123",
-                      data6: "123",
+                      color1: Colors.green,
+                      color2: Colors.green,
                     ),
                   ),
                   SizedBox(height: 10),
@@ -177,6 +176,7 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                       data1: "123",
                       data2: "456",
                       data3: "789",
+                      color: Colors.green,
                     ),
                   ),
                   SizedBox(height: 10),

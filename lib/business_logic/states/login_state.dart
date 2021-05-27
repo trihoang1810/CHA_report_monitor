@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:mobile_app/Presentation/Models/error_package.dart';
-import 'package:mobile_app/Presentation/Models/login.dart';
+import 'package:mobile_app/models/error_package.dart';
+import 'package:mobile_app/models/login.dart';
 
 abstract class LoginState extends Equatable {
   bool isShow;

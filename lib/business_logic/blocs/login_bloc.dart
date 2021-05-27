@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_app/Presentation/Models/error_package.dart';
-import 'package:mobile_app/Presentation/Models/login.dart';
+import 'package:mobile_app/models/error_package.dart';
+import 'package:mobile_app/models/login.dart';
 import 'package:mobile_app/Presentation/routers/app_router.dart';
 import 'package:mobile_app/business_logic/events/login_event.dart';
 import 'package:mobile_app/business_logic/states/login_state.dart';

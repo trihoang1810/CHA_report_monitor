@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/Presentation/Models/func.dart';
-import 'package:mobile_app/Presentation/Models/login.dart';
+import 'package:mobile_app/models/func.dart';
+import 'package:mobile_app/models/login.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 

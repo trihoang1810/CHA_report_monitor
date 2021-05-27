@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_app/Presentation/Models/error_package.dart';
+import 'package:mobile_app/models/error_package.dart';
 import 'package:mobile_app/business_logic/events/reli_report_event.dart';
 import 'package:mobile_app/business_logic/states/reli_report_state.dart';
 import 'package:mobile_app/models/reliability_cb_data.dart';

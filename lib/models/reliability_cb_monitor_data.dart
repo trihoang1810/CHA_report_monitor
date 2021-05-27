@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class ReliMonitorData extends Equatable {
-  ReliMonitorData({
+class ReliCBMonitorData extends Equatable {
+  ReliCBMonitorData({
     this.id,
     this.close,
     this.open,
@@ -28,8 +28,8 @@ class ReliMonitorData extends Equatable {
         this.warning,
         this.running,
       ];
-  factory ReliMonitorData.fromJson(Map<String, dynamic> json) =>
-      ReliMonitorData(
+  factory ReliCBMonitorData.fromJson(Map<String, dynamic> json) =>
+      ReliCBMonitorData(
         id: json["id"],
         close: json["close"],
         open: json["open"],
