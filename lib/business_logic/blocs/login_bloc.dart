@@ -16,7 +16,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ));
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    // TODO: implement mapEventToState
     if (event is LoginEventChecking) {
       bool _isUsernameErr = true, _isPasswordErr = true;
       _isUsernameErr = event.userName.length < minLength;
@@ -38,7 +37,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else if (loginDataOrErr is ErrorPackage) {
         yield LoginStateLoginFailure(
             timestamp: event.timestamp, errorPackage: loginDataOrErr);
-        print('${event.timestamp.toString()}');
       }
     }
   }

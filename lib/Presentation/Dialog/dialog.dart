@@ -82,7 +82,7 @@ class AlertDialogOneBtnCustomized {
   AlertDialogOneBtnCustomized({
     @required this.context,
     this.title = "Nhập title",
-    this.desc = "Nhập mô tả ",
+    this.desc = "Nhập mô tả",
     this.textBtn = "Đồng ý",
     this.bgBtn = Constants.mainColor,
     this.fgBtn = Colors.white,
@@ -118,7 +118,6 @@ class AlertDialogOneBtnCustomized {
                   if (Navigator.canPop(context)) {
                     Navigator.of(context).pop();
                   }
-                  print("sthg");
                   if (onPressedBtn != null) {
                     onPressedBtn();
                   }
@@ -181,7 +180,7 @@ class LoadingDialog {
   void show() {
     progressDialog = ProgressDialog(
       buildContext,
-      title: Text(""),
+      title: null,
       message: Text(
         "Đang tải dữ liệu",
         style: TextStyle(fontSize: 20),

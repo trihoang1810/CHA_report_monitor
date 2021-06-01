@@ -64,7 +64,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                     child: MonitorOperatingParamsDefor1(
                       text1: "Lực nén cài đặt",
                       text2: "Thời gian giữ",
-                      text3: "Số lần nhấn",
+                      text3: "Số lần cài đặt",
+                      text4: "Số lần hiện tại",
                       data1: "123",
                       data2: "456",
                       data3: "789",
@@ -172,7 +173,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                     child: MonitorOperatingParamsDefor(
                       text1: "Lực nén cài đặt",
                       text2: "Thời gian giữ",
-                      text3: "Số lần nhấn",
+                      text3: "Số lần cài đặt",
+                      text4: "Số lần hiện tại",
                       data1: "123",
                       data2: "456",
                       data3: "789",

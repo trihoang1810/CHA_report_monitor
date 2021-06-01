@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:mobile_app/models/error_package.dart';
@@ -13,7 +14,7 @@ class ReliCBMonitorRepository {
   ReliCBMonitorRepository({this.httpClient});
 
   Future loadingReliCBDataRequest() async {
-    final response = await this
+    try{final response = await this
         .httpClient
         .get(Uri.parse(mockapi8))
         .timeout(Constants.timeOutLimitation);
@@ -28,7 +29,13 @@ class ReliCBMonitorRepository {
       return ErrorPackage.fromJson(errJson);
     } else {
       print('co loi 2');
-      throw Exception("Something went wrong");
+      final errJson = jsonDecode(response.body);
+        return ErrorPackage.fromJson(errJson);
+      }
+    } on SocketException {
+      return ErrorPackage(errorCode: "", detail: "Lỗi socket",message: "");
+    } catch (e) {
+      return ErrorPackage(errorCode: "", detail: e.toString(),message: "Lỗi lạ");
     }
   }
 }

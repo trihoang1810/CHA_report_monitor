@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:mobile_app/models/error_package.dart';
@@ -14,28 +15,36 @@ class ReliCBReportRepository {
   ReliCBReportRepository({this.httpClient});
 
   Future loadingReliCBDataRequest() async {
-    final response = await this
-        .httpClient
-        .get(Uri.parse(mockapi))
-        .timeout(Constants.timeOutLimitation);
-    if (response.statusCode == 200) {
-      print('thanh cong');
-      reliCBReportList.clear();
-      final reliCBDataJson = jsonDecode(response.body);
-      for (var reliCBDataJson in reliCBDataJson) {
-        ReliCBReport reliCBReportItem = ReliCBReport.fromJson(reliCBDataJson);
-        reliCBReportList.add(reliCBReportItem);
+    try {
+      final response = await this
+          .httpClient
+          .get(Uri.parse(mockapi))
+          .timeout(Constants.timeOutLimitation);
+      if (response.statusCode == 200) {
+        print('thanh cong');
+        reliCBReportList.clear();
+        final reliCBDataJson = jsonDecode(response.body);
+        for (var reliCBDataJson in reliCBDataJson) {
+          ReliCBReport reliCBReportItem = ReliCBReport.fromJson(reliCBDataJson);
+          reliCBReportList.add(reliCBReportItem);
+        }
+        print(reliCBReportList[2].id);
+        print(reliCBReportList[3].first);
+        return reliCBReportList;
+      } else if (response.statusCode == 400 || response.statusCode == 404) {
+        print('co loi 1');
+        final errJson = jsonDecode(response.body);
+        return ErrorPackage.fromJson(errJson);
+      } else {
+        print('co loi 2');
+        final errJson = jsonDecode(response.body);
+        return ErrorPackage.fromJson(errJson);
       }
-      print(reliCBReportList[2].id);
-      print(reliCBReportList[3].first);
-      return reliCBReportList;
-    } else if (response.statusCode == 400 || response.statusCode == 404) {
-      print('co loi 1');
-      final errJson = jsonDecode(response.body);
-      return ErrorPackage.fromJson(errJson);
-    } else {
-      print('co loi 2');
-      throw Exception("Something went wrong");
+    } on SocketException {
+      return ErrorPackage(errorCode: "", detail: "Lỗi socket", message: "");
+    } catch (e) {
+      return ErrorPackage(
+          errorCode: "", detail: e.toString(), message: "Lỗi lạ");
     }
   }
 }

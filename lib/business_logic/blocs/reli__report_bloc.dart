@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_app/models/error_package.dart';
 import 'package:mobile_app/business_logic/events/reli_report_event.dart';
 import 'package:mobile_app/business_logic/states/reli_report_state.dart';
 import 'package:mobile_app/models/reliability_cb_data.dart';
 import 'package:mobile_app/models/reliability_data.dart';
 import 'package:mobile_app/presentation/routers/app_router.dart';
+
+List<MyReliReportView> reliReportList = [];
+List<MyReliReportView> reliReportListNew = [];
 
 class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
   ReliReportBloc() : super(ReliReportStateInit(timestamp: DateTime.now()));
@@ -18,21 +22,38 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
       yield ReliReportStateLoadingRequest();
       try {
         print('vao try relireport');
-        final List reliReportData =
-            await reliReportRepository.loadingReliDataRequest();
-        if (reliReportData is List<ReliReport>) {
-          print('load thanh cong');
-          print(reliReportData[2].first);
+        final reliReportData = await reliReportRepository
+            .loadingReliDataRequest(event.startTime, event.stopTime);
+        reliReportListNew.clear();
+        print('load relireport thanh cong1');
+        if (reliReportData is ReliReport) {
+          print('load relireportlist thanh cong');
+          print(reliReportData.totalItems);
+          for (var item in reliReportData.items) {
+            print(item.mucDichKiemTra);
+            for (var mau in item.mauKiemTraDongEm) {
+              MyReliReportView _myReliReportView = MyReliReportView(
+                  id: item.id,
+                  soLanThu: mau.soLanThu,
+                  ngayBatDau:
+                      DateFormat('dd-MM-yyyy - HH:mm').format(item.ngayBatDau),
+                  ngayKetThuc:
+                      DateFormat('dd-MM-yyyy - HH:mm').format(item.ngayKetThuc),
+                  tenSanPham: item.sanPham.tenSanPham,
+                  thoiGianDongEmNap: mau.thoiGianDongEmNap);
+              reliReportListNew.add(_myReliReportView);
+            }
+          }
+          reliReportList = reliReportListNew;
           yield ReliReportStateLoadingSuccessful(timestamp: event.timestamp);
         } else if (reliReportData is ErrorPackage) {
+          print('load relireport that bai' +
+              reliReportData.message +
+              reliReportData.detail);
           yield ReliReportStateLoadingFailure(
               timestamp: event.timestamp,
               errorPackage: ErrorPackage(
-                  errorCode: reliReportData[0].errorCode,
-                  message: reliReportData[0].message,
-                  detail: reliReportData[0].detail));
-        } else {
-          print("clgt nay");
+                  errorCode: "Exception", message: "", detail: ""));
         }
       } on SocketException {
         yield ReliReportStateLoadingFailure(
@@ -49,12 +70,32 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
         );
         print('loi bloc');
       } catch (e) {
-        print('loi bay ba');
+        print(e.toString());
         //Chỗ này tránh các lỗi bậy bạ
         yield ReliReportStateLoadingFailure(
-          errorPackage:
-              new ErrorPackage(errorCode: "Exception", message: "", detail: ""),
+          errorPackage: new ErrorPackage(
+              errorCode: "Exception", message: e.toString(), detail: ""),
         );
+      }
+    } else if (event is ReliReportEventPickDateRange) {
+      final initialDateRange = DateTimeRange(
+        start: DateTime.now().subtract(Duration(hours: 24 * 3)),
+        end: DateTime.now(),
+      );
+      final newDateRange = await showDateRangePicker(
+        firstDate: DateTime(DateTime.now().year - 5),
+        lastDate: DateTime(DateTime.now().year + 5),
+        initialDateRange: initialDateRange,
+        context: event.context,
+      );
+      if (newDateRange == null) {
+        yield ReliReportStateLoadingFailure(
+            errorPackage: ErrorPackage(message: "Vui lòng chọn ngày"));
+      } else {
+        yield ReliReportStatePickDateRange(
+            dateRange: newDateRange,
+            getFrom: DateFormat('yyyy-MM-dd').format(newDateRange.start),
+            getUntil: DateFormat('yyyy-MM-dd').format(newDateRange.end));
       }
     } else if (event is ReliCBReportEventSearchingClicked) {
       print('reli RPCB clicked');
@@ -79,7 +120,7 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
         }
       } on SocketException {
         yield ReliCBReportStateLoadingFailure(
-          errorPackage: new ErrorPackage(
+          errorPackage: ErrorPackage(
               errorCode: "SocketException",
               message: "Lost connection to the server",
               detail: ""),
@@ -87,7 +128,7 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
       } on TimeoutException {
         print('loi time out exception');
         yield ReliCBReportStateLoadingFailure(
-          errorPackage: new ErrorPackage(
+          errorPackage: ErrorPackage(
               errorCode: "TimeoutException", message: "Overtime", detail: ""),
         );
         print('loi bloc');
@@ -95,8 +136,8 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
         print('loi bay ba');
         //Chỗ này tránh các lỗi bậy bạ
         yield ReliCBReportStateLoadingFailure(
-          errorPackage:
-              new ErrorPackage(errorCode: "Exception", message: "", detail: ""),
+          errorPackage: ErrorPackage(
+              errorCode: "Exception", message: e.toString(), detail: ""),
         );
       }
     }

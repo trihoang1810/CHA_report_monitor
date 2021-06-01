@@ -51,6 +51,10 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
               ),
               onPressed: () {
                 Navigator.pop(context);
+                BlocProvider.of<ReliMonitorBloc>(context)
+                    .add(ReliMonitorEventCancelRefetchData());
+                BlocProvider.of<ReliMonitorBloc>(context)
+                    .add(ReliCBMonitorEventCancelRefetchData());
               },
             ),
             title: Text("Giám sát kiểm tra độ bền"),
@@ -86,6 +90,24 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                         closePressed: () {},
                         onPressedBtn: () {})
                     .show();
+              } else if (reliMonitorState
+                  is ReliMonitorStateLoadingRefetchSuccessful) {
+                data1 = reliMonitorState.reliMonitorData.close;
+                data2 = reliMonitorState.reliMonitorData.open;
+                data3 = reliMonitorState.reliMonitorData.welcomeSet.toString();
+                data4 = reliMonitorState.reliMonitorData.moment.toString();
+                running = reliMonitorState.reliMonitorData.running;
+                warning = reliMonitorState.reliMonitorData.warning;
+              } else if (reliMonitorState
+                  is ReliMonitorStateLoadingRefetchFailure) {
+                AlertDialogOneBtnCustomized(
+                        context: context,
+                        title: "Truy xuất thất bại",
+                        desc: "Vui lòng thử lại",
+                        textBtn: "OK",
+                        closePressed: () {},
+                        onPressedBtn: () {})
+                    .show();
               } else if (reliMonitorState is ReliCBMonitorStateLoadingRequest) {
                 loadingDialog.show();
               } else if (reliMonitorState
@@ -102,8 +124,27 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
                         context: context,
-                        title: "Truy xuất thất bại",
+                        title: "Có lỗi xảy ra trong quá trình giám sát",
                         desc: "Vui lòng thử lại",
+                        textBtn: "OK",
+                        closePressed: () {},
+                        onPressedBtn: () {})
+                    .show();
+              } else if (reliMonitorState
+                  is ReliCBMonitorStateLoadingRefetchSuccessful) {
+                data21 = reliMonitorState.reliCBMonitorData.close;
+                data22 = reliMonitorState.reliCBMonitorData.open;
+                data23 =
+                    reliMonitorState.reliCBMonitorData.welcomeSet.toString();
+                data24 = reliMonitorState.reliCBMonitorData.moment.toString();
+                running2 = reliMonitorState.reliCBMonitorData.running;
+                warning2 = reliMonitorState.reliCBMonitorData.warning;
+              } else if (reliMonitorState
+                  is ReliMonitorStateLoadingRefetchFailure) {
+                AlertDialogOneBtnCustomized(
+                        context: context,
+                        title: reliMonitorState.errorPackage.message,
+                        desc: reliMonitorState.errorPackage.detail,
                         textBtn: "OK",
                         closePressed: () {},
                         onPressedBtn: () {})

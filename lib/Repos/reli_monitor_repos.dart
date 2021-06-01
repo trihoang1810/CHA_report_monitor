@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:mobile_app/models/error_package.dart';
@@ -17,7 +18,7 @@ class ReliMonitorRepository {
         .httpClient
         .get(Uri.parse(mockapi9))
         .timeout(Constants.timeOutLimitation);
-    final json = jsonDecode(response.body);
+    try{final json = jsonDecode(response.body);
     if (response.statusCode == 200) {
       print('thanh cong 5');
       ReliMonitorData reliMonitorData = ReliMonitorData.fromJson(json[0]);
@@ -28,7 +29,13 @@ class ReliMonitorRepository {
       return ErrorPackage.fromJson(errJson);
     } else {
       print('co loi 2');
-      throw Exception("Something went wrong");
+      final errJson = jsonDecode(response.body);
+        return ErrorPackage.fromJson(errJson);
+      }
+    } on SocketException {
+      return ErrorPackage(errorCode: "", detail: "Lỗi socket",message: "");
+    } catch (e) {
+      return ErrorPackage(errorCode: "", detail: e.toString(),message: "Lỗi lạ");
     }
   }
 }

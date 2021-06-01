@@ -43,7 +43,7 @@ class _ReportModeScreenState extends State<ReportModeScreen> {
               height: 30,
             ),
             Text(
-              "BÁO CÁO KIỂM TRA CHẤT LƯỢNG SẢN PHẨM NẮP BỒN CẦU",
+              "BÁO CÁO KIỂM TRA CHẤT LƯỢNG SẢN PHẨM",
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             ),

@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mobile_app">
    <application
-        android:label="mobile_app"
-        android:icon="@mipmap/ic_launcher">
+        android:label="QA/QC Monitor"
+        android:icon="@mipmap/logo_bk_transparent_2">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -38,4 +38,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    
 </manifest>

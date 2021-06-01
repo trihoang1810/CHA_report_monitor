@@ -4,27 +4,28 @@ import 'package:mobile_app/Presentation/Widget/constant.dart';
 
 import 'header_widget.dart';
 
-DateTimeRange dateRange;
-
 class DateRangePickerWidget extends StatefulWidget {
+  DateTimeRange dateRange;
+
   @override
   _DateRangePickerWidgetState createState() => _DateRangePickerWidgetState();
 }
 
 class _DateRangePickerWidgetState extends State<DateRangePickerWidget> {
   String getFrom() {
-    if (dateRange == null) {
-      return 'Từ ngày';
+    if (widget.dateRange == null) {
+      return DateFormat('yyyy-MM-dd')
+          .format(DateTime.now().subtract(Duration(hours: 24 * 3)));
     } else {
-      return DateFormat('dd/MM/yyyy').format(dateRange.start);
+      return DateFormat('yyyy-MM-dd').format(widget.dateRange.start);
     }
   }
 
   String getUntil() {
-    if (dateRange == null) {
-      return 'Đến ngày';
+    if (widget.dateRange == null) {
+      return DateFormat('yyyy-MM-dd').format(DateTime.now());
     } else {
-      return DateFormat('dd/MM/yyyy').format(dateRange.end);
+      return DateFormat('yyyy-MM-dd').format(widget.dateRange.end);
     }
   }
 
@@ -91,18 +92,18 @@ class _DateRangePickerWidgetState extends State<DateRangePickerWidget> {
 
   Future pickDateRange(BuildContext context) async {
     final initialDateRange = DateTimeRange(
-      start: DateTime.now(),
-      end: DateTime.now().subtract(Duration(hours: 24 * 3)),
+      start: DateTime.now().subtract(Duration(hours: 24 * 3)),
+      end: DateTime.now(),
     );
     final newDateRange = await showDateRangePicker(
       context: context,
       firstDate: DateTime(DateTime.now().year - 5),
       lastDate: DateTime(DateTime.now().year + 5),
-      initialDateRange: dateRange ?? initialDateRange,
+      initialDateRange: widget.dateRange ?? initialDateRange,
     );
 
     if (newDateRange == null) return;
 
-    setState(() => dateRange = newDateRange);
+    setState(() => widget.dateRange = newDateRange);
   }
 }

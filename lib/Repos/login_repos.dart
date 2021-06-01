@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:mobile_app/models/error_package.dart';
 import 'package:mobile_app/models/login.dart';
-
-const baseUrl = "https://hung-anh-storage-web-api.herokuapp.com";
+import 'package:mobile_app/presentation/widget/constant.dart';
 
 class LoginRepository {
   final http.Client httpClient;
@@ -16,16 +16,24 @@ class LoginRepository {
       "userName": "$userName",
       "password": "$password"
     };
-    final response = await this.httpClient.post(
-        Uri.parse(baseUrl + "/api/auth/"),
-        headers: headers,
-        body: jsonEncode(body));
-    final json = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      LoginData loginData = LoginData.fromJson(json);
-      return loginData;
-    } else if (response.statusCode == 400) {
-      return ErrorPackage.fromJson(json);
+    try {
+      final response = await this.httpClient.post(
+          Uri.parse(Constants.baseUrl + "/api/auth/"),
+          headers: headers,
+          body: jsonEncode(body));
+      final json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        LoginData loginData = LoginData.fromJson(json);
+        return loginData;
+      } else if (response.statusCode == 400 || response.statusCode == 404) {
+        return ErrorPackage.fromJson(json);
+      } else if (response.statusCode == 500) {
+        return ErrorPackage.fromJson(json);
+      }
+    }on SocketException {
+      return ErrorPackage(errorCode: "", detail: "Lỗi socket",message: "");
+    } catch (e) {
+      ErrorPackage(errorCode: "", detail: e.toString(),message: "Lỗi lạ");
     }
   }
 }

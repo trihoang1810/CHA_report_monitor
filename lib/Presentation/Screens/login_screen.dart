@@ -60,8 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
                     context: context,
-                    title: "Đăng nhập thất bại",
-                    desc: "Tên đăng nhập hoặc mật khẩu không đúng.",
+                    title: loginState.errorPackage.message,
+                    desc: loginState.errorPackage.detail,
                     textBtn: "Đăng nhập lại",
                     closePressed: () {
                       userController.text = "";
@@ -83,99 +83,122 @@ class _LoginScreenState extends State<LoginScreen> {
               }
             },
             builder: (context, loginState) {
-              return Center(
-                child: ListView(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(left: 24.0, right: 24.0),
-                  children: <Widget>[
-                    SizedBox(
-                      height: 30,
-                    ),
-                    //Text(
-                    // "GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM NẮP BỒN CẦU",
-                    //textAlign: TextAlign.center,
-                    //style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-                    // ),
-                    SizedBox(height: 40),
-                    MainAppName(),
-                    SizedBox(height: 45.0),
-                    TextFormField(
-                      autofocus: false,
-                      controller: userController,
-                      decoration: InputDecoration(
-                        errorText: _isUsernameErr
-                            ? "Tên đăng nhập phải dài hơn $minLength ký tự"
-                            : null,
-                        errorStyle: TextStyle(color: Colors.red, fontSize: 15),
-                        hintText: 'Nhập tài khoản',
-                        contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0)),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  ListView(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(left: 24.0, right: 24.0),
+                    children: <Widget>[
+                      SizedBox(
+                        height: 30,
                       ),
-                      onChanged: (_) {
-                        BlocProvider.of<LoginBloc>(context).add(
-                          LoginEventChecking(
-                              userName: userController.text,
-                              passWord: passController.text),
-                        );
-                      },
-                    ),
-                    SizedBox(height: 10.0),
-                    TextFormField(
-                      controller: passController,
-                      autofocus: false,
-                      obscureText: _showPass,
-                      decoration: InputDecoration(
-                        errorText: _isPasswordErr
-                            ? "Mật khẩu phải dài hơn $minLength ký tự"
-                            : null,
-                        errorStyle: TextStyle(color: Colors.red, fontSize: 15),
-                        hintText: 'Nhập mật khẩu',
-                        contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0)),
+                      //Text(
+                      // "GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM NẮP BỒN CẦU",
+                      //textAlign: TextAlign.center,
+                      //style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                      // ),
+                      SizedBox(height: 40),
+                      MainAppName(),
+                      SizedBox(height: 45.0),
+                      TextFormField(
+                        autofocus: false,
+                        controller: userController,
+                        decoration: InputDecoration(
+                          errorText: _isUsernameErr
+                              ? "Tên đăng nhập phải dài hơn $minLength ký tự"
+                              : null,
+                          errorStyle:
+                              TextStyle(color: Colors.red, fontSize: 15),
+                          hintText: 'Nhập tài khoản',
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0)),
+                        ),
+                        onChanged: (_) {
+                          BlocProvider.of<LoginBloc>(context).add(
+                            LoginEventChecking(
+                                userName: userController.text,
+                                passWord: passController.text),
+                          );
+                        },
                       ),
-                      onChanged: (_) {
-                        BlocProvider.of<LoginBloc>(context).add(
-                          LoginEventChecking(
-                              userName: userController.text,
-                              passWord: passController.text),
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      height: 15.0,
-                      width: 30.0,
-                    ),
-                    CustomizedButton(
-                      onPressed: (userController.text == "" ||
-                              passController.text == "" ||
-                              _isPasswordErr ||
-                              _isUsernameErr)
-                          ? null
-                          : () async {
-                              //Code này cho bản full
+                      SizedBox(height: 10.0),
+                      Stack(
+                        alignment: _isPasswordErr
+                            ? AlignmentDirectional.centerEnd
+                            : AlignmentDirectional.bottomEnd,
+                        children: [
+                          TextFormField(
+                            controller: passController,
+                            autofocus: false,
+                            obscureText: _showPass,
+                            decoration: InputDecoration(
+                              errorText: _isPasswordErr
+                                  ? "Mật khẩu phải dài hơn $minLength ký tự"
+                                  : null,
+                              errorStyle:
+                                  TextStyle(color: Colors.red, fontSize: 15),
+                              hintText: 'Nhập mật khẩu',
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(32.0)),
+                            ),
+                            onChanged: (_) {
                               BlocProvider.of<LoginBloc>(context).add(
-                                  LoginEventLoginClicked(
-                                      username: userController.text,
-                                      password: passController.text,
-                                      timestamp: DateTime.now()));
-                              //Code này cho bản test
-                              // Navigator.popAndPushNamed(context, '/modescreen');
+                                LoginEventChecking(
+                                    userName: userController.text,
+                                    passWord: passController.text),
+                              );
                             },
-                      text: "Đăng nhập",
-                    ),
-                    SizedBox(height: 60),
-                    Text(
-                      'SISTRAIN All rights reserved',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                BlocProvider.of<LoginBloc>(context).add(
+                                    LoginEventToggleShow(isShow: _showPass));
+                              },
+                              icon: Icon(
+                                _showPass
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Constants.mainColor,
+                              ))
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15.0,
+                        width: 30.0,
+                      ),
+                      CustomizedButton(
+                        onPressed: (userController.text == "" ||
+                                passController.text == "" ||
+                                _isPasswordErr ||
+                                _isUsernameErr)
+                            ? null
+                            : () async {
+                                //Code này cho bản full
+                                BlocProvider.of<LoginBloc>(context).add(
+                                    LoginEventLoginClicked(
+                                        username: userController.text,
+                                        password: passController.text,
+                                        timestamp: DateTime.now()));
+                                //Code này cho bản test
+                                // Navigator.popAndPushNamed(context, '/modescreen');
+                              },
+                        text: "Đăng nhập",
+                      ),
+                      SizedBox(height: 60),
+                    ],
+                  ),
+                  Text(
+                    'SISTRAIN All rights reserved',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                ],
               );
             },
           ),

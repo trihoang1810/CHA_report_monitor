@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_app/Presentation/Dialog/dialog.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
-import 'package:mobile_app/Presentation/Widget/datetime_range.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 import 'package:mobile_app/business_logic/blocs/reli__report_bloc.dart';
 import 'package:mobile_app/business_logic/events/reli_report_event.dart';
 import 'package:mobile_app/business_logic/states/reli_report_state.dart';
+import 'package:mobile_app/presentation/widget/datetime_range.dart';
+import 'package:mobile_app/presentation/widget/header_widget.dart';
 import 'package:mobile_app/repos/reli_cb_report_repos.dart';
-import 'package:mobile_app/repos/reli_report_repos.dart';
 
 class ReliabilityReportScreen extends StatefulWidget {
   @override
@@ -17,6 +18,10 @@ class ReliabilityReportScreen extends StatefulWidget {
 }
 
 class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
+  String _getUntil = "Đến ngày";
+  String _getFrom = "Từ ngày";
+  DateTime _start = DateTime.now().subtract(Duration(hours: 24 * 3));
+  DateTime _end = DateTime.now();
   @override
   Widget build(BuildContext context) {
     LoadingDialog loadingDialog = LoadingDialog(buildContext: context);
@@ -54,8 +59,8 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
                         context: context,
-                        title: "Truy xuất thất bại",
-                        desc: "Vui lòng thử lại",
+                        title: reliReportState.errorPackage.message,
+                        desc: reliReportState.errorPackage.detail,
                         textBtn: "OK",
                         closePressed: () {},
                         onPressedBtn: () {})
@@ -69,12 +74,17 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
                         context: context,
-                        title: "Truy xuất thất bại",
-                        desc: "Vui lòng thử lại",
+                        title: reliReportState.errorPackage.message,
+                        desc: reliReportState.errorPackage.detail,
                         textBtn: "OK",
                         closePressed: () {},
                         onPressedBtn: () {})
                     .show();
+              } else if (reliReportState is ReliReportStatePickDateRange) {
+                _getFrom = reliReportState.getFrom;
+                _getUntil = reliReportState.getUntil;
+                _start = reliReportState.dateRange.start;
+                _end = reliReportState.dateRange.end;
               }
             },
             builder: (context, reliReportState) => TabBarView(
@@ -83,12 +93,80 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                 Center(
                   child: Column(
                     children: <Widget>[
-                      DateRangePickerWidget(),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        child: HeaderWidget(
+                          title: 'Chọn khoảng thời gian',
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                  child: RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: BorderSide(
+                                          color: Constants.mainColor),
+                                    ),
+                                    color: Colors.white,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(_getFrom),
+                                        Icon(Icons.calendar_today),
+                                      ],
+                                    ),
+                                    onPressed: () =>
+                                        BlocProvider.of<ReliReportBloc>(context)
+                                            .add(ReliReportEventPickDateRange(
+                                                context: context)),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Icon(
+                                Icons.arrow_forward,
+                                color: Constants.mainColor,
+                                size: 40,
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                  child: RaisedButton(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: BorderSide(
+                                        color: Constants.mainColor,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(_getUntil),
+                                        Icon(Icons.calendar_today),
+                                      ],
+                                    ),
+                                    onPressed: () =>
+                                        BlocProvider.of<ReliReportBloc>(context)
+                                            .add(ReliReportEventPickDateRange(
+                                                context: context)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       CustomizedButton(
                           text: "Truy xuất",
                           onPressed: () {
-                            BlocProvider.of<ReliReportBloc>(context)
-                                .add(ReliReportEventSearchingClicked());
+                            BlocProvider.of<ReliReportBloc>(context).add(
+                                ReliReportEventSearchingClicked(
+                                    startTime: _start, stopTime: _end));
                           }),
                       SizedBox(height: 10),
                       Container(
@@ -121,11 +199,14 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                   .map(
                                     (reli) => DataRow(
                                       cells: <DataCell>[
-                                        DataCell(Text('${reli.name}')),
-                                        DataCell(Text(reli.first)),
-                                        DataCell(Text(reli.last)),
-                                        DataCell(Text(reli.trytime)),
-                                        DataCell(Text(reli.time)),
+                                        DataCell(Text(reli.tenSanPham)),
+                                        DataCell(
+                                            Text(reli.ngayBatDau.toString())),
+                                        DataCell(
+                                            Text(reli.ngayKetThuc.toString())),
+                                        DataCell(
+                                            Text(reli.soLanThu.toString())),
+                                        DataCell(Text(reli.thoiGianDongEmNap)),
                                       ],
                                     ),
                                   )

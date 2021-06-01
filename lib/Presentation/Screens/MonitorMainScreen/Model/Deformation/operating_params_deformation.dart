@@ -5,6 +5,7 @@ class MonitorOperatingParamsDefor extends StatefulWidget {
   String text1;
   String text2;
   String text3;
+  String text4;
   Color color;
   String data1 = "";
   String data2 = "";
@@ -15,6 +16,7 @@ class MonitorOperatingParamsDefor extends StatefulWidget {
       @required this.text1,
       @required this.text2,
       @required this.text3,
+      @required this.text4,
       @required this.data1,
       @required this.data2,
       @required this.data3,
@@ -52,6 +54,11 @@ class _MonitorOperatingParamsDeforState
               //"Số lần đóng NBC",
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
+            Text(
+              widget.text4,
+              //"Thời gian đóng nắp cầu",
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
           ],
         ),
         SizedBox(width: 35),
@@ -86,6 +93,12 @@ class _MonitorOperatingParamsDeforState
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data3)),
             ),
+            Container(
+              width: 150,
+              height: 30,
+              decoration: BoxDecoration(color: Colors.black26),
+              child: Center(child: Text(widget.data3)),
+            ),
           ],
         ),
       ],
@@ -98,6 +111,7 @@ class MonitorOperatingParamsDefor1 extends StatefulWidget {
   String text1;
   String text2;
   String text3;
+  String text4;
   Color color1;
   Color color2;
   String data1 = "";
@@ -109,6 +123,7 @@ class MonitorOperatingParamsDefor1 extends StatefulWidget {
       @required this.text1,
       @required this.text2,
       @required this.text3,
+      @required this.text4,
       @required this.data1,
       @required this.data2,
       @required this.data3,
@@ -147,6 +162,11 @@ class _MonitorOperatingParamsDefor1State
               //"Số lần đóng NBC",
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
+            Text(
+              widget.text4,
+              //"Số lần đóng NBC",
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
           ],
         ),
         SizedBox(width: 35),
@@ -180,22 +200,40 @@ class _MonitorOperatingParamsDefor1State
               ],
             ),
             Container(
-              width: 160,
+              width: 180,
               height: 30,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data1)),
             ),
             Container(
-              width: 160,
+              width: 180,
               height: 30,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data2)),
             ),
             Container(
-              width: 160,
+              width: 180,
               height: 30,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data3)),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  width: 80,
+                  height: 30,
+                  decoration: BoxDecoration(color: Colors.black26),
+                  child: Center(child: Text(widget.data3)),
+                ),
+                SizedBox(width: 20),
+                Container(
+                  width: 80,
+                  height: 30,
+                  decoration: BoxDecoration(color: Colors.black26),
+                  child: Center(child: Text(widget.data3)),
+                ),
+              ],
             ),
           ],
         ),

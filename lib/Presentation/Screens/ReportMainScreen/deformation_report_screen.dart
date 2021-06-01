@@ -58,8 +58,8 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
                         context: context,
-                        title: "Truy xuất thất bại",
-                        desc: "Vui lòng thử lại",
+                        title: deforReportState.errorPackage.message,
+                        desc: deforReportState.errorPackage.detail,
                         textBtn: "OK",
                         closePressed: () {},
                         onPressedBtn: () {})
@@ -75,8 +75,8 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
                         context: context,
-                        title: "Truy xuất thất bại",
-                        desc: "Vui lòng thử lại",
+                        title: deforReportState.errorPackage.message,
+                        desc: deforReportState.errorPackage.detail,
                         textBtn: "OK",
                         closePressed: () {},
                         onPressedBtn: () {})
@@ -92,8 +92,8 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
                         context: context,
-                        title: "Truy xuất thất bại",
-                        desc: "Vui lòng thử lại",
+                        title: deforReportState.errorPackage.message,
+                        desc: deforReportState.errorPackage.detail,
                         textBtn: "OK",
                         closePressed: () {},
                         onPressedBtn: () {})

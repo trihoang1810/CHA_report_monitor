@@ -59,7 +59,7 @@ class _ModeScreenState extends State<ModeScreen> {
                   children: <Widget>[
                     SizedBox(height: 40),
                     Text(
-                      employeeLastNameOverall + employeeFirstNameOverall,
+                      employeeLastNameOverall + " " + employeeFirstNameOverall,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,

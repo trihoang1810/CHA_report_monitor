@@ -56,7 +56,7 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
           errorPackage: new ErrorPackage(
             errorCode: "Exception",
             message: "",
-            detail: "",
+            detail: e.toString(),
           ),
         );
       }
@@ -101,7 +101,7 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
           errorPackage: new ErrorPackage(
             errorCode: "Exception",
             message: "",
-            detail: "",
+            detail: e.toString(),
           ),
         );
       }
@@ -147,7 +147,7 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
           errorPackage: new ErrorPackage(
             errorCode: "Exception",
             message: "",
-            detail: "",
+            detail: e.toString(),
           ),
         );
       }
