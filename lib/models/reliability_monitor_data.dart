@@ -2,40 +2,36 @@ import 'package:equatable/equatable.dart';
 
 class ReliMonitorData extends Equatable {
   ReliMonitorData({
-    this.id,
-    this.close,
-    this.open,
-    this.welcomeSet,
-    this.moment,
-    this.warning,
+    this.thoiGianGiuNapMo,
+    this.thoiGianGiuNapDong,
+    this.soLanDongNapHienTai,
+    this.soLanDongNapCaiDat,
+    this.alarm,
     this.running,
   });
 
-  String id;
-  String close;
-  String open;
-  int welcomeSet;
-  int moment;
-  bool warning;
+  int soLanDongNapCaiDat;
+  int soLanDongNapHienTai;
+  int thoiGianGiuNapDong;
+  int thoiGianGiuNapMo;
+  bool alarm;
   bool running;
   @override
   List<Object> get props => [
-        this.id,
-        this.close,
-        this.open,
-        this.welcomeSet,
-        this.moment,
-        this.warning,
-        this.running,
+        soLanDongNapCaiDat,
+        soLanDongNapHienTai,
+        thoiGianGiuNapDong,
+        thoiGianGiuNapMo,
+        alarm,
+        running,
       ];
   factory ReliMonitorData.fromJson(Map<String, dynamic> json) =>
       ReliMonitorData(
-        id: json["id"],
-        close: json["close"],
-        open: json["open"],
-        welcomeSet: json["set"],
-        moment: json["moment"],
-        warning: json["warning"],
+        soLanDongNapCaiDat: json["soLanDongNapCaiDat"],
+        soLanDongNapHienTai: json["soLanDongNapHienTai"],
+        thoiGianGiuNapDong: json["thoiGianGiuNapDong"],
+        thoiGianGiuNapMo: json["thoiGianGiuNapMo"],
+        alarm: json["alarm"],
         running: json["running"],
       );
 }

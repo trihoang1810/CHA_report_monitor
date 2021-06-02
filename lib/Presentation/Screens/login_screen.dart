@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: 10.0),
                       Stack(
                         alignment: _isPasswordErr
-                            ? AlignmentDirectional.centerEnd
+                            ? AlignmentDirectional.topEnd
                             : AlignmentDirectional.bottomEnd,
                         children: [
                           TextFormField(

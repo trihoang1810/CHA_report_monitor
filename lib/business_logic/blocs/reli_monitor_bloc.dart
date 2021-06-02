@@ -28,7 +28,6 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
         final reliMonitorData =
             await reliMonitorRepository.loadingReliDataRequest();
         if (reliMonitorData is ReliMonitorData) {
-          print('moment là ${reliMonitorData.moment}');
           yield ReliMonitorStateLoadingSuccessful(
               timestamp: event.timestamp, reliMonitorData: reliMonitorData);
           if (_periodicSubscription == null) {
@@ -122,7 +121,7 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
         final reliCBMonitorData =
             await reliCBMonitorRepository.loadingReliCBDataRequest();
         if (reliCBMonitorData is ReliCBMonitorData) {
-          print('moment là ${reliCBMonitorData.moment}');
+          print('moment là ${reliCBMonitorData.soLanDongNapHienTai}');
           yield ReliCBMonitorStateLoadingSuccessful(
               timestamp: event.timestamp, reliCBMonitorData: reliCBMonitorData);
         } else if (reliCBMonitorData is ErrorPackage) {

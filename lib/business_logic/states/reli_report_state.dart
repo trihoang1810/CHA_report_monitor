@@ -84,3 +84,15 @@ class ReliCBReportStateLoadingFailure extends ReliReportState {
   @override
   List<Object> get props => [timestamp];
 }
+
+class ReliCBReportStatePickDateRange extends ReliReportState {
+  DateTime timestamp;
+  String getFrom = "Từ ngày";
+  String getUntil = "Đến ngày";
+  DateTimeRange dateRange;
+  ReliCBReportStatePickDateRange(
+      {this.dateRange, this.timestamp, this.getFrom, this.getUntil});
+  @override
+  // TODO: implement props
+  List<Object> get props => [timestamp, getFrom, getUntil, dateRange];
+}

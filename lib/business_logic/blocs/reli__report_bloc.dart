@@ -12,6 +12,8 @@ import 'package:mobile_app/presentation/routers/app_router.dart';
 
 List<MyReliReportView> reliReportList = [];
 List<MyReliReportView> reliReportListNew = [];
+List<MyReliCBReportView> reliCBReportList = [];
+List<MyReliCBReportView> reliCBReportListNew = [];
 
 class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
   ReliReportBloc() : super(ReliReportStateInit(timestamp: DateTime.now()));
@@ -102,19 +104,35 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
       yield ReliCBReportStateLoadingRequest();
       try {
         print('vao try relicbreport');
-        final List reliCBReportData =
-            await reliCBReportRepository.loadingReliCBDataRequest();
-        if (reliCBReportData is List<ReliCBReport>) {
+        final reliCBReportData = await reliCBReportRepository
+            .loadingReliCBDataRequest(DateTime.now(), DateTime.now());
+        reliCBReportListNew.clear();
+        if (reliCBReportData is ReliCBReport) {
           print('load cb thanh cong');
-          print(reliCBReportData[2].first);
+          for (var item in reliCBReportData.items) {
+            print(item.mucDichKiemTra);
+            for (var mau in item.mauKiemTraDongCuongBuc) {
+              MyReliCBReportView _myReliCBReportView = MyReliCBReportView(
+                  id: item.id,
+                  soLanThu: mau.soLanThu,
+                  ngayBatDau:
+                      DateFormat('dd-MM-yyyy - HH:mm').format(item.ngayBatDau),
+                  ngayKetThuc:
+                      DateFormat('dd-MM-yyyy - HH:mm').format(item.ngayKetThuc),
+                  tenSanPham: item.sanPham.tenSanPham,
+                  thoiGianDongEmNap: mau.thoiGianDongEmNap);
+              reliCBReportListNew.add(_myReliCBReportView);
+            }
+          }
+          reliCBReportList = reliCBReportListNew;
           yield ReliCBReportStateLoadingSuccessful(timestamp: event.timestamp);
         } else if (reliCBReportData is ErrorPackage) {
           ReliCBReportStateLoadingFailure(
               timestamp: event.timestamp,
               errorPackage: ErrorPackage(
-                  errorCode: reliCBReportData[0].errorCode,
-                  message: reliCBReportData[0].message,
-                  detail: reliCBReportData[0].detail));
+                  errorCode: reliCBReportData.errorCode,
+                  message: reliCBReportData.message,
+                  detail: reliCBReportData.detail));
         } else {
           print("clgt nay");
         }
@@ -139,6 +157,26 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
           errorPackage: ErrorPackage(
               errorCode: "Exception", message: e.toString(), detail: ""),
         );
+      }
+    } else if (event is ReliCBReportEventPickDateRange) {
+      final initialDateRange = DateTimeRange(
+        start: DateTime.now().subtract(Duration(hours: 24 * 3)),
+        end: DateTime.now(),
+      );
+      final newDateRange = await showDateRangePicker(
+        firstDate: DateTime(DateTime.now().year - 5),
+        lastDate: DateTime(DateTime.now().year + 5),
+        initialDateRange: initialDateRange,
+        context: event.context,
+      );
+      if (newDateRange == null) {
+        yield ReliCBReportStateLoadingFailure(
+            errorPackage: ErrorPackage(message: "Vui lòng chọn ngày"));
+      } else {
+        yield ReliCBReportStatePickDateRange(
+            dateRange: newDateRange,
+            getFrom: DateFormat('yyyy-MM-dd').format(newDateRange.start),
+            getUntil: DateFormat('yyyy-MM-dd').format(newDateRange.end));
       }
     }
   }

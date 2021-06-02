@@ -11,17 +11,18 @@ class _ReportModeScreenState extends State<ReportModeScreen> {
   @override
   Widget build(BuildContext context) {
     final reportButton = new CustomizedButton(
-      text: 'ĐỘ BỀN',
+      text: 'Độ bền',
       onPressed: () {
         Navigator.pushNamed(context, '/reliabilityreportscreen');
       },
     );
-    final reportButtonCB = new CustomizedButton(
-      text: 'ĐỘ BIẾN DẠNG',
-      onPressed: () {
-        Navigator.pushNamed(context, '/deformationreportscreen');
-      },
-    );
+    // Widget reportButtonCB = new CustomizedButton(
+    //   width: 120,
+    //   text: 'Độ biến dạng',
+    //   onPressed: () {
+    //     Navigator.pushNamed(context, '/deformationreportscreen');
+    //   },
+    // );
 
     return Scaffold(
       appBar: AppBar(
@@ -52,7 +53,14 @@ class _ReportModeScreenState extends State<ReportModeScreen> {
             ),
             reportButton,
             SizedBox(height: 15.0),
-            reportButtonCB,
+            CustomizedButton(
+              width: 100.0,
+              text: 'Độ biến dạng',
+              onPressed: () {
+                Navigator.pushNamed(context, '/deformationreportscreen');
+              },
+            ),
+            // reportButtonCB,
             SizedBox(height: 100),
           ],
         ),

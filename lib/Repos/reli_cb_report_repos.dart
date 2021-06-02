@@ -2,35 +2,39 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:mobile_app/models/error_package.dart';
 import 'package:mobile_app/models/reliability_cb_data.dart';
 import 'package:mobile_app/presentation/widget/constant.dart';
-
-String mockapi =
-    "https://60a6123ac0c1fd00175f51db.mockapi.io/api/datatable/reli_cb_report";
-List<ReliCBReport> reliCBReportList = [];
 
 class ReliCBReportRepository {
   final http.Client httpClient;
   ReliCBReportRepository({this.httpClient});
 
-  Future loadingReliCBDataRequest() async {
+  Future loadingReliCBDataRequest(DateTime startTime, DateTime stopTime) async {
     try {
+      final start = (startTime == null)
+          ? DateFormat('yyyy-MM-dd')
+              .format(DateTime.now().subtract(Duration(hours: 24 * 3)))
+          : DateFormat('yyyy-MM-dd').format(startTime);
+      final end = (stopTime == null)
+          ? DateFormat('yyyy-MM-dd').format(DateTime.now())
+          : DateFormat('yyyy-MM-dd').format(stopTime);
       final response = await this
           .httpClient
-          .get(Uri.parse(mockapi))
+          .get(Uri.parse(Constants.baseUrl +
+              "/api/phieukiemtradongcuongbuc/?StartTime=" +
+              start +
+              "&StopTime=" +
+              end +
+              "&Page=1&ItemsPerPage=100"))
           .timeout(Constants.timeOutLimitation);
       if (response.statusCode == 200) {
         print('thanh cong');
-        reliCBReportList.clear();
-        final reliCBDataJson = jsonDecode(response.body);
-        for (var reliCBDataJson in reliCBDataJson) {
-          ReliCBReport reliCBReportItem = ReliCBReport.fromJson(reliCBDataJson);
-          reliCBReportList.add(reliCBReportItem);
-        }
-        print(reliCBReportList[2].id);
-        print(reliCBReportList[3].first);
-        return reliCBReportList;
+
+        ReliCBReport reliCBReport =
+            ReliCBReport.fromJson(jsonDecode(response.body));
+        return reliCBReport;
       } else if (response.statusCode == 400 || response.statusCode == 404) {
         print('co loi 1');
         final errJson = jsonDecode(response.body);

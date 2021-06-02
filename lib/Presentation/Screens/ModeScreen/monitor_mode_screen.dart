@@ -11,13 +11,13 @@ class _MonitorModeScreenState extends State<MonitorModeScreen> {
   @override
   Widget build(BuildContext context) {
     final reportButton = new CustomizedButton(
-      text: "ĐỘ BỀN",
+      text: "Độ bền",
       onPressed: () {
         Navigator.pushNamed(context, '/reliabilitymonitorscreen');
       },
     );
     final reportButtonCB = new CustomizedButton(
-      text: 'ĐỘ BIẾN DẠNG',
+      text: 'Độ biến dạng',
       onPressed: () {
         Navigator.pushNamed(context, '/deformationmonitorscreen');
       },

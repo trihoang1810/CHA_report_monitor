@@ -39,7 +39,7 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
           appBar: AppBar(
             bottom: TabBar(
               tabs: [
-                Tab(text: "Độ bền"),
+                Tab(text: "Độ bền êm"),
                 Tab(text: "Độ bền CB"),
               ],
             ),
@@ -74,12 +74,16 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
               } else if (reliMonitorState
                   is ReliMonitorStateLoadingSuccessful) {
                 loadingDialog.dismiss();
-                data1 = reliMonitorState.reliMonitorData.close;
-                data2 = reliMonitorState.reliMonitorData.open;
-                data3 = reliMonitorState.reliMonitorData.welcomeSet.toString();
-                data4 = reliMonitorState.reliMonitorData.moment.toString();
+                data1 = reliMonitorState.reliMonitorData.thoiGianGiuNapDong
+                    .toString();
+                data2 = reliMonitorState.reliMonitorData.thoiGianGiuNapMo
+                    .toString();
+                data3 = reliMonitorState.reliMonitorData.soLanDongNapCaiDat
+                    .toString();
+                data4 = reliMonitorState.reliMonitorData.soLanDongNapHienTai
+                    .toString();
                 running = reliMonitorState.reliMonitorData.running;
-                warning = reliMonitorState.reliMonitorData.warning;
+                warning = reliMonitorState.reliMonitorData.alarm;
               } else if (reliMonitorState is ReliMonitorStateLoadingFailure) {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
@@ -92,12 +96,17 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                     .show();
               } else if (reliMonitorState
                   is ReliMonitorStateLoadingRefetchSuccessful) {
-                data1 = reliMonitorState.reliMonitorData.close;
-                data2 = reliMonitorState.reliMonitorData.open;
-                data3 = reliMonitorState.reliMonitorData.welcomeSet.toString();
-                data4 = reliMonitorState.reliMonitorData.moment.toString();
+                loadingDialog.dismiss();
+                data1 = reliMonitorState.reliMonitorData.thoiGianGiuNapDong
+                    .toString();
+                data2 = reliMonitorState.reliMonitorData.thoiGianGiuNapMo
+                    .toString();
+                data3 = reliMonitorState.reliMonitorData.soLanDongNapCaiDat
+                    .toString();
+                data4 = reliMonitorState.reliMonitorData.soLanDongNapHienTai
+                    .toString();
                 running = reliMonitorState.reliMonitorData.running;
-                warning = reliMonitorState.reliMonitorData.warning;
+                warning = reliMonitorState.reliMonitorData.alarm;
               } else if (reliMonitorState
                   is ReliMonitorStateLoadingRefetchFailure) {
                 AlertDialogOneBtnCustomized(
@@ -113,13 +122,16 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
               } else if (reliMonitorState
                   is ReliCBMonitorStateLoadingSuccessful) {
                 loadingDialog.dismiss();
-                data21 = reliMonitorState.reliCBMonitorData.close;
-                data22 = reliMonitorState.reliCBMonitorData.open;
-                data23 =
-                    reliMonitorState.reliCBMonitorData.welcomeSet.toString();
-                data24 = reliMonitorState.reliCBMonitorData.moment.toString();
+                data21 = reliMonitorState.reliCBMonitorData.thoiGianGiuNapDong
+                    .toString();
+                data22 = reliMonitorState.reliCBMonitorData.thoiGianGiuNapMo
+                    .toString();
+                data23 = reliMonitorState.reliCBMonitorData.soLanDongNapCaiDat
+                    .toString();
+                data24 = reliMonitorState.reliCBMonitorData.soLanDongNapHienTai
+                    .toString();
                 running2 = reliMonitorState.reliCBMonitorData.running;
-                warning2 = reliMonitorState.reliCBMonitorData.warning;
+                warning2 = reliMonitorState.reliCBMonitorData.alarm;
               } else if (reliMonitorState is ReliCBMonitorStateLoadingFailure) {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
@@ -132,13 +144,16 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                     .show();
               } else if (reliMonitorState
                   is ReliCBMonitorStateLoadingRefetchSuccessful) {
-                data21 = reliMonitorState.reliCBMonitorData.close;
-                data22 = reliMonitorState.reliCBMonitorData.open;
-                data23 =
-                    reliMonitorState.reliCBMonitorData.welcomeSet.toString();
-                data24 = reliMonitorState.reliCBMonitorData.moment.toString();
+                data21 = reliMonitorState.reliCBMonitorData.thoiGianGiuNapDong
+                    .toString();
+                data22 = reliMonitorState.reliCBMonitorData.thoiGianGiuNapMo
+                    .toString();
+                data23 = reliMonitorState.reliCBMonitorData.soLanDongNapCaiDat
+                    .toString();
+                data24 = reliMonitorState.reliCBMonitorData.soLanDongNapHienTai
+                    .toString();
                 running2 = reliMonitorState.reliCBMonitorData.running;
-                warning2 = reliMonitorState.reliCBMonitorData.warning;
+                warning2 = reliMonitorState.reliCBMonitorData.alarm;
               } else if (reliMonitorState
                   is ReliMonitorStateLoadingRefetchFailure) {
                 AlertDialogOneBtnCustomized(

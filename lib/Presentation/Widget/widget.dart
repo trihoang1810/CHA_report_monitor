@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'constant.dart';
 
 class CustomizedButton extends StatelessWidget {
-  final String text;
-  final double width, height, radius;
+  String text;
+  double width, height, radius;
   Color bgColor;
   Color fgColor;
   VoidCallback onPressed;

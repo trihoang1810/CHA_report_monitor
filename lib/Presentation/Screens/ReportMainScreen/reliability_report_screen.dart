@@ -22,6 +22,10 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
   String _getFrom = "Từ ngày";
   DateTime _start = DateTime.now().subtract(Duration(hours: 24 * 3));
   DateTime _end = DateTime.now();
+  String _getUntilCB = "Đến ngày";
+  String _getFromCB = "Từ ngày";
+  DateTime _startCB = DateTime.now().subtract(Duration(hours: 24 * 3));
+  DateTime _endCB = DateTime.now();
   @override
   Widget build(BuildContext context) {
     LoadingDialog loadingDialog = LoadingDialog(buildContext: context);
@@ -33,7 +37,7 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
           appBar: AppBar(
             bottom: TabBar(
               tabs: [
-                Tab(text: "Độ bền"),
+                Tab(text: "Độ bền êm"),
                 Tab(text: "Độ bền CB"),
               ],
             ),
@@ -85,197 +89,279 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                 _getUntil = reliReportState.getUntil;
                 _start = reliReportState.dateRange.start;
                 _end = reliReportState.dateRange.end;
+              } else if (reliReportState is ReliCBReportStatePickDateRange) {
+                _getFromCB = reliReportState.getFrom;
+                _getUntilCB = reliReportState.getUntil;
+                _startCB = reliReportState.dateRange.start;
+                _endCB = reliReportState.dateRange.end;
               }
             },
             builder: (context, reliReportState) => TabBarView(
               children: <Widget>[
                 //Độ bền
-                Center(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                        child: HeaderWidget(
-                          title: 'Chọn khoảng thời gian',
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(
-                                          color: Constants.mainColor),
-                                    ),
-                                    color: Colors.white,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(_getFrom),
-                                        Icon(Icons.calendar_today),
-                                      ],
-                                    ),
-                                    onPressed: () =>
-                                        BlocProvider.of<ReliReportBloc>(context)
-                                            .add(ReliReportEventPickDateRange(
-                                                context: context)),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Constants.mainColor,
-                                size: 40,
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                                  child: RaisedButton(
-                                    color: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(
-                                        color: Constants.mainColor,
+                SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: HeaderWidget(
+                            title: 'Chọn khoảng thời gian',
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Constants.mainColor),
                                       ),
+                                      color: Colors.white,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getFrom),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () =>
+                                          BlocProvider.of<ReliReportBloc>(
+                                                  context)
+                                              .add(ReliReportEventPickDateRange(
+                                                  context: context)),
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(_getUntil),
-                                        Icon(Icons.calendar_today),
-                                      ],
-                                    ),
-                                    onPressed: () =>
-                                        BlocProvider.of<ReliReportBloc>(context)
-                                            .add(ReliReportEventPickDateRange(
-                                                context: context)),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      CustomizedButton(
-                          text: "Truy xuất",
-                          onPressed: () {
-                            BlocProvider.of<ReliReportBloc>(context).add(
-                                ReliReportEventSearchingClicked(
-                                    startTime: _start, stopTime: _end));
-                          }),
-                      SizedBox(height: 10),
-                      Container(
-                        width: 350,
-                        height: 390,
-                        decoration: BoxDecoration(border: Border.all()),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columns: <DataColumn>[
-                                DataColumn(
-                                  label: Text('Tên SP'),
+                                const SizedBox(width: 8),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Constants.mainColor,
+                                  size: 40,
                                 ),
-                                DataColumn(
-                                  label: Text('Ngày bắt đầu'),
-                                ),
-                                DataColumn(
-                                  label: Text('Ngày kết thúc'),
-                                ),
-                                DataColumn(
-                                  label: Text('Số lần thử'),
-                                ),
-                                DataColumn(
-                                  label: Text('T/gian lên'),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                    child: RaisedButton(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                          color: Constants.mainColor,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getUntil),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () =>
+                                          BlocProvider.of<ReliReportBloc>(
+                                                  context)
+                                              .add(ReliReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
                                 ),
                               ],
-                              rows: reliReportList
-                                  .map(
-                                    (reli) => DataRow(
-                                      cells: <DataCell>[
-                                        DataCell(Text(reli.tenSanPham)),
-                                        DataCell(
-                                            Text(reli.ngayBatDau.toString())),
-                                        DataCell(
-                                            Text(reli.ngayKetThuc.toString())),
-                                        DataCell(
-                                            Text(reli.soLanThu.toString())),
-                                        DataCell(Text(reli.thoiGianDongEmNap)),
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
                             ),
                           ),
                         ),
-                      )
-                    ],
+                        CustomizedButton(
+                            text: "Truy xuất",
+                            onPressed: () {
+                              BlocProvider.of<ReliReportBloc>(context).add(
+                                  ReliReportEventSearchingClicked(
+                                      startTime: _start, stopTime: _end));
+                            }),
+                        SizedBox(height: 10),
+                        Container(
+                          width: 350,
+                          height: 500,
+                          decoration: BoxDecoration(border: Border.all()),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columns: <DataColumn>[
+                                  DataColumn(
+                                    label: Text('Tên SP'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ngày bắt đầu'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ngày kết thúc'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Số lần thử'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('T/gian lên'),
+                                  ),
+                                ],
+                                rows: reliReportList
+                                    .map(
+                                      (reli) => DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(Text(reli.tenSanPham)),
+                                          DataCell(
+                                              Text(reli.ngayBatDau.toString())),
+                                          DataCell(Text(
+                                              reli.ngayKetThuc.toString())),
+                                          DataCell(
+                                              Text(reli.soLanThu.toString())),
+                                          DataCell(
+                                              Text(reli.thoiGianDongEmNap)),
+                                        ],
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 //Độ bền CB
-                Center(
-                  child: Column(
-                    children: <Widget>[
-                      DateRangePickerWidget(),
-                      CustomizedButton(
-                          text: "Truy xuất",
-                          onPressed: () async {
-                            print('clicking report cb searching');
-                            //Code này cho bản full
-                            BlocProvider.of<ReliReportBloc>(context)
-                                .add(ReliCBReportEventSearchingClicked());
-                          }),
-                      SizedBox(height: 10),
-                      Container(
-                        width: 350,
-                        height: 390,
-                        decoration: BoxDecoration(border: Border.all()),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columns: <DataColumn>[
-                                DataColumn(
-                                  label: Text('Tên SP'),
+                SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: HeaderWidget(
+                            title: 'Chọn khoảng thời gian',
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Constants.mainColor),
+                                      ),
+                                      color: Colors.white,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getFromCB),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              ReliReportBloc>(context)
+                                          .add(ReliCBReportEventPickDateRange(
+                                              context: context)),
+                                    ),
+                                  ),
                                 ),
-                                DataColumn(
-                                  label: Text('Ngày bắt đầu'),
+                                const SizedBox(width: 8),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Constants.mainColor,
+                                  size: 40,
                                 ),
-                                DataColumn(
-                                  label: Text('Ngày kết thúc'),
-                                ),
-                                DataColumn(
-                                  label: Text('Số lần thử'),
-                                ),
-                                DataColumn(
-                                  label: Text('T/gian lên'),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                    child: RaisedButton(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                          color: Constants.mainColor,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getUntilCB),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              ReliReportBloc>(context)
+                                          .add(ReliCBReportEventPickDateRange(
+                                              context: context)),
+                                    ),
+                                  ),
                                 ),
                               ],
-                              rows: reliCBReportList
-                                  .map(
-                                    (reliCB) => DataRow(
-                                      cells: <DataCell>[
-                                        DataCell(Text('${reliCB.name}')),
-                                        DataCell(Text(reliCB.first)),
-                                        DataCell(Text(reliCB.last)),
-                                        DataCell(Text(reliCB.trytime)),
-                                        DataCell(Text(reliCB.time)),
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        CustomizedButton(
+                            text: "Truy xuất",
+                            onPressed: () async {
+                              print('clicking report cb searching');
+                              //Code này cho bản full
+                              BlocProvider.of<ReliReportBloc>(context).add(
+                                  ReliCBReportEventSearchingClicked(
+                                      startTime: _startCB, stopTime: _endCB));
+                            }),
+                        SizedBox(height: 10),
+                        Container(
+                          width: 350,
+                          height: 500,
+                          decoration: BoxDecoration(border: Border.all()),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columns: <DataColumn>[
+                                  DataColumn(
+                                    label: Text('Tên SP'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ngày bắt đầu'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ngày kết thúc'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Số lần thử'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('T/gian lên'),
+                                  ),
+                                ],
+                                rows: reliCBReportList
+                                    .map(
+                                      (reliCB) => DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(Text(reliCB.tenSanPham)),
+                                          DataCell(Text(reliCB.ngayBatDau)),
+                                          DataCell(Text(reliCB.ngayKetThuc)),
+                                          DataCell(
+                                              Text(reliCB.soLanThu.toString())),
+                                          DataCell(
+                                              Text(reliCB.thoiGianDongEmNap)),
+                                        ],
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

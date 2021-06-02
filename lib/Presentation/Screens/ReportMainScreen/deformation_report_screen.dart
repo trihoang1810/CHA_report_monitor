@@ -102,206 +102,213 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
             },
             builder: (context, deforReportState) => TabBarView(
               children: <Widget>[
-                Center(
-                  child: Column(
-                    children: <Widget>[
-                      DateRangePickerWidget(),
-                      CustomizedButton(
-                          text: "Truy xuất",
-                          onPressed: () {
-                            BlocProvider.of<DeforReportBloc>(context)
-                                .add(DeforBendingReportEventSearchingClicked());
-                          }),
-                      SizedBox(height: 10),
-                      Container(
-                        width: 350,
-                        height: 390,
-                        decoration: BoxDecoration(border: Border.all()),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
+                SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        DateRangePickerWidget(),
+                        CustomizedButton(
+                            text: "Truy xuất",
+                            onPressed: () {
+                              BlocProvider.of<DeforReportBloc>(context).add(
+                                  DeforBendingReportEventSearchingClicked());
+                            }),
+                        SizedBox(height: 10),
+                        Container(
+                          width: 350,
+                          height: 500,
+                          decoration: BoxDecoration(border: Border.all()),
                           child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columns: <DataColumn>[
-                                DataColumn(
-                                  label: Text('Tên SP'),
-                                ),
-                                DataColumn(
-                                  label: Text('Mẫu số'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tải trọng'),
-                                ),
-                                DataColumn(
-                                  label: Text('Thời gian'),
-                                ),
-                                DataColumn(
-                                  label: Text('Độ cong vênh'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tổng lỗi'),
-                                ),
-                                DataColumn(
-                                  label: Text('Ghi chú'),
-                                ),
-                                DataColumn(
-                                  label: Text('NV kiểm tra'),
-                                ),
-                              ],
-                              rows: deforBendingReportList
-                                  .map(
-                                    (deforbending) => DataRow(
-                                      cells: <DataCell>[
-                                        DataCell(Text(deforbending.nume)),
-                                        DataCell(
-                                            Text(deforbending.id.toString())),
-                                        DataCell(Text(deforbending.taitrong)),
-                                        DataCell(Text(deforbending.time)),
-                                        DataCell(Text(deforbending.dcv)),
-                                        DataCell(Text(deforbending.tongloi)),
-                                        DataCell(Text(deforbending.nxet)),
-                                        DataCell(Text(deforbending.nvkt)),
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columns: <DataColumn>[
+                                  DataColumn(
+                                    label: Text('Tên SP'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Mẫu số'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tải trọng'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Thời gian'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Độ cong vênh'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tổng lỗi'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ghi chú'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('NV kiểm tra'),
+                                  ),
+                                ],
+                                rows: deforBendingReportList
+                                    .map(
+                                      (deforbending) => DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(Text(deforbending.nume)),
+                                          DataCell(
+                                              Text(deforbending.id.toString())),
+                                          DataCell(Text(deforbending.taitrong)),
+                                          DataCell(Text(deforbending.time)),
+                                          DataCell(Text(deforbending.dcv)),
+                                          DataCell(Text(deforbending.tongloi)),
+                                          DataCell(Text(deforbending.nxet)),
+                                          DataCell(Text(deforbending.nvkt)),
+                                        ],
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 //Độ bền CB
-                Center(
-                  child: Column(
-                    children: <Widget>[
-                      DateRangePickerWidget(),
-                      CustomizedButton(
-                          text: "Truy xuất",
-                          onPressed: () {
-                            BlocProvider.of<DeforReportBloc>(context)
-                                .add(DeforStaticReportEventSearchingClicked());
-                          }),
-                      SizedBox(height: 10),
-                      Container(
-                        width: 350,
-                        height: 390,
-                        decoration: BoxDecoration(border: Border.all()),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
+                SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        DateRangePickerWidget(),
+                        CustomizedButton(
+                            text: "Truy xuất",
+                            onPressed: () {
+                              BlocProvider.of<DeforReportBloc>(context).add(
+                                  DeforStaticReportEventSearchingClicked());
+                            }),
+                        SizedBox(height: 10),
+                        Container(
+                          width: 350,
+                          height: 500,
+                          decoration: BoxDecoration(border: Border.all()),
                           child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columns: <DataColumn>[
-                                DataColumn(
-                                  label: Text('Tên SP'),
-                                ),
-                                DataColumn(
-                                  label: Text('Mẫu số'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tình trạng'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tổng lỗi'),
-                                ),
-                                DataColumn(
-                                  label: Text('Ghi chú'),
-                                ),
-                                DataColumn(
-                                  label: Text('NV kiểm tra'),
-                                ),
-                              ],
-                              rows: deforStaticReportList
-                                  .map(
-                                    (deforstatic) => DataRow(
-                                      cells: <DataCell>[
-                                        DataCell(Text(deforstatic.name)),
-                                        DataCell(
-                                            Text(deforstatic.id.toString())),
-                                        DataCell(Text(deforstatic.status)),
-                                        DataCell(Text(deforstatic.total)),
-                                        DataCell(Text(deforstatic.comment)),
-                                        DataCell(Text(deforstatic.employee)),
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columns: <DataColumn>[
+                                  DataColumn(
+                                    label: Text('Tên SP'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Mẫu số'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tình trạng'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tổng lỗi'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ghi chú'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('NV kiểm tra'),
+                                  ),
+                                ],
+                                rows: deforStaticReportList
+                                    .map(
+                                      (deforstatic) => DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(Text(deforstatic.name)),
+                                          DataCell(
+                                              Text(deforstatic.id.toString())),
+                                          DataCell(Text(deforstatic.status)),
+                                          DataCell(Text(deforstatic.total)),
+                                          DataCell(Text(deforstatic.comment)),
+                                          DataCell(Text(deforstatic.employee)),
+                                        ],
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-                Center(
-                  child: Column(
-                    children: <Widget>[
-                      DateRangePickerWidget(),
-                      CustomizedButton(
-                          text: "Truy xuất",
-                          onPressed: () {
-                            BlocProvider.of<DeforReportBloc>(context)
-                                .add(DeforRockReportEventSearchingClicked());
-                          }),
-                      SizedBox(height: 10),
-                      Container(
-                        width: 350,
-                        height: 390,
-                        decoration: BoxDecoration(border: Border.all()),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
+                SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        DateRangePickerWidget(),
+                        CustomizedButton(
+                            text: "Truy xuất",
+                            onPressed: () {
+                              BlocProvider.of<DeforReportBloc>(context)
+                                  .add(DeforRockReportEventSearchingClicked());
+                            }),
+                        SizedBox(height: 10),
+                        Container(
+                          width: 350,
+                          height: 500,
+                          decoration: BoxDecoration(border: Border.all()),
                           child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columns: <DataColumn>[
-                                DataColumn(
-                                  label: Text('Tên SP'),
-                                ),
-                                DataColumn(
-                                  label: Text('Mẫu số'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tải trọng'),
-                                ),
-                                DataColumn(
-                                  label: Text('Số lần thử'),
-                                ),
-                                DataColumn(
-                                  label: Text('Kết quả đánh giá'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tổng lỗi'),
-                                ),
-                                DataColumn(
-                                  label: Text('Ghi chú'),
-                                ),
-                                DataColumn(
-                                  label: Text('NV kiểm tra'),
-                                ),
-                              ],
-                              rows: deforRockReportList
-                                  .map(
-                                    (deforrock) => DataRow(
-                                      cells: <DataCell>[
-                                        DataCell(Text(deforrock.name)),
-                                        DataCell(Text(deforrock.id.toString())),
-                                        DataCell(Text(deforrock.weight)),
-                                        DataCell(Text(deforrock.trytime)),
-                                        DataCell(Text(deforrock.result)),
-                                        DataCell(Text(deforrock.total)),
-                                        DataCell(Text(deforrock.comment)),
-                                        DataCell(Text(deforrock.employee)),
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columns: <DataColumn>[
+                                  DataColumn(
+                                    label: Text('Tên SP'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Mẫu số'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tải trọng'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Số lần thử'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Kết quả đánh giá'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tổng lỗi'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ghi chú'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('NV kiểm tra'),
+                                  ),
+                                ],
+                                rows: deforRockReportList
+                                    .map(
+                                      (deforrock) => DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(Text(deforrock.name)),
+                                          DataCell(
+                                              Text(deforrock.id.toString())),
+                                          DataCell(Text(deforrock.weight)),
+                                          DataCell(Text(deforrock.trytime)),
+                                          DataCell(Text(deforrock.result)),
+                                          DataCell(Text(deforrock.total)),
+                                          DataCell(Text(deforrock.comment)),
+                                          DataCell(Text(deforrock.employee)),
+                                        ],
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

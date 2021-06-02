@@ -17,14 +17,25 @@ class ReliReportEventSearchingClicked extends ReliReportEvent {
 class ReliReportEventPickDateRange extends ReliReportEvent {
   BuildContext context;
   DateTime timestamp;
-  ReliReportEventPickDateRange({this.context,this.timestamp});
+  ReliReportEventPickDateRange({this.context, this.timestamp});
   @override
-  List<Object> get props => [timestamp,context];
+  List<Object> get props => [timestamp, context];
 }
 
 class ReliCBReportEventSearchingClicked extends ReliReportEvent {
   DateTime timestamp;
-  ReliCBReportEventSearchingClicked({this.timestamp});
+  DateTime startTime;
+  DateTime stopTime;
+  ReliCBReportEventSearchingClicked(
+      {this.startTime, this.stopTime, this.timestamp});
   @override
-  List<Object> get props => [timestamp];
+  List<Object> get props => [timestamp, startTime, stopTime];
+}
+
+class ReliCBReportEventPickDateRange extends ReliReportEvent {
+  BuildContext context;
+  DateTime timestamp;
+  ReliCBReportEventPickDateRange({this.context, this.timestamp});
+  @override
+  List<Object> get props => [timestamp, context];
 }
