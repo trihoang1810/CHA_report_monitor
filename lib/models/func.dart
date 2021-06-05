@@ -11,3 +11,4 @@ void logout(BuildContext context) {
     print("Đã pop");
   }
 }
+class Null {}
