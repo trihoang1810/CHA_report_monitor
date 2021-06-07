@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 abstract class ReliReportEvent extends Equatable {}
 
@@ -11,7 +11,7 @@ class ReliReportEventSearchingClicked extends ReliReportEvent {
   ReliReportEventSearchingClicked(
       {this.timestamp, this.startTime, this.stopTime});
   @override
-  List<Object> get props => [startTime, stopTime, timestamp];
+  List<Object> get props => [timestamp, startTime, stopTime];
 }
 
 class ReliReportEventPickDateRange extends ReliReportEvent {

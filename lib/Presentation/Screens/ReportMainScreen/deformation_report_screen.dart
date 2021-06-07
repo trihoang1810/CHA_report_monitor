@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
-import 'package:mobile_app/Presentation/Widget/datetime_range.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 import 'package:mobile_app/business_logic/blocs/defor_bending_report_bloc.dart';
 import 'package:mobile_app/business_logic/events/defor_report_event.dart';
 import 'package:mobile_app/business_logic/states/defor_report_state.dart';
 import 'package:mobile_app/presentation/dialog/dialog.dart';
-import 'package:mobile_app/repos/defor_bending_report_repos.dart';
-import 'package:mobile_app/repos/defor_rock_report_repos.dart';
-import 'package:mobile_app/repos/defor_static_report_repos.dart';
+import 'package:mobile_app/presentation/widget/header_widget.dart';
 
 class DeformationReportScreen extends StatefulWidget {
   @override
@@ -18,6 +15,18 @@ class DeformationReportScreen extends StatefulWidget {
 }
 
 class _DeformationReportScreenState extends State<DeformationReportScreen> {
+  String _getUntilStatic = "Đến ngày";
+  String _getFromStatic = "Từ ngày";
+  DateTime _startStatic = DateTime.now().subtract(Duration(hours: 24 * 3));
+  DateTime _endStatic = DateTime.now();
+  String _getUntilBending = "Đến ngày";
+  String _getFromBending = "Từ ngày";
+  DateTime _startBending = DateTime.now().subtract(Duration(hours: 24 * 3));
+  DateTime _endBending = DateTime.now();
+  String _getUntilRock = "Đến ngày";
+  String _getFromRock = "Từ ngày";
+  DateTime _startRock = DateTime.now().subtract(Duration(hours: 24 * 3));
+  DateTime _endRock = DateTime.now();
   @override
   Widget build(BuildContext context) {
     LoadingDialog loadingDialog = LoadingDialog(buildContext: context);
@@ -65,6 +74,12 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                         onPressedBtn: () {})
                     .show();
               } else if (deforReportState
+                  is DeforBendingReportStatePickDateRange) {
+                _getFromBending = deforReportState.getFrom;
+                _getUntilBending = deforReportState.getUntil;
+                _startBending = deforReportState.dateRange.start;
+                _endBending = deforReportState.dateRange.end;
+              } else if (deforReportState
                   is DeforStaticReportStateLoadingRequest) {
                 loadingDialog.show();
               } else if (deforReportState
@@ -82,6 +97,12 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                         onPressedBtn: () {})
                     .show();
               } else if (deforReportState
+                  is DeforStaticReportStatePickDateRange) {
+                _getFromStatic = deforReportState.getFrom;
+                _getUntilStatic = deforReportState.getUntil;
+                _startStatic = deforReportState.dateRange.start;
+                _endStatic = deforReportState.dateRange.end;
+              } else if (deforReportState
                   is DeforRockReportStateLoadingRequest) {
                 loadingDialog.show();
               } else if (deforReportState
@@ -98,6 +119,16 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                         closePressed: () {},
                         onPressedBtn: () {})
                     .show();
+              } else if (deforReportState
+                  is DeforRockReportStatePickDateRange) {
+                _getFromRock = deforReportState.getFrom;
+                _getUntilRock = deforReportState.getUntil;
+                _startRock = deforReportState.dateRange.start;
+                _endRock = deforReportState.dateRange.end;
+                print(_getFromRock);
+                print(_getUntilRock);
+                print(_startRock);
+                print(_endRock);
               }
             },
             builder: (context, deforReportState) => TabBarView(
@@ -106,12 +137,83 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                   child: Center(
                     child: Column(
                       children: <Widget>[
-                        DateRangePickerWidget(),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: HeaderWidget(
+                            title: 'Chọn khoảng thời gian',
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Constants.mainColor),
+                                      ),
+                                      color: Colors.white,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getFromBending),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforBendingReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Constants.mainColor,
+                                  size: 40,
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                    child: RaisedButton(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                          color: Constants.mainColor,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getUntilBending),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforBendingReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         CustomizedButton(
                             text: "Truy xuất",
                             onPressed: () {
                               BlocProvider.of<DeforReportBloc>(context).add(
-                                  DeforBendingReportEventSearchingClicked());
+                                  DeforBendingReportEventSearchingClicked(
+                                      startTime: _startBending,
+                                      stopTime: _endBending));
                             }),
                         SizedBox(height: 10),
                         Container(
@@ -153,15 +255,18 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                     .map(
                                       (deforbending) => DataRow(
                                         cells: <DataCell>[
-                                          DataCell(Text(deforbending.nume)),
                                           DataCell(
-                                              Text(deforbending.id.toString())),
-                                          DataCell(Text(deforbending.taitrong)),
-                                          DataCell(Text(deforbending.time)),
-                                          DataCell(Text(deforbending.dcv)),
-                                          DataCell(Text(deforbending.tongloi)),
-                                          DataCell(Text(deforbending.nxet)),
-                                          DataCell(Text(deforbending.nvkt)),
+                                              Text(deforbending.tenSanPham)),
+                                          DataCell(Text(
+                                              deforbending.mauSo.toString())),
+                                          DataCell(Text(deforbending.taiTrong)),
+                                          DataCell(Text(deforbending.thoiGian)),
+                                          DataCell(
+                                              Text(deforbending.doCongVenh)),
+                                          DataCell(Text(deforbending.tongLoi)),
+                                          DataCell(Text(deforbending.ghiChu)),
+                                          DataCell(Text(
+                                              deforbending.nhanVienKiemTra)),
                                         ],
                                       ),
                                     )
@@ -174,17 +279,87 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                     ),
                   ),
                 ),
-                //Độ bền CB
                 SingleChildScrollView(
                   child: Center(
                     child: Column(
                       children: <Widget>[
-                        DateRangePickerWidget(),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: HeaderWidget(
+                            title: 'Chọn khoảng thời gian',
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Constants.mainColor),
+                                      ),
+                                      color: Colors.white,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getFromStatic),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforStaticReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Constants.mainColor,
+                                  size: 40,
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                    child: RaisedButton(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                          color: Constants.mainColor,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getUntilStatic),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforStaticReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         CustomizedButton(
                             text: "Truy xuất",
                             onPressed: () {
                               BlocProvider.of<DeforReportBloc>(context).add(
-                                  DeforStaticReportEventSearchingClicked());
+                                  DeforStaticReportEventSearchingClicked(
+                                      startTime: _startStatic,
+                                      stopTime: _endStatic));
                             }),
                         SizedBox(height: 10),
                         Container(
@@ -220,13 +395,15 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                     .map(
                                       (deforstatic) => DataRow(
                                         cells: <DataCell>[
-                                          DataCell(Text(deforstatic.name)),
                                           DataCell(
-                                              Text(deforstatic.id.toString())),
-                                          DataCell(Text(deforstatic.status)),
-                                          DataCell(Text(deforstatic.total)),
-                                          DataCell(Text(deforstatic.comment)),
-                                          DataCell(Text(deforstatic.employee)),
+                                              Text(deforstatic.tenSanPham)),
+                                          DataCell(Text(
+                                              deforstatic.mauSo.toString())),
+                                          DataCell(Text(deforstatic.tinhTrang)),
+                                          DataCell(Text(deforstatic.tongLoi)),
+                                          DataCell(Text(deforstatic.ghiChu)),
+                                          DataCell(Text(
+                                              deforstatic.nhanVienKiemTra)),
                                         ],
                                       ),
                                     )
@@ -243,12 +420,83 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                   child: Center(
                     child: Column(
                       children: <Widget>[
-                        DateRangePickerWidget(),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: HeaderWidget(
+                            title: 'Chọn khoảng thời gian',
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Constants.mainColor),
+                                      ),
+                                      color: Colors.white,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getFromRock),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforRockReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Constants.mainColor,
+                                  size: 40,
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                    child: RaisedButton(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                          color: Constants.mainColor,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getUntilRock),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforRockReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         CustomizedButton(
                             text: "Truy xuất",
                             onPressed: () {
-                              BlocProvider.of<DeforReportBloc>(context)
-                                  .add(DeforRockReportEventSearchingClicked());
+                              BlocProvider.of<DeforReportBloc>(context).add(
+                                  DeforRockReportEventSearchingClicked(
+                                      startTime: _startRock,
+                                      stopTime: _endRock));
                             }),
                         SizedBox(height: 10),
                         Container(
@@ -290,15 +538,17 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                     .map(
                                       (deforrock) => DataRow(
                                         cells: <DataCell>[
-                                          DataCell(Text(deforrock.name)),
+                                          DataCell(Text(deforrock.tenSanPham)),
                                           DataCell(
-                                              Text(deforrock.id.toString())),
-                                          DataCell(Text(deforrock.weight)),
-                                          DataCell(Text(deforrock.trytime)),
-                                          DataCell(Text(deforrock.result)),
-                                          DataCell(Text(deforrock.total)),
-                                          DataCell(Text(deforrock.comment)),
-                                          DataCell(Text(deforrock.employee)),
+                                              Text(deforrock.mauSo.toString())),
+                                          DataCell(Text(deforrock.taiTrong)),
+                                          DataCell(Text(deforrock.soLanThu)),
+                                          DataCell(
+                                              Text(deforrock.ketQuaDanhGia)),
+                                          DataCell(Text(deforrock.tongLoi)),
+                                          DataCell(Text(deforrock.ghiChu)),
+                                          DataCell(
+                                              Text(deforrock.nhanVienKiemTra)),
                                         ],
                                       ),
                                     )

@@ -30,10 +30,10 @@ class LoginRepository {
       } else if (response.statusCode == 500) {
         return ErrorPackage.fromJson(json);
       }
-    }on SocketException {
-      return ErrorPackage(errorCode: "", detail: "Lỗi socket",message: "");
+    } on SocketException {
+      return ErrorPackage(errorCode: "", detail: "Lỗi socket", message: "");
     } catch (e) {
-      ErrorPackage(errorCode: "", detail: e.toString(),message: "Lỗi lạ");
+      ErrorPackage(errorCode: "", detail: e.toString(), message: "Lỗi lạ");
     }
   }
 }

@@ -168,193 +168,207 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
             },
             builder: (context, reliMonitorState) => TabBarView(
               children: <Widget>[
-                Center(
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 30),
-                      Text(
-                        'THÔNG SỐ VẬN HÀNH',
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
+                SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 30),
+                        Text(
+                          'THÔNG SỐ VẬN HÀNH',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 10),
-                      CustomizedButton(
-                        fontSize: 25,
-                        width: 200,
-                        height: 40,
-                        onPressed: () {
-                          BlocProvider.of<ReliMonitorBloc>(context)
-                              .add(ReliMonitorEventSearchingClicked());
-                        },
-                        text: "Truy xuất",
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        decoration: BoxDecoration(border: Border.all()),
-                        width: 350,
-                        height: 200,
-                        child: MonitorOperatingParamsReli(
-                            text1: "Thời gian đóng nắp cầu",
-                            text2: "Thời gian mở nắp cầu",
-                            text3: "Số lần đóng nắp cài đặt",
-                            text4: "Số lần đóng nắp hiện tại",
-                            data1: data1,
-                            data2: data2,
-                            data3: data3,
-                            data4: data4),
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        'BẢNG GIÁM SÁT',
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
+                        SizedBox(height: 10),
+                        CustomizedButton(
+                          fontSize: 25,
+                          width: 200,
+                          height: 40,
+                          onPressed: () {
+                            BlocProvider.of<ReliMonitorBloc>(context)
+                                .add(ReliMonitorEventSearchingClicked());
+                          },
+                          text: "Truy xuất",
                         ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(border: Border.all()),
-                        width: 350,
-                        height: 170,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: new BoxDecoration(
-                                    color:
-                                        running ? Colors.green : Colors.black26,
-                                    shape: BoxShape.circle,
+                        SizedBox(height: 10),
+                        Container(
+                          decoration: BoxDecoration(border: Border.all()),
+                          width: 350,
+                          height: 200,
+                          child: MonitorOperatingParamsReli(
+                              text1: "Thời gian đóng nắp cầu",
+                              text2: "Thời gian mở nắp cầu",
+                              text3: "Số lần đóng nắp cài đặt",
+                              text4: "Số lần đóng nắp hiện tại",
+                              data1: data1,
+                              data2: data2,
+                              data3: data3,
+                              data4: data4),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'BẢNG GIÁM SÁT',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(border: Border.all()),
+                          width: 350,
+                          height: 170,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: new BoxDecoration(
+                                      color: running
+                                          ? Colors.green
+                                          : Colors.black26,
+                                      shape: BoxShape.circle,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "ĐANG CHẠY",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: new BoxDecoration(
-                                    color:
-                                        warning ? Colors.red : Colors.black26,
-                                    shape: BoxShape.circle,
+                                  Text(
+                                    "ĐANG CHẠY",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                ),
-                                Text(
-                                  "CẢNH BÁO",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: new BoxDecoration(
+                                      color:
+                                          warning ? Colors.red : Colors.black26,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                  Text(
+                                    "CẢNH BÁO",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-                Center(
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 30),
-                      Text(
-                        'THÔNG SỐ VẬN HÀNH',
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
+                SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 30),
+                        Text(
+                          'THÔNG SỐ VẬN HÀNH',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 10),
-                      CustomizedButton(
-                        fontSize: 25,
-                        width: 200,
-                        height: 40,
-                        onPressed: () {
-                          BlocProvider.of<ReliMonitorBloc>(context)
-                              .add(ReliCBMonitorEventSearchingClicked());
-                        },
-                        text: "Truy xuất",
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        decoration: BoxDecoration(border: Border.all()),
-                        width: 350,
-                        height: 200,
-                        child: MonitorOperatingParamsReli(
-                            text1: "Thời gian dừng lên",
-                            text2: "Thời gian dừng xuống",
-                            text3: "Số lần đóng nắp cài đặt",
-                            text4: "Số lần đóng nắp hiện tại",
-                            data1: data21,
-                            data2: data22,
-                            data3: data23,
-                            data4: data24),
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        'BẢNG GIÁM SÁT',
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
+                        SizedBox(height: 10),
+                        CustomizedButton(
+                          fontSize: 25,
+                          width: 200,
+                          height: 40,
+                          onPressed: () {
+                            BlocProvider.of<ReliMonitorBloc>(context)
+                                .add(ReliCBMonitorEventSearchingClicked());
+                          },
+                          text: "Truy xuất",
                         ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(border: Border.all()),
-                        width: 350,
-                        height: 170,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: new BoxDecoration(
-                                    color: running2
-                                        ? Colors.green
-                                        : Colors.black26,
-                                    shape: BoxShape.circle,
+                        SizedBox(height: 10),
+                        Container(
+                          decoration: BoxDecoration(border: Border.all()),
+                          width: 350,
+                          height: 200,
+                          child: MonitorOperatingParamsReli(
+                              text1: "Thời gian dừng lên",
+                              text2: "Thời gian dừng xuống",
+                              text3: "Số lần đóng nắp cài đặt",
+                              text4: "Số lần đóng nắp hiện tại",
+                              data1: data21,
+                              data2: data22,
+                              data3: data23,
+                              data4: data24),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'BẢNG GIÁM SÁT',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(border: Border.all()),
+                          width: 350,
+                          height: 170,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: new BoxDecoration(
+                                      color: running2
+                                          ? Colors.green
+                                          : Colors.black26,
+                                      shape: BoxShape.circle,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "ĐANG CHẠY",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: new BoxDecoration(
-                                    color:
-                                        warning2 ? Colors.red : Colors.black26,
-                                    shape: BoxShape.circle,
+                                  Text(
+                                    "ĐANG CHẠY",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                ),
-                                Text(
-                                  "CẢNH BÁO",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: new BoxDecoration(
+                                      color: warning2
+                                          ? Colors.red
+                                          : Colors.black26,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                  Text(
+                                    "CẢNH BÁO",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

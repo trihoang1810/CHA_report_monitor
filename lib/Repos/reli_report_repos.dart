@@ -20,18 +20,14 @@ class ReliReportRepository {
       final end = (stopTime == null)
           ? DateFormat('yyyy-MM-dd').format(DateTime.now())
           : DateFormat('yyyy-MM-dd').format(stopTime);
-      print(start);
-      print(end);
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
               "/api/phieukiemtradongem/?StartTime=" +
               start.toString() +
               "&StopTime=" +
-              end.toString() +
-              "&Page=1&ItemsPerPage=100"))
+              end.toString()))
           .timeout(Constants.timeOutLimitation);
-      print('Đã load xong relireport');
       if (response.statusCode == 200) {
         ReliReport reliReport = ReliReport.fromJson(jsonDecode(response.body));
         return reliReport;

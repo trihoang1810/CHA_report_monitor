@@ -26,12 +26,10 @@ class ReliCBReportRepository {
               "/api/phieukiemtradongcuongbuc/?StartTime=" +
               start +
               "&StopTime=" +
-              end +
-              "&Page=1&ItemsPerPage=100"))
+              end))
           .timeout(Constants.timeOutLimitation);
       if (response.statusCode == 200) {
         print('thanh cong');
-
         ReliCBReport reliCBReport =
             ReliCBReport.fromJson(jsonDecode(response.body));
         return reliCBReport;

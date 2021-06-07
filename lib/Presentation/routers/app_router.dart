@@ -15,7 +15,6 @@ import 'package:mobile_app/business_logic/blocs/defor_bending_report_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/reli__report_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/reli_monitor_bloc.dart';
-import 'package:mobile_app/models/reliability_cb_monitor_data.dart';
 import 'package:mobile_app/repos/defor_bending_report_repos.dart';
 import 'package:mobile_app/repos/defor_rock_report_repos.dart';
 import 'package:mobile_app/repos/defor_static_report_repos.dart';

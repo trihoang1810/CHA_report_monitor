@@ -27,12 +27,8 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
         final reliReportData = await reliReportRepository
             .loadingReliDataRequest(event.startTime, event.stopTime);
         reliReportListNew.clear();
-        print('load relireport thanh cong1');
         if (reliReportData is ReliReport) {
-          print('load relireportlist thanh cong');
-          print(reliReportData.totalItems);
           for (var item in reliReportData.items) {
-            print(item.mucDichKiemTra);
             for (var mau in item.mauKiemTraDongEm) {
               MyReliReportView _myReliReportView = MyReliReportView(
                   id: item.id,
@@ -49,13 +45,12 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
           reliReportList = reliReportListNew;
           yield ReliReportStateLoadingSuccessful(timestamp: event.timestamp);
         } else if (reliReportData is ErrorPackage) {
-          print('load relireport that bai' +
-              reliReportData.message +
-              reliReportData.detail);
           yield ReliReportStateLoadingFailure(
               timestamp: event.timestamp,
               errorPackage: ErrorPackage(
-                  errorCode: "Exception", message: "", detail: ""));
+                  errorCode: reliReportData.errorCode,
+                  message: reliReportData.message,
+                  detail: reliReportData.detail));
         }
       } on SocketException {
         yield ReliReportStateLoadingFailure(

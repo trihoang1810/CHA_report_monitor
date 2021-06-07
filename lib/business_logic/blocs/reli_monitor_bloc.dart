@@ -42,14 +42,23 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
           //     .listen((_) => add(ReliMonitorEventRefetchData()));
         } else if (reliMonitorData is ErrorPackage) {
           print('thất bại');
+          await _periodicSubscription?.cancel();
+          _periodicSubscription = null;
           yield ReliMonitorStateLoadingFailure(
               timestamp: event.timestamp, errorPackage: reliMonitorData);
         } else {
+          yield ReliMonitorStateLoadingFailure(
+              timestamp: event.timestamp,
+              errorPackage: ErrorPackage(
+                  message: "Có lỗi xảy ra", detail: "vui lòng thử lại"));
+          await _periodicSubscription?.cancel();
+          _periodicSubscription = null;
           print('Lỗi bậy bạ');
-          throw Exception("Lỗi bậy bạ");
         }
       } on SocketException {
         print("Lỗi socket");
+        await _periodicSubscription?.cancel();
+        _periodicSubscription = null;
         yield ReliMonitorStateLoadingFailure(
           errorPackage: new ErrorPackage(
               errorCode: "SocketException",
@@ -57,6 +66,8 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
               detail: ""),
         );
       } on TimeoutException {
+        await _periodicSubscription?.cancel();
+        _periodicSubscription = null;
         print('loi time out exception');
         yield ReliMonitorStateLoadingFailure(
           errorPackage: new ErrorPackage(
@@ -64,6 +75,8 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
         );
       } catch (e) {
         print("Lỗi e");
+        await _periodicSubscription?.cancel();
+        _periodicSubscription = null;
         yield ReliMonitorStateLoadingFailure(
             errorPackage: ErrorPackage(
                 errorCode: "Exception", message: "", detail: e.toString()));
@@ -87,11 +100,15 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
           }
         } else if (reliMonitorRefetchData is ErrorPackage) {
           print("loi error package refetch");
+          await _periodicSubscription?.cancel();
+          _periodicSubscription = null;
           yield ReliMonitorStateLoadingRefetchFailure(
               timestamp: event.timestamp, errorPackage: reliMonitorRefetchData);
         }
       } on SocketException {
         print("Lỗi socket");
+        await _periodicSubscription?.cancel();
+        _periodicSubscription = null;
         yield ReliMonitorStateLoadingRefetchFailure(
           errorPackage: new ErrorPackage(
               errorCode: "SocketException",
@@ -100,13 +117,16 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
         );
       } on TimeoutException {
         print('loi time out exception');
+        await _periodicSubscription?.cancel();
+        _periodicSubscription = null;
         yield ReliMonitorStateLoadingRefetchFailure(
           errorPackage: new ErrorPackage(
               errorCode: "TimeoutException", message: "Overtime", detail: ""),
         );
       } catch (e) {
         print("loi catch refetch");
-        _periodicSubscription.pause();
+        await _periodicSubscription?.cancel();
+        _periodicSubscription = null;
         yield ReliMonitorStateLoadingRefetchFailure(
             errorPackage: ErrorPackage(
                 errorCode: "Exception", message: "", detail: e.toString()));
@@ -149,8 +169,8 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
       } catch (e) {
         print("Lỗi e");
         yield ReliCBMonitorStateLoadingFailure(
-            errorPackage:
-                ErrorPackage(errorCode: "Exception", message: "", detail: e.toString()));
+            errorPackage: ErrorPackage(
+                errorCode: "Exception", message: "", detail: e.toString()));
       }
     } else if (event is ReliCBMonitorEventRefetchData) {
       try {

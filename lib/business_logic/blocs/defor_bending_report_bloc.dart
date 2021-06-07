@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_app/business_logic/events/defor_report_event.dart';
 import 'package:mobile_app/business_logic/states/defor_report_state.dart';
 import 'package:mobile_app/models/deformation_bending_data.dart';
@@ -9,6 +11,13 @@ import 'package:mobile_app/models/deformation_rocktest_data.dart';
 import 'package:mobile_app/models/deformation_staticload_data.dart';
 import 'package:mobile_app/models/error_package.dart';
 import 'package:mobile_app/presentation/routers/app_router.dart';
+
+List<MyDeforStaticReportView> deforStaticReportList = [];
+List<MyDeforStaticReportView> deforStaticReportListNew = [];
+List<MyDeforBendingReportView> deforBendingReportList = [];
+List<MyDeforBendingReportView> deforBendingReportListNew = [];
+List<MyDeforRockReportView> deforRockReportList = [];
+List<MyDeforRockReportView> deforRockReportListNew = [];
 
 class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
   DeforReportBloc()
@@ -19,18 +28,35 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
     if (event is DeforBendingReportEventSearchingClicked) {
       yield DeforBendingReportStateLoadingRequest();
       try {
-        final List deforBendingReportData =
-            await deforBendingReportRepository.loadingDeforBendingDataRequest();
-        if (deforBendingReportData is List<DeforBendingReport>) {
+        final deforBendingReportData = await deforBendingReportRepository
+            .loadingDeforBendingDataRequest(event.startTime, event.stopTime);
+        deforBendingReportListNew.clear();
+        if (deforBendingReportData is DeforBendingReport) {
+          for (var item in deforBendingReportData.items) {
+            for (var mau in item.mauKiemTraLucUon) {
+              MyDeforBendingReportView _myDeforBendingReportView =
+                  MyDeforBendingReportView(
+                      mauSo: item.id.toString(),
+                      tenSanPham: item.sanPham.tenSanPham,
+                      taiTrong: mau.taiTrong,
+                      thoiGian: mau.thoiGian,
+                      doCongVenh: mau.doCongVenh,
+                      tongLoi: mau.tongLoi,
+                      ghiChu: mau.ghiChu,
+                      nhanVienKiemTra: mau.nhanVienKiemTra);
+              deforBendingReportListNew.add(_myDeforBendingReportView);
+            }
+          }
+          deforBendingReportList = deforBendingReportListNew;
           yield DeforBendingReportStateLoadingSuccessful(
               timestamp: event.timestamp);
         } else if (deforBendingReportData is ErrorPackage) {
           yield DeforBendingReportStateLoadingFailure(
               timestamp: event.timestamp,
               errorPackage: ErrorPackage(
-                  errorCode: deforBendingReportData[0].errorCode,
-                  message: deforBendingReportData[0].message,
-                  detail: deforBendingReportData[0].detail));
+                  errorCode: deforBendingReportData.errorCode,
+                  message: deforBendingReportData.message,
+                  detail: deforBendingReportData.detail));
         } else {
           print("vcl");
         }
@@ -60,22 +86,58 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
           ),
         );
       }
-      //static_load_bloc
-    } else if (event is DeforStaticReportEventSearchingClicked) {
+    } else if (event is DeforBendingReportEventPickDateRange) {
+      final initialDateRange = DateTimeRange(
+        start: DateTime.now().subtract(Duration(hours: 24 * 3)),
+        end: DateTime.now(),
+      );
+      final newDateRange = await showDateRangePicker(
+        firstDate: DateTime(DateTime.now().year - 5),
+        lastDate: DateTime(DateTime.now().year + 5),
+        initialDateRange: initialDateRange,
+        context: event.context,
+      );
+      if (newDateRange == null) {
+        yield DeforBendingReportStateLoadingFailure(
+            errorPackage: ErrorPackage(message: "Vui lòng chọn ngày"));
+      } else {
+        yield DeforBendingReportStatePickDateRange(
+            dateRange: newDateRange,
+            getFrom: DateFormat('yyyy-MM-dd').format(newDateRange.start),
+            getUntil: DateFormat('yyyy-MM-dd').format(newDateRange.end));
+      }
+    }
+    //static_load_bloc
+    else if (event is DeforStaticReportEventSearchingClicked) {
       yield DeforStaticReportStateLoadingRequest();
       try {
-        final List deforStaticReportData =
-            await deforStaticReportRepository.loadingDeforStaticDataRequest();
-        if (deforStaticReportData is List<DeforStaticReport>) {
+        final deforStaticReportData = await deforStaticReportRepository
+            .loadingDeforStaticDataRequest(event.startTime, event.stopTime);
+        deforStaticReportListNew.clear();
+        if (deforStaticReportData is DeforStaticReport) {
+          for (var item in deforStaticReportData.items) {
+            for (var mau in item.mauKiemTraChiuTaiTinh) {
+              MyDeforStaticReportView _myDeforStaticReportView =
+                  MyDeforStaticReportView(
+                      mauSo: item.id.toString(),
+                      tenSanPham: item.sanPham.tenSanPham,
+                      tinhTrang: mau.ketQuaKiemTraTaiTinh,
+                      tongLoi: mau.tongLoi,
+                      ghiChu: mau.ghiChu,
+                      nhanVienKiemTra: mau.nhanVienKiemTra);
+              deforStaticReportListNew.add(_myDeforStaticReportView);
+            }
+          }
+          deforStaticReportList = deforStaticReportListNew;
           yield DeforStaticReportStateLoadingSuccessful(
               timestamp: event.timestamp);
         } else if (deforStaticReportData is ErrorPackage) {
           yield DeforStaticReportStateLoadingFailure(
               timestamp: event.timestamp,
               errorPackage: ErrorPackage(
-                  errorCode: deforStaticReportData[0].errorCode,
-                  message: deforStaticReportData[0].message,
-                  detail: deforStaticReportData[0].detail));
+                  errorCode: deforStaticReportData.errorCode,
+                  message: deforStaticReportData.message,
+                  detail: deforStaticReportData.detail));
         } else {
           print("vcl");
         }
@@ -105,23 +167,61 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
           ),
         );
       }
+    } else if (event is DeforStaticReportEventPickDateRange) {
+      final initialDateRange = DateTimeRange(
+        start: DateTime.now().subtract(Duration(hours: 24 * 3)),
+        end: DateTime.now(),
+      );
+      final newDateRange = await showDateRangePicker(
+        firstDate: DateTime(DateTime.now().year - 5),
+        lastDate: DateTime(DateTime.now().year + 5),
+        initialDateRange: initialDateRange,
+        context: event.context,
+      );
+      if (newDateRange == null) {
+        yield DeforStaticReportStateLoadingFailure(
+            errorPackage: ErrorPackage(message: "Vui lòng chọn ngày"));
+      } else {
+        yield DeforStaticReportStatePickDateRange(
+            dateRange: newDateRange,
+            getFrom: DateFormat('yyyy-MM-dd').format(newDateRange.start),
+            getUntil: DateFormat('yyyy-MM-dd').format(newDateRange.end));
+      }
     }
     // rock_test_bloc
     else if (event is DeforRockReportEventSearchingClicked) {
       yield DeforRockReportStateLoadingRequest();
       try {
-        final List deforRockReportData =
-            await deforRockReportRepository.loadingDeforRockDataRequest();
-        if (deforRockReportData is List<DeforRockReport>) {
+        final deforRockReportData = await deforRockReportRepository
+            .loadingDeforRockDataRequest(event.startTime, event.stopTime);
+        deforBendingReportListNew.clear();
+        if (deforRockReportData is DeforRockReport) {
+          for (var item in deforRockReportData.items) {
+            for (var mau in item.mauKiemTraRockTest) {
+              MyDeforRockReportView _myDeforRockReportView =
+                  MyDeforRockReportView(
+                      mauSo: item.id.toString(),
+                      tenSanPham: item.sanPham.tenSanPham,
+                      taiTrong: mau.taiTrong,
+                      soLanThu: mau.soLanThuNghiem,
+                      ketQuaDanhGia: mau.ketQuaDanhGia,
+                      tongLoi: mau.tongLoi,
+                      ghiChu: mau.ghiChu,
+                      nhanVienKiemTra: mau.nhanVienKiemTra);
+              deforRockReportListNew.add(_myDeforRockReportView);
+            }
+          }
+          deforRockReportList = deforRockReportListNew;
+          print('rock bloc thanh cong');
           yield DeforRockReportStateLoadingSuccessful(
               timestamp: event.timestamp);
         } else if (deforRockReportData is ErrorPackage) {
           yield DeforRockReportStateLoadingFailure(
               timestamp: event.timestamp,
               errorPackage: ErrorPackage(
-                  errorCode: deforRockReportData[0].errorCode,
-                  message: deforRockReportData[0].message,
-                  detail: deforRockReportData[0].detail));
+                  errorCode: deforRockReportData.errorCode,
+                  message: deforRockReportData.message,
+                  detail: deforRockReportData.detail));
         } else {
           print("vcl1");
         }
@@ -150,6 +250,26 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
             detail: e.toString(),
           ),
         );
+      }
+    } else if (event is DeforRockReportEventPickDateRange) {
+      final initialDateRange = DateTimeRange(
+        start: DateTime.now().subtract(Duration(hours: 24 * 3)),
+        end: DateTime.now(),
+      );
+      final newDateRange = await showDateRangePicker(
+        firstDate: DateTime(DateTime.now().year - 5),
+        lastDate: DateTime(DateTime.now().year + 5),
+        initialDateRange: initialDateRange,
+        context: event.context,
+      );
+      if (newDateRange == null) {
+        yield DeforRockReportStateLoadingFailure(
+            errorPackage: ErrorPackage(message: "Vui lòng chọn ngày"));
+      } else {
+        yield DeforRockReportStatePickDateRange(
+            dateRange: newDateRange,
+            getFrom: DateFormat('yyyy-MM-dd').format(newDateRange.start),
+            getUntil: DateFormat('yyyy-MM-dd').format(newDateRange.end));
       }
     }
   }

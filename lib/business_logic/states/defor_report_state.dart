@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:mobile_app/models/deformation_bending_data.dart';
+import 'package:mobile_app/models/deformation_staticload_data.dart';
 import 'package:mobile_app/models/error_package.dart';
 
 abstract class DeforReportState extends Equatable {}
@@ -40,6 +42,18 @@ class DeforBendingReportStateLoadingFailure extends DeforReportState {
   List<Object> get props => [timestamp];
 }
 
+class DeforBendingReportStatePickDateRange extends DeforReportState {
+  DateTime timestamp;
+  String getFrom = "Từ ngày";
+  String getUntil = "Đến ngày";
+  DateTimeRange dateRange;
+  DeforBendingReportStatePickDateRange(
+      {this.dateRange, this.timestamp, this.getFrom, this.getUntil});
+  @override
+  // TODO: implement props
+  List<Object> get props => [timestamp, getFrom, getUntil, dateRange];
+}
+
 //static_load_state
 class DeforStaticReportStateLoadingRequest extends DeforReportState {
   DateTime timestamp;
@@ -59,22 +73,33 @@ class DeforStaticReportStateInit extends DeforReportState {
 
 class DeforStaticReportStateLoadingSuccessful extends DeforReportState {
   DateTime timestamp;
-  DeforBendingReport deforBendingReport;
+  DeforStaticReport deforStaticReport;
   DeforStaticReportStateLoadingSuccessful(
-      {this.deforBendingReport, this.timestamp});
+      {this.deforStaticReport, this.timestamp});
 
   @override
-  List<Object> get props => [timestamp];
+  List<Object> get props => [timestamp, deforStaticReport];
 }
 
-// ignore: must_be_immutable
 class DeforStaticReportStateLoadingFailure extends DeforReportState {
   DateTime timestamp;
   ErrorPackage errorPackage;
   DeforStaticReportStateLoadingFailure({this.timestamp, this.errorPackage});
 
   @override
-  List<Object> get props => [timestamp];
+  List<Object> get props => [timestamp, errorPackage];
+}
+
+class DeforStaticReportStatePickDateRange extends DeforReportState {
+  DateTime timestamp;
+  String getFrom = "Từ ngày";
+  String getUntil = "Đến ngày";
+  DateTimeRange dateRange;
+  DeforStaticReportStatePickDateRange(
+      {this.dateRange, this.timestamp, this.getFrom, this.getUntil});
+  @override
+  // TODO: implement props
+  List<Object> get props => [timestamp, getFrom, getUntil, dateRange];
 }
 
 //rock_test_state
@@ -104,7 +129,6 @@ class DeforRockReportStateLoadingSuccessful extends DeforReportState {
   List<Object> get props => [timestamp];
 }
 
-// ignore: must_be_immutable
 class DeforRockReportStateLoadingFailure extends DeforReportState {
   DateTime timestamp;
   ErrorPackage errorPackage;
@@ -112,4 +136,16 @@ class DeforRockReportStateLoadingFailure extends DeforReportState {
 
   @override
   List<Object> get props => [timestamp];
+}
+
+class DeforRockReportStatePickDateRange extends DeforReportState {
+  DateTime timestamp;
+  String getFrom = "Từ ngày";
+  String getUntil = "Đến ngày";
+  DateTimeRange dateRange;
+  DeforRockReportStatePickDateRange(
+      {this.dateRange, this.timestamp, this.getFrom, this.getUntil});
+  @override
+  // TODO: implement props
+  List<Object> get props => [timestamp, getFrom, getUntil, dateRange];
 }
