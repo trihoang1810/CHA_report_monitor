@@ -16,7 +16,7 @@ class ReliMonitorStateInit extends ReliMonitorState {
 
   @override
   // TODO: implement props
-  List<Object> get props => [timestamp];
+  List<Object> get props => [timestamp, data1, data2, data3, data4];
 }
 
 class ReliMonitorStateLoadingRequest extends ReliMonitorState {

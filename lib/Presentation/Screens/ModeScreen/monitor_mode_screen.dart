@@ -50,7 +50,7 @@ class _MonitorModeScreenState extends State<MonitorModeScreen> {
               height: 30,
             ),
             Text(
-              "GIÁM SÁT PHÒNG KIỂM TRA CHẤT LƯỢNG SẢN PHẨM",
+              "GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM",
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             ),

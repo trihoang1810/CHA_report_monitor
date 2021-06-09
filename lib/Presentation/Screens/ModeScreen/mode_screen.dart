@@ -123,7 +123,7 @@ class _ModeScreenState extends State<ModeScreen> {
               height: 30,
             ),
             Text(
-              "GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM NẮP BỒN CẦU",
+              "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM",
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
             ),

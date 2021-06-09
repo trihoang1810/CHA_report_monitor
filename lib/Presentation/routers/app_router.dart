@@ -12,10 +12,12 @@ import 'package:mobile_app/Presentation/Screens/home_screen.dart';
 import 'package:mobile_app/Presentation/Screens/login_screen.dart';
 import 'package:mobile_app/Repos/login_repos.dart';
 import 'package:mobile_app/business_logic/blocs/defor_bending_report_bloc.dart';
+import 'package:mobile_app/business_logic/blocs/defor_monitor_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/reli__report_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/reli_monitor_bloc.dart';
 import 'package:mobile_app/repos/defor_bending_report_repos.dart';
+import 'package:mobile_app/repos/defor_monitor_repos.dart';
 import 'package:mobile_app/repos/defor_rock_report_repos.dart';
 import 'package:mobile_app/repos/defor_static_report_repos.dart';
 import 'package:mobile_app/repos/reli_cb_monitor_repos.dart';
@@ -39,13 +41,15 @@ ReliReportRepository reliReportRepository =
     new ReliReportRepository(httpClient: http.Client());
 ReliCBReportRepository reliCBReportRepository =
     new ReliCBReportRepository(httpClient: http.Client());
+DeforMonitorRepository deforMonitorRepository =
+    new DeforMonitorRepository(httpClient: http.Client());
 
 class AppRouter {
   static ReliMonitorBloc reliMonitorBloc = ReliMonitorBloc();
   static ReliReportBloc reliReportBloc = ReliReportBloc();
   static LoginBloc loginBloc = LoginBloc();
   static DeforReportBloc deforReportBloc = DeforReportBloc();
-
+  static DeforMonitorBloc deforMonitorBloc = DeforMonitorBloc();
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/':
@@ -89,7 +93,11 @@ class AppRouter {
                 value: reliMonitorBloc, child: ReliabilityMonitorScreen()));
         break;
       case '/deformationmonitorscreen':
-        return MaterialPageRoute(builder: (_) => DeformationMonitorScreen());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider.value(
+                  value: deforMonitorBloc,
+                  child: DeformationMonitorScreen(),
+                ));
         break;
       default:
         return MaterialPageRoute(builder: (_) => HomeScreen());

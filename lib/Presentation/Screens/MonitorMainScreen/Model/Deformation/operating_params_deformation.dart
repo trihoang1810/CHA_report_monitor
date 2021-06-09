@@ -6,22 +6,28 @@ class MonitorOperatingParamsDefor extends StatefulWidget {
   String text2;
   String text3;
   String text4;
-  Color color;
+  Color colorText1;
+
   String data1 = "";
   String data2 = "";
   String data3 = "";
+  String data4 = "";
+ 
 
-  MonitorOperatingParamsDefor(
-      {Key key,
-      @required this.text1,
-      @required this.text2,
-      @required this.text3,
-      @required this.text4,
-      @required this.data1,
-      @required this.data2,
-      @required this.data3,
-      @required this.color})
-      : super(key: key);
+  MonitorOperatingParamsDefor({
+    Key key,
+  
+    @required this.data4,
+    @required this.text1,
+    @required this.text2,
+    @required this.text3,
+    @required this.text4,
+    @required this.data1,
+    @required this.data2,
+    @required this.data3,
+  
+    @required this.colorText1,
+  }) : super(key: key);
   @override
   _MonitorOperatingParamsDeforState createState() =>
       new _MonitorOperatingParamsDeforState();
@@ -67,7 +73,7 @@ class _MonitorOperatingParamsDeforState
           children: [
             Container(
               decoration: BoxDecoration(
-                color: widget.color,
+                color: widget.colorText1,
                 border: Border.all(),
               ),
               child: Text(
@@ -97,7 +103,7 @@ class _MonitorOperatingParamsDeforState
               width: 150,
               height: 30,
               decoration: BoxDecoration(color: Colors.black26),
-              child: Center(child: Text(widget.data3)),
+              child: Center(child: Text(widget.data4)),
             ),
           ],
         ),
@@ -112,12 +118,13 @@ class MonitorOperatingParamsDefor1 extends StatefulWidget {
   String text2;
   String text3;
   String text4;
-  Color color1;
-  Color color2;
+  Color colorText1;
+  Color colorText2;
   String data1 = "";
   String data2 = "";
   String data3 = "";
-
+  String data4 = "";
+   String data5 = "";
   MonitorOperatingParamsDefor1(
       {Key key,
       @required this.text1,
@@ -127,8 +134,10 @@ class MonitorOperatingParamsDefor1 extends StatefulWidget {
       @required this.data1,
       @required this.data2,
       @required this.data3,
-      @required this.color1,
-      @required this.color2})
+      @required this.data4,
+      @required this.data5,
+      @required this.colorText1,
+      @required this.colorText2})
       : super(key: key);
   @override
   _MonitorOperatingParamsDefor1State createState() =>
@@ -178,7 +187,7 @@ class _MonitorOperatingParamsDefor1State
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
-                    color: widget.color1,
+                    color: widget.colorText1,
                     border: Border.all(),
                   ),
                   child: Text(
@@ -189,7 +198,7 @@ class _MonitorOperatingParamsDefor1State
                 SizedBox(width: 30),
                 Container(
                   decoration: BoxDecoration(
-                    color: widget.color2,
+                    color: widget.colorText2,
                     border: Border.all(),
                   ),
                   child: Text(
@@ -224,14 +233,14 @@ class _MonitorOperatingParamsDefor1State
                   width: 80,
                   height: 30,
                   decoration: BoxDecoration(color: Colors.black26),
-                  child: Center(child: Text(widget.data3)),
+                  child: Center(child: Text(widget.data4)),
                 ),
                 SizedBox(width: 20),
                 Container(
                   width: 80,
                   height: 30,
                   decoration: BoxDecoration(color: Colors.black26),
-                  child: Center(child: Text(widget.data3)),
+                  child: Center(child: Text(widget.data5)),
                 ),
               ],
             ),

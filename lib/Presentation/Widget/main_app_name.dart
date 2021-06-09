@@ -10,7 +10,7 @@ class MainAppName extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM NẮP BỒN CẦU",
+            "PHÒN GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 34,
