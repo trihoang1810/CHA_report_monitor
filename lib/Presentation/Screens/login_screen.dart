@@ -49,19 +49,30 @@ class _LoginScreenState extends State<LoginScreen> {
                 loadingDialog.show();
               } else if (loginState is LoginStateLoginSuccessful) {
                 loadingDialog.dismiss();
-                employeeIdOverall = loginState.loginData.employee.employeeId;
+                employeeIdOverall =
+                    loginState.loginData.employee.employeeId != null
+                        ? loginState.loginData.employee.employeeId
+                        : "";
                 employeeFirstNameOverall =
-                    loginState.loginData.employee.firstName;
+                    loginState.loginData.employee.firstName != null
+                        ? loginState.loginData.employee.firstName
+                        : "";
                 employeeLastNameOverall =
-                    loginState.loginData.employee.lastName;
+                    loginState.loginData.employee.lastName != null
+                        ? loginState.loginData.employee.lastName
+                        : "";
                 Navigator.popAndPushNamed(context, '/modescreen');
               } else if (loginState is LoginStateLoginFailure) {
                 print("Đã thất bại");
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
                     context: context,
-                    title: loginState.errorPackage.message,
-                    desc: loginState.errorPackage.detail,
+                    title: loginState.errorPackage.message != null
+                        ? loginState.errorPackage.message
+                        : "Lỗi xảy ra",
+                    desc: loginState.errorPackage.detail != null
+                        ? loginState.errorPackage.detail
+                        : "Vui lòng đăng nhập lại",
                     textBtn: "Đăng nhập lại",
                     closePressed: () {
                       userController.text = "";
