@@ -183,7 +183,7 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                 running = deforMonitorState.deforMonitorData.greenStatus;
                 warning = deforMonitorState.deforMonitorData.redStatus;
                 cylinder1 = deforMonitorState.deforMonitorData.seclect1;
-                cylinder2 = deforMonitorState.deforMonitorData.seclect2;
+                cylinder2 = deforMonitorState.deforMonitorData.seclect1;
                 cylinder3 = deforMonitorState.deforMonitorData.seclect2;
                 switch (deforMonitorState.deforMonitorData.modeStatus) {
                   case 0:
@@ -303,10 +303,19 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                     deforMonitorState.deforMonitorData.noPressPv1.toString();
                 data5 =
                     deforMonitorState.deforMonitorData.noPressPv2.toString();
+                data21 = deforMonitorState.deforMonitorData.forceCylinderSp3
+                    .toString();
+                data22 =
+                    deforMonitorState.deforMonitorData.timeHoldSp3.toString();
+                data23 =
+                    deforMonitorState.deforMonitorData.noPressSp3.toString();
+                data24 =
+                    deforMonitorState.deforMonitorData.noPressPv3.toString();
                 running = deforMonitorState.deforMonitorData.greenStatus;
                 warning = deforMonitorState.deforMonitorData.redStatus;
                 cylinder1 = deforMonitorState.deforMonitorData.seclect1;
-                cylinder2 = deforMonitorState.deforMonitorData.seclect2;
+                cylinder2 = deforMonitorState.deforMonitorData.seclect1;
+                cylinder3 = deforMonitorState.deforMonitorData.seclect2;
                 switch (deforMonitorState.deforMonitorData.modeStatus) {
                   case 0:
                     modeColor = Colors.black26;
