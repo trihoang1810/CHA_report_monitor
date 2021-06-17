@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+
 
 // ignore: must_be_immutable
 // class ReliCBReport extends Equatable {
@@ -71,7 +71,7 @@ import 'package:equatable/equatable.dart';
 // }
 //-------------------------------------------------------------------------------
 class MyReliCBReportView {
-  int id;
+
   int soLanThu;
   String ngayBatDau;
   String ngayKetThuc;
@@ -79,7 +79,7 @@ class MyReliCBReportView {
   String thoiGianDongEmNap;
   MyReliCBReportView(
       {this.soLanThu,
-      this.id,
+   
       this.ngayBatDau,
       this.ngayKetThuc,
       this.tenSanPham,
@@ -108,7 +108,7 @@ class ReliCBReport {
 
 class ItemCB {
   ItemCB({
-    this.id,
+
     this.mucDichKiemTra,
     this.ngayBatDau,
     this.ngayKetThuc,
@@ -118,7 +118,7 @@ class ItemCB {
     this.mauKiemTraDongCuongBuc,
   });
 
-  int id;
+
   String mucDichKiemTra;
   DateTime ngayBatDau;
   DateTime ngayKetThuc;
@@ -129,20 +129,20 @@ class ItemCB {
 
   factory ItemCB.fromJson(dynamic json) {
     List<MauKiemTraDongCuongBuc> mauKiemTraDongCuongBuc = [];
-    List items = json["mauKiemTraDongCuongBuc"];
+    List items = json["deformationTestSheet"];
     for (var item in items) {
       MauKiemTraDongCuongBuc giKiemTraDongCuongBuc =
           MauKiemTraDongCuongBuc.fromJson(item);
       mauKiemTraDongCuongBuc.add(giKiemTraDongCuongBuc);
     }
     return ItemCB(
-      id: json["id"],
-      mucDichKiemTra: json["mucDichKiemTra"],
-      ngayBatDau: DateTime.parse(json["ngayBatDau"]),
-      ngayKetThuc: DateTime.parse(json["ngayKetThuc"]),
-      maSanPham: json["maSanPham"],
-      sanPham: SanPhamCB.fromJson(json["sanPham"]),
-      tieuChuanThuNghiem: json["tieuChuanThuNghiem"],
+    
+      mucDichKiemTra: json["target"],
+      ngayBatDau: DateTime.parse(json["startTime"]),
+      ngayKetThuc: DateTime.parse(json["stopTime"]),
+      maSanPham: json["productId"],
+      sanPham: SanPhamCB.fromJson(json["product"]),
+      tieuChuanThuNghiem: json["standard"],
       mauKiemTraDongCuongBuc: mauKiemTraDongCuongBuc,
     );
   }
@@ -150,7 +150,7 @@ class ItemCB {
 
 class MauKiemTraDongCuongBuc {
   MauKiemTraDongCuongBuc({
-    this.phieuKtDongCuongBucId,
+   
     this.soLanThu,
     this.thoiGianDongEmNap,
     this.napKhongNutVo,
@@ -165,13 +165,13 @@ class MauKiemTraDongCuongBuc {
     this.nhanVienKiemTra,
   });
 
-  int phieuKtDongCuongBucId;
+
   int soLanThu;
-  String thoiGianDongEmNap;
+  int thoiGianDongEmNap;
   String napKhongNutVo;
   String napKhongRoRiDau;
   String ketQuaDanhGiaNap;
-  String thoiGianDongEmDe;
+  int thoiGianDongEmDe;
   String deKhongNutVo;
   String deKhongRoRiDau;
   String ketQuaDanhGiaDe;
@@ -181,19 +181,19 @@ class MauKiemTraDongCuongBuc {
 
   factory MauKiemTraDongCuongBuc.fromJson(dynamic json) {
     return MauKiemTraDongCuongBuc(
-      phieuKtDongCuongBucId: json["phieuKtDongCuongBucId"],
-      soLanThu: json["soLanThu"],
-      thoiGianDongEmNap: json["thoiGianDongEmNap"],
-      napKhongNutVo: json["napKhongNutVo"],
-      napKhongRoRiDau: json["napKhongRoRiDau"],
-      ketQuaDanhGiaNap: json["ketQuaDanhGiaNap"],
-      thoiGianDongEmDe: json["thoiGianDongEmDe"],
-      deKhongNutVo: json["deKhongNutVo"],
-      deKhongRoRiDau: json["deKhongRoRiDau"],
-      ketQuaDanhGiaDe: json["ketQuaDanhGiaDe"],
-      tongLoi: json["tongLoi"],
-      ghiChu: json["ghiChu"],
-      nhanVienKiemTra: json["nhanVienKiemTra"],
+ 
+      soLanThu: json["numberTesting"],
+      thoiGianDongEmNap: json["timeSmoothClosingLid"],
+      napKhongNutVo: json["statusLidNotBreak"],
+      napKhongRoRiDau: json["statusLidNotLeak"],
+      ketQuaDanhGiaNap: json["statusLidResult"],
+      thoiGianDongEmDe: json["timeSmoothClosingPlinth"],
+      deKhongNutVo: json["statusPlinthNotBreak"],
+      deKhongRoRiDau: json["statusPlinthNotLeak"],
+      ketQuaDanhGiaDe: json["statusPlinthResult"],
+      tongLoi: json["totalError"],
+      ghiChu: json["note"],
+      nhanVienKiemTra: json["employee"],
     );
   }
 }
@@ -209,7 +209,7 @@ class SanPhamCB {
 
   factory SanPhamCB.fromJson(dynamic json) {
     return SanPhamCB(
-      tenSanPham: json["tenSanPham"],
+      tenSanPham: json["name"],
       id: json["id"],
     );
   }

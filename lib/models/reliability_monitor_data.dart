@@ -27,10 +27,10 @@ class ReliMonitorData extends Equatable {
       ];
   factory ReliMonitorData.fromJson(Map<String, dynamic> json) =>
       ReliMonitorData(
-        soLanDongNapCaiDat: json["soLanDongNapCaiDat"],
-        soLanDongNapHienTai: json["soLanDongNapHienTai"],
-        thoiGianGiuNapDong: json["thoiGianGiuNapDong"],
-        thoiGianGiuNapMo: json["thoiGianGiuNapMo"],
+        soLanDongNapCaiDat: json["numberClosingSp"],
+        soLanDongNapHienTai: json["numberClosingPv"],
+        thoiGianGiuNapDong: json["timeLidClose"],
+        thoiGianGiuNapMo: json["timeLidOpen"],
         alarm: json["alarm"],
         running: json["running"],
       );

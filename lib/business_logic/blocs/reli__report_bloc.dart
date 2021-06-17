@@ -31,14 +31,13 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
           for (var item in reliReportData.items) {
             for (var mau in item.mauKiemTraDongEm) {
               MyReliReportView _myReliReportView = MyReliReportView(
-                  id: item.id,
                   soLanThu: mau.soLanThu,
                   ngayBatDau:
                       DateFormat('dd-MM-yyyy - HH:mm').format(item.ngayBatDau),
                   ngayKetThuc:
                       DateFormat('dd-MM-yyyy - HH:mm').format(item.ngayKetThuc),
                   tenSanPham: item.sanPham.tenSanPham,
-                  thoiGianDongEmNap: mau.thoiGianDongEmNap);
+                  thoiGianDongEmNap: mau.thoiGianDongEmNap.toString());
               reliReportListNew.add(_myReliReportView);
             }
           }
@@ -100,7 +99,7 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
       try {
         print('vao try relicbreport');
         final reliCBReportData = await reliCBReportRepository
-            .loadingReliCBDataRequest(DateTime.now(), DateTime.now());
+            .loadingReliCBDataRequest(event.startTime, event.stopTime);
         reliCBReportListNew.clear();
         if (reliCBReportData is ReliCBReport) {
           print('load cb thanh cong');
@@ -108,18 +107,18 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
             print(item.mucDichKiemTra);
             for (var mau in item.mauKiemTraDongCuongBuc) {
               MyReliCBReportView _myReliCBReportView = MyReliCBReportView(
-                  id: item.id,
                   soLanThu: mau.soLanThu,
                   ngayBatDau:
                       DateFormat('dd-MM-yyyy - HH:mm').format(item.ngayBatDau),
                   ngayKetThuc:
                       DateFormat('dd-MM-yyyy - HH:mm').format(item.ngayKetThuc),
                   tenSanPham: item.sanPham.tenSanPham,
-                  thoiGianDongEmNap: mau.thoiGianDongEmNap);
+                  thoiGianDongEmNap: mau.thoiGianDongEmNap.toString());
               reliCBReportListNew.add(_myReliCBReportView);
             }
           }
           reliCBReportList = reliCBReportListNew;
+          print(reliCBReportList.toString());
           yield ReliCBReportStateLoadingSuccessful(timestamp: event.timestamp);
         } else if (reliCBReportData is ErrorPackage) {
           ReliCBReportStateLoadingFailure(
@@ -134,15 +133,15 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
       } on SocketException {
         yield ReliCBReportStateLoadingFailure(
           errorPackage: ErrorPackage(
-              errorCode: "SocketException",
-              message: "Lost connection to the server",
-              detail: ""),
+              errorCode: "Mất kết nối mạng", message: "Lỗi mạng", detail: ""),
         );
       } on TimeoutException {
         print('loi time out exception');
         yield ReliCBReportStateLoadingFailure(
           errorPackage: ErrorPackage(
-              errorCode: "TimeoutException", message: "Overtime", detail: ""),
+              errorCode: "TimeoutException",
+              message: "Lỗi time out",
+              detail: "Quá hạn thời gian truy xuất"),
         );
         print('loi bloc');
       } catch (e) {
@@ -150,7 +149,7 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
         //Chỗ này tránh các lỗi bậy bạ
         yield ReliCBReportStateLoadingFailure(
           errorPackage: ErrorPackage(
-              errorCode: "Exception", message: e.toString(), detail: ""),
+              errorCode: "Exception", message: "Lỗi lạ", detail: e.toString()),
         );
       }
     } else if (event is ReliCBReportEventPickDateRange) {

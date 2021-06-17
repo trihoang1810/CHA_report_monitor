@@ -7,3 +7,15 @@ class Constants {
   static const Color secondaryColor = Color(0xff00294D);
   static const Duration timeOutLimitation = Duration(seconds: 10);
 }
+
+class SizeConfig {
+  static MediaQueryData _mediaQueryData;
+  static double screenWidth;
+  static double screenHeight;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+  }
+}

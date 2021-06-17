@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/presentation/widget/constant.dart';
 
 class MonitorOperatingParamsReli extends StatefulWidget {
   String text1;
@@ -29,6 +30,7 @@ class _MonitorOperatingParamsReliState
     extends State<MonitorOperatingParamsReli> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -58,31 +60,31 @@ class _MonitorOperatingParamsReliState
             ),
           ],
         ),
-        SizedBox(width: 35),
+        SizedBox(width: SizeConfig.screenWidth * 0.08962),
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              width: 150,
-              height: 30,
+              width: SizeConfig.screenWidth * 0.3841,
+              height: SizeConfig.screenHeight * 0.03841,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data1)),
             ),
             Container(
-              width: 150,
-              height: 30,
+              width: SizeConfig.screenWidth * 0.3841,
+              height: SizeConfig.screenHeight * 0.03841,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data2)),
             ),
             Container(
-              width: 150,
-              height: 30,
+              width: SizeConfig.screenWidth * 0.3841,
+              height: SizeConfig.screenHeight * 0.03841,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data3)),
             ),
             Container(
-              width: 150,
-              height: 30,
+              width: SizeConfig.screenWidth * 0.3841,
+              height: SizeConfig.screenHeight * 0.03841,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data4)),
             ),

@@ -25,7 +25,7 @@ class DeforRockReportRepository {
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
-              "/api/phieukiemtrarocktest/?StartTime=" +
+              "/api/reportrocktest/?StartTime=" +
               start.toString() +
               "&StopTime=" +
               end.toString()))
@@ -46,7 +46,8 @@ class DeforRockReportRepository {
       }
     } on SocketException {
       print("rock that bai 3");
-      return ErrorPackage(errorCode: "", detail: "Lỗi socket", message: "");
+      return ErrorPackage(
+          errorCode: "", detail: "Mất kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
       print("rock that bai 4");
       return ErrorPackage(

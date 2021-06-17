@@ -34,7 +34,7 @@
 // }
 //-------------------------------------------------------------------------------
 class MyReliReportView {
-  int id;
+
   int soLanThu;
   String ngayBatDau;
   String ngayKetThuc;
@@ -42,7 +42,7 @@ class MyReliReportView {
   String thoiGianDongEmNap;
   MyReliReportView(
       {this.soLanThu,
-        this.id,
+    
       this.ngayBatDau,
       this.ngayKetThuc,
       this.tenSanPham,
@@ -71,7 +71,6 @@ class ReliReport {
 
 class Item {
   Item({
-    this.id,
     this.mucDichKiemTra,
     this.ngayBatDau,
     this.ngayKetThuc,
@@ -81,7 +80,6 @@ class Item {
     this.mauKiemTraDongEm,
   });
 
-  int id;
   String mucDichKiemTra;
   DateTime ngayBatDau;
   DateTime ngayKetThuc;
@@ -92,19 +90,18 @@ class Item {
 
   factory Item.fromJson(dynamic json) {
     List<MauKiemTraDongEm> mauKiemTraDongEm = [];
-    List items = json["mauKiemTraDongEm"];
+    List items = json["reliabilityTestSheet"];
     for (var item in items) {
       MauKiemTraDongEm giKiemTraDongEm = MauKiemTraDongEm.fromJson(item);
       mauKiemTraDongEm.add(giKiemTraDongEm);
     }
     return Item(
-      id: json["id"],
-      mucDichKiemTra: json["mucDichKiemTra"],
-      ngayBatDau: DateTime.parse(json["ngayBatDau"]),
-      ngayKetThuc: DateTime.parse(json["ngayKetThuc"]),
-      maSanPham: json["maSanPham"],
-      sanPham: SanPham.fromJson(json["sanPham"]),
-      tieuChuanThuNghiem: json["tieuChuanThuNghiem"],
+      mucDichKiemTra: json["target"],
+      ngayBatDau: DateTime.parse(json["startTime"]),
+      ngayKetThuc: DateTime.parse(json["stopTime"]),
+      maSanPham: json["productId"],
+      sanPham: SanPham.fromJson(json["product"]),
+      tieuChuanThuNghiem: json["standard"],
       mauKiemTraDongEm: mauKiemTraDongEm,
     );
   }
@@ -112,7 +109,6 @@ class Item {
 
 class MauKiemTraDongEm {
   MauKiemTraDongEm({
-    this.phieuKtDongEmId,
     this.soLanThu,
     this.thoiGianDongEmNap,
     this.chanNapKhongRoiRa,
@@ -127,13 +123,12 @@ class MauKiemTraDongEm {
     this.nhanVienKiemTra,
   });
 
-  int phieuKtDongEmId;
   int soLanThu;
-  String thoiGianDongEmNap;
+  int thoiGianDongEmNap;
   String chanNapKhongRoiRa;
   String napKhongRoRiDau;
   String ketQuaDanhGiaNap;
-  String thoiGianDongEmDe;
+  int thoiGianDongEmDe;
   String chanDeKhongRoiRa;
   String deKhongRoRiDau;
   String ketQuaDanhGiaDe;
@@ -143,19 +138,18 @@ class MauKiemTraDongEm {
 
   factory MauKiemTraDongEm.fromJson(dynamic json) {
     return MauKiemTraDongEm(
-      phieuKtDongEmId: json["phieuKtDongEmId"],
-      soLanThu: json["soLanThu"],
-      thoiGianDongEmNap: json["thoiGianDongEmNap"],
-      chanNapKhongRoiRa: json["chanNapKhongRoiRa"],
-      napKhongRoRiDau: json["napKhongRoRiDau"],
-      ketQuaDanhGiaNap: json["ketQuaDanhGiaNap"],
-      thoiGianDongEmDe: json["thoiGianDongEmDe"],
-      chanDeKhongRoiRa: json["chanDeKhongRoiRa"],
-      deKhongRoRiDau: json["deKhongRoRiDau"],
-      ketQuaDanhGiaDe: json["ketQuaDanhGiaDe"],
-      tongLoi: json["tongLoi"],
-      ghiChu: json["ghiChu"],
-      nhanVienKiemTra: json["nhanVienKiemTra"],
+      soLanThu: json["numberTesting"],
+      thoiGianDongEmNap: json["timeSmoothClosingLid"],
+      chanNapKhongRoiRa: json["statusLidNotFall"],
+      napKhongRoRiDau: json["statusLidNotLeak"],
+      ketQuaDanhGiaNap: json["statusLidResul"],
+      thoiGianDongEmDe: json["timeSmoothClosingPlinth"],
+      chanDeKhongRoiRa: json["statusPlinthNotFall"],
+      deKhongRoRiDau: json["statusPlinthNotLeak"],
+      ketQuaDanhGiaDe: json["statusPlinthResult"],
+      tongLoi: json["totalError"],
+      ghiChu: json["note"],
+      nhanVienKiemTra: json["employee"],
     );
   }
 }
@@ -171,7 +165,7 @@ class SanPham {
 
   factory SanPham.fromJson(dynamic json) {
     return SanPham(
-      tenSanPham: json["tenSanPham"],
+      tenSanPham: json["name"],
       id: json["id"],
     );
   }

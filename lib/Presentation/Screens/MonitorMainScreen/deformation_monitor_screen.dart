@@ -35,6 +35,7 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
   bool warning = false;
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     LoadingDialog loadingDialog = LoadingDialog(buildContext: context);
     return DefaultTabController(
       length: 2,
@@ -346,7 +347,7 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                   child: Center(
                     child: Column(
                       children: <Widget>[
-                        SizedBox(height: 30),
+                        SizedBox(height: SizeConfig.screenHeight * 0.03841),
                         Text(
                           'THÔNG SỐ VẬN HÀNH',
                           style: TextStyle(
@@ -355,11 +356,11 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         CustomizedButton(
                           fontSize: 25,
-                          width: 200,
-                          height: 40,
+                          width: SizeConfig.screenWidth * 0.5121,
+                          height: SizeConfig.screenHeight * 0.05121,
                           onPressed: () {
                             BlocProvider.of<DeforMonitorBloc>(context)
                                 .add(Defor1MonitorEventSearchingClicked());
@@ -369,8 +370,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                         SizedBox(height: 10),
                         Container(
                           decoration: BoxDecoration(border: Border.all()),
-                          width: 350,
-                          height: 200,
+                          width: SizeConfig.screenWidth * 0.8962,
+                          height: SizeConfig.screenHeight * 0.2561,
                           child: MonitorOperatingParamsDefor1(
                             text1: "Lực nén cài đặt",
                             text2: "Thời gian giữ",
@@ -385,7 +386,7 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                             data5: data5,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0256),
                         Text(
                           'BẢNG GIÁM SÁT',
                           style: TextStyle(
@@ -393,10 +394,11 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0256),
                         Container(
                           decoration: BoxDecoration(border: Border.all()),
-                          width: 350,
-                          height: 170,
+                          width: SizeConfig.screenWidth * 0.8962,
+                          height: SizeConfig.screenHeight * 0.2176,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
@@ -405,8 +407,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    width: 80.0,
-                                    height: 80.0,
+                                    width: SizeConfig.screenHeight * 0.1024,
+                                    height: SizeConfig.screenHeight * 0.1024,
                                     decoration: new BoxDecoration(
                                       color: modeColor,
                                       shape: BoxShape.circle,
@@ -424,8 +426,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    width: 80.0,
-                                    height: 80.0,
+                                    width: SizeConfig.screenHeight * 0.1024,
+                                    height: SizeConfig.screenHeight * 0.1024,
                                     decoration: new BoxDecoration(
                                       color: running
                                           ? Colors.green
@@ -445,8 +447,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    width: 80.0,
-                                    height: 80.0,
+                                    width: SizeConfig.screenHeight * 0.1024,
+                                    height: SizeConfig.screenHeight * 0.1024,
                                     decoration: new BoxDecoration(
                                       color: warning
                                           ? Colors.green
@@ -472,7 +474,7 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                   child: Center(
                     child: Column(
                       children: <Widget>[
-                        SizedBox(height: 30),
+                        SizedBox(height: SizeConfig.screenHeight * 0.03841),
                         Text(
                           'THÔNG SỐ VẬN HÀNH',
                           style: TextStyle(
@@ -481,22 +483,22 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         CustomizedButton(
                           fontSize: 25,
-                          width: 200,
-                          height: 40,
+                          width: SizeConfig.screenWidth * 0.5121,
+                          height: SizeConfig.screenHeight * 0.05121,
                           onPressed: () {
                             BlocProvider.of<DeforMonitorBloc>(context)
                                 .add(Defor1MonitorEventSearchingClicked());
                           },
                           text: "Truy xuất",
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         Container(
                           decoration: BoxDecoration(border: Border.all()),
-                          width: 350,
-                          height: 200,
+                          width: SizeConfig.screenWidth * 0.8962,
+                          height: SizeConfig.screenHeight * 0.2561,
                           child: MonitorOperatingParamsDefor(
                             text1: "Lực nén cài đặt",
                             text2: "Thời gian giữ",
@@ -509,7 +511,7 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                             colorText1: cylinder3 ? Colors.green : null,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0256),
                         Text(
                           'BẢNG GIÁM SÁT',
                           style: TextStyle(
@@ -517,10 +519,11 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0256),
                         Container(
                           decoration: BoxDecoration(border: Border.all()),
-                          width: 350,
-                          height: 170,
+                          width: SizeConfig.screenWidth * 0.8962,
+                          height: SizeConfig.screenHeight * 0.2176,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
@@ -529,8 +532,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    width: 80.0,
-                                    height: 80.0,
+                                    width: SizeConfig.screenHeight * 0.1024,
+                                    height: SizeConfig.screenHeight * 0.1024,
                                     decoration: new BoxDecoration(
                                       color: modeColor,
                                       shape: BoxShape.circle,
@@ -548,8 +551,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    width: 80.0,
-                                    height: 80.0,
+                                    width: SizeConfig.screenHeight * 0.1024,
+                                    height: SizeConfig.screenHeight * 0.1024,
                                     decoration: new BoxDecoration(
                                       color: running
                                           ? Colors.green
@@ -569,8 +572,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    width: 80.0,
-                                    height: 80.0,
+                                    width: SizeConfig.screenHeight * 0.1024,
+                                    height: SizeConfig.screenHeight * 0.1024,
                                     decoration: new BoxDecoration(
                                       color: warning
                                           ? Colors.green

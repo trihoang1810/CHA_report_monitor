@@ -25,7 +25,7 @@ class DeforBendingReportRepository {
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
-              "/api/phieukiemtralucuon/?StartTime=" +
+              "/api/reportcurlingforce/?StartTime=" +
               start.toString() +
               "&StopTime=" +
               end.toString()))
@@ -42,7 +42,8 @@ class DeforBendingReportRepository {
         return ErrorPackage.fromJson(errJson);
       }
     } on SocketException {
-      return ErrorPackage(errorCode: "", detail: "Lỗi socket", message: "");
+      return ErrorPackage(
+          errorCode: "", detail: "Mất kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
       return ErrorPackage(
           errorCode: "", detail: e.toString(), message: "Lỗi lạ");

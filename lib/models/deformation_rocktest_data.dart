@@ -41,7 +41,6 @@ class DeforRockReport {
 
 class ItemRock {
   ItemRock({
-    this.id,
     this.mucDichKiemTra,
     this.ngayBatDau,
     this.ngayKetThuc,
@@ -51,7 +50,6 @@ class ItemRock {
     this.mauKiemTraRockTest,
   });
 
-  int id;
   String mucDichKiemTra;
   DateTime ngayBatDau;
   DateTime ngayKetThuc;
@@ -62,19 +60,18 @@ class ItemRock {
 
   factory ItemRock.fromJson(dynamic json) {
     List<MauKiemTraRockTest> mauKiemTraRockTest = [];
-    List items = json["mauKiemTraRockTest"];
+    List items = json["rockTestSheet"];
     for (var item in items) {
       MauKiemTraRockTest giKiemTraRockTest = MauKiemTraRockTest.fromJson(item);
       mauKiemTraRockTest.add(giKiemTraRockTest);
     }
     return ItemRock(
-      id: json["id"],
-      mucDichKiemTra: json["mucDichKiemTra"],
-      ngayBatDau: DateTime.parse(json["ngayBatDau"]),
-      ngayKetThuc: DateTime.parse(json["ngayKetThuc"]),
-      maSanPham: json["maSanPham"],
-      sanPham: SanPhamRock.fromJson(json["sanPham"]),
-      tieuChuanThuNghiem: json["tieuChuanThuNghiem"],
+      mucDichKiemTra: json["target"],
+      ngayBatDau: DateTime.parse(json["startTime"]),
+      ngayKetThuc: DateTime.parse(json["stopTime"]),
+      maSanPham: json["productId"],
+      sanPham: SanPhamRock.fromJson(json["product"]),
+      tieuChuanThuNghiem: json["standard"],
       mauKiemTraRockTest: mauKiemTraRockTest,
     );
   }
@@ -82,8 +79,7 @@ class ItemRock {
 
 class MauKiemTraRockTest {
   MauKiemTraRockTest(
-      {this.phieuKtRockTestId,
-      this.id,
+      {this.id,
       this.ketQuaDanhGia,
       this.tongLoi,
       this.ghiChu,
@@ -91,10 +87,9 @@ class MauKiemTraRockTest {
       this.taiTrong,
       this.soLanThuNghiem});
 
-  int phieuKtRockTestId;
   int id;
-  String taiTrong;
-  String soLanThuNghiem;
+  int taiTrong;
+  int soLanThuNghiem;
   String ketQuaDanhGia;
   String tongLoi;
   String ghiChu;
@@ -102,14 +97,13 @@ class MauKiemTraRockTest {
 
   factory MauKiemTraRockTest.fromJson(dynamic json) {
     return MauKiemTraRockTest(
-      phieuKtRockTestId: json["phieuKtRockTestId"],
       id: json["id"],
-      taiTrong: json["taiTrong"],
-      ketQuaDanhGia: json["ketQuaDanhGia"],
-      soLanThuNghiem: json["soLanThuNghiem"],
-      tongLoi: json["tongLoi"],
-      ghiChu: json["ghiChu"],
-      nhanVienKiemTra: json["nhanVienKiemTra"],
+      taiTrong: json["mass"],
+      ketQuaDanhGia: json["testResult"],
+      soLanThuNghiem: json["numberOfTest"],
+      tongLoi: json["totalError"],
+      ghiChu: json["note"],
+      nhanVienKiemTra: json["employee"],
     );
   }
 }
@@ -125,7 +119,7 @@ class SanPhamRock {
 
   factory SanPhamRock.fromJson(dynamic json) {
     return SanPhamRock(
-      tenSanPham: json["tenSanPham"],
+      tenSanPham: json["name"],
       id: json["id"],
     );
   }

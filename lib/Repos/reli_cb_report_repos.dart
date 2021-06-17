@@ -20,10 +20,12 @@ class ReliCBReportRepository {
       final end = (stopTime == null)
           ? DateFormat('yyyy-MM-dd').format(DateTime.now())
           : DateFormat('yyyy-MM-dd').format(stopTime);
+      print(start);
+      print(end);
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
-              "/api/phieukiemtradongcuongbuc/?StartTime=" +
+              "/api/reportdeformation/?StartTime=" +
               start +
               "&StopTime=" +
               end))
@@ -43,7 +45,7 @@ class ReliCBReportRepository {
         return ErrorPackage.fromJson(errJson);
       }
     } on SocketException {
-      return ErrorPackage(errorCode: "", detail: "Lỗi socket", message: "");
+      return ErrorPackage(errorCode: "", detail: "Không có kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
       return ErrorPackage(
           errorCode: "", detail: e.toString(), message: "Lỗi lạ");

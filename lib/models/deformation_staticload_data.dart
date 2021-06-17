@@ -6,13 +6,11 @@ class MyDeforStaticReportView {
   String ghiChu;
   String nhanVienKiemTra;
   MyDeforStaticReportView(
-      {
-      this.ghiChu,
+      {this.ghiChu,
       this.mauSo,
       this.nhanVienKiemTra,
       this.tenSanPham,
       this.tinhTrang,
-     
       this.tongLoi});
 }
 
@@ -39,7 +37,6 @@ class DeforStaticReport {
 
 class ItemStatic {
   ItemStatic({
-    this.id,
     this.mucDichKiemTra,
     this.ngayBatDau,
     this.ngayKetThuc,
@@ -49,7 +46,6 @@ class ItemStatic {
     this.mauKiemTraChiuTaiTinh,
   });
 
-  int id;
   String mucDichKiemTra;
   DateTime ngayBatDau;
   DateTime ngayKetThuc;
@@ -60,20 +56,19 @@ class ItemStatic {
 
   factory ItemStatic.fromJson(dynamic json) {
     List<MauKiemTraChiuTaiTinh> mauKiemTraChiuTaiTinh = [];
-    List items = json["mauKiemTraChiuTaiTinh"];
+    List items = json["staticLoadTestSheet"];
     for (var item in items) {
       MauKiemTraChiuTaiTinh giKiemTraChiuTaiTinh =
           MauKiemTraChiuTaiTinh.fromJson(item);
       mauKiemTraChiuTaiTinh.add(giKiemTraChiuTaiTinh);
     }
     return ItemStatic(
-      id: json["id"],
-      mucDichKiemTra: json["mucDichKiemTra"],
-      ngayBatDau: DateTime.parse(json["ngayBatDau"]),
-      ngayKetThuc: DateTime.parse(json["ngayKetThuc"]),
-      maSanPham: json["maSanPham"],
-      sanPham: SanPhamStatic.fromJson(json["sanPham"]),
-      tieuChuanThuNghiem: json["tieuChuanThuNghiem"],
+      mucDichKiemTra: json["target"],
+      ngayBatDau: DateTime.parse(json["startTime"]),
+      ngayKetThuc: DateTime.parse(json["stopTime"]),
+      maSanPham: json["productId"],
+      sanPham: SanPhamStatic.fromJson(json["product"]),
+      tieuChuanThuNghiem: json["standard"],
       mauKiemTraChiuTaiTinh: mauKiemTraChiuTaiTinh,
     );
   }
@@ -81,7 +76,6 @@ class ItemStatic {
 
 class MauKiemTraChiuTaiTinh {
   MauKiemTraChiuTaiTinh({
-    this.phieuKtChiuTaiTinhId,
     this.id,
     this.ketQuaKiemTraTaiTinh,
     this.tongLoi,
@@ -89,7 +83,6 @@ class MauKiemTraChiuTaiTinh {
     this.nhanVienKiemTra,
   });
 
-  int phieuKtChiuTaiTinhId;
   int id;
   String ketQuaKiemTraTaiTinh;
   String tongLoi;
@@ -98,12 +91,11 @@ class MauKiemTraChiuTaiTinh {
 
   factory MauKiemTraChiuTaiTinh.fromJson(dynamic json) {
     return MauKiemTraChiuTaiTinh(
-      phieuKtChiuTaiTinhId: json["phieuKtChiuTaiTinhId"],
       id: json["id"],
-      ketQuaKiemTraTaiTinh: json["ketQuaKiemTraTaiTinh"],
-      tongLoi: json["tongLoi"],
-      ghiChu: json["ghiChu"],
-      nhanVienKiemTra: json["nhanVienKiemTra"],
+      ketQuaKiemTraTaiTinh: json["testResult"],
+      tongLoi: json["totalError"],
+      ghiChu: json["note"],
+      nhanVienKiemTra: json["employee"],
     );
   }
 }
@@ -119,7 +111,7 @@ class SanPhamStatic {
 
   factory SanPhamStatic.fromJson(dynamic json) {
     return SanPhamStatic(
-      tenSanPham: json["tenSanPham"],
+      tenSanPham: json["name"],
       id: json["id"],
     );
   }

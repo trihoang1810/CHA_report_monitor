@@ -5,7 +5,9 @@ import 'package:mobile_app/Presentation/routers/app_router.dart';
 import 'package:mobile_app/business_logic/events/login_event.dart';
 import 'package:mobile_app/business_logic/states/login_state.dart';
 
-int minLength = 3;
+int minLength = 6;
+int maxLength = 12;
+int minLengthAcc = 3;
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc()
@@ -18,8 +20,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     if (event is LoginEventChecking) {
       bool _isUsernameErr = true, _isPasswordErr = true;
-      _isUsernameErr = event.userName.length < minLength;
-      _isPasswordErr = event.passWord.length < minLength;
+      _isUsernameErr = event.userName.length < minLengthAcc;
+      _isPasswordErr = event.passWord.length < minLength ||
+          event.passWord.length > maxLength;
       yield LoginStateFormatChecking(
         isUsernameErr: _isUsernameErr,
         isPasswordErr: _isPasswordErr,

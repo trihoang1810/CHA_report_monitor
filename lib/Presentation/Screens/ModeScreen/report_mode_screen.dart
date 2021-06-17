@@ -10,6 +10,7 @@ class ReportModeScreen extends StatefulWidget {
 class _ReportModeScreenState extends State<ReportModeScreen> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     final reportButton = new CustomizedButton(
       text: 'Độ bền',
       onPressed: () {
@@ -38,10 +39,12 @@ class _ReportModeScreenState extends State<ReportModeScreen> {
       body: Center(
         child: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: EdgeInsets.only(
+              left: SizeConfig.screenWidth * 0.0611,
+              right: SizeConfig.screenWidth * 0.0611),
           children: <Widget>[
             SizedBox(
-              height: 30,
+              height: SizeConfig.screenHeight * 0.0384,
             ),
             Text(
               "BÁO CÁO KIỂM TRA CHẤT LƯỢNG SẢN PHẨM",
@@ -49,19 +52,18 @@ class _ReportModeScreenState extends State<ReportModeScreen> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             ),
             SizedBox(
-              height: 80.0,
+              height: SizeConfig.screenHeight * 0.1024,
             ),
             reportButton,
-            SizedBox(height: 15.0),
+            SizedBox(height: SizeConfig.screenHeight * 0.0192),
             CustomizedButton(
-              width: 100.0,
               text: 'Độ biến dạng',
               onPressed: () {
                 Navigator.pushNamed(context, '/deformationreportscreen');
               },
             ),
             // reportButtonCB,
-            SizedBox(height: 100),
+            SizedBox(height: SizeConfig.screenHeight * 0.128),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/Presentation/Widget/main_app_name.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
+import 'package:mobile_app/presentation/widget/constant.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    print("${SizeConfig.screenHeight} + / + ${SizeConfig.screenWidth}");
     final loginButton = new CustomizedButton(
       text: "Đăng nhập",
       onPressed: () {
@@ -25,24 +28,33 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
-          children: <Widget>[
-            SizedBox(
-              height: 30,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Center(
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.only(left: 24.0, right: 24.0),
+              children: <Widget>[
+                SizedBox(height: SizeConfig.screenHeight * 0.0384),
+                SizedBox(height: SizeConfig.screenHeight * 0.05),
+                MainAppName(),
+                SizedBox(
+                  height: SizeConfig.screenHeight * 0.1,
+                ),
+                loginButton,
+              ],
             ),
-            SizedBox(height: 40),
-            MainAppName(),
-            SizedBox(
-              height: 80.0,
-            ),
-            loginButton,
-            SizedBox(height: 300),
-            rightsReserved
-          ],
-        ),
+          ),
+          Column(
+            children: [
+              rightsReserved,
+              SizedBox(
+                height: (SizeConfig.screenHeight / 100),
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -1,6 +1,7 @@
 String employeeIdOverall = "";
 String employeeLastNameOverall = "";
 String employeeFirstNameOverall = "";
+String tokenOverall = "";
 
 class LoginData {
   Token token;
@@ -26,6 +27,7 @@ class Token {
   int expiredIn;
   Token({this.id, this.authToken, this.expiredIn});
 }
+
 class Employee {
   String employeeId;
   String firstName;

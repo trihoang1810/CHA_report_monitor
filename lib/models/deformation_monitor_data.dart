@@ -20,17 +20,17 @@ class DeforMonitorData extends Equatable {
     this.errorStatus,
   });
 
-  int noPressPv1;
-  int noPressPv2;
-  int noPressPv3;
-  int noPressSp12;
-  int noPressSp3;
-  int errorCode;
-  int modeStatus;
-  int forceCylinderSp12;
-  int forceCylinderSp3;
-  int timeHoldSp12;
-  int timeHoldSp3;
+  final noPressPv1;
+  final noPressPv2;
+  final noPressPv3;
+  final noPressSp12;
+  final noPressSp3;
+  final errorCode;
+  final modeStatus;
+  final forceCylinderSp12;
+  final forceCylinderSp3;
+  final timeHoldSp12;
+  final timeHoldSp3;
   bool seclect1;
   bool seclect2;
   bool redStatus;
@@ -55,12 +55,13 @@ class DeforMonitorData extends Equatable {
         greenStatus,
         errorStatus
       ];
-  factory DeforMonitorData.fromJson(Map<String, dynamic> json) => DeforMonitorData(
-        noPressPv1: json["noPressPv1"],
-        noPressPv2: json["noPressPv2"],
-        noPressPv3: json["noPressPv3"],
-        noPressSp12: json["noPressSp12"],
-        noPressSp3: json["noPressSp3"],
+  factory DeforMonitorData.fromJson(Map<String, dynamic> json) =>
+      DeforMonitorData(
+        noPressPv1: json["numberOfTestPv1"],
+        noPressPv2: json["numberOfTestPv2"],
+        noPressPv3: json["numberOfTestPv3"],
+        noPressSp12: json["numberOfTestSp12"],
+        noPressSp3: json["numberOfTestSp3"],
         errorCode: json["errorCode"],
         modeStatus: json["modeStatus"],
         forceCylinderSp12: json["forceCylinderSp12"],

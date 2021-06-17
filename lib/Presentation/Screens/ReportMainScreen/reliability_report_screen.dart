@@ -25,6 +25,7 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
   DateTime _endCB = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     LoadingDialog loadingDialog = LoadingDialog(buildContext: context);
     return DefaultTabController(
       length: 2,
@@ -101,14 +102,19 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                     child: Column(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          padding: EdgeInsets.fromLTRB(
+                              0, SizeConfig.screenHeight * 0.0256, 0, 0),
                           child: HeaderWidget(
                             title: 'Chọn khoảng thời gian',
                             child: Row(
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        SizeConfig.screenWidth * 0.0509,
+                                        0,
+                                        0,
+                                        0),
                                     child: RaisedButton(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
@@ -132,16 +138,19 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 8),
+                                SizedBox(
+                                    width: SizeConfig.screenWidth * 0.0203),
                                 Icon(
                                   Icons.arrow_forward,
                                   color: Constants.mainColor,
                                   size: 40,
                                 ),
-                                const SizedBox(width: 8),
+                                SizedBox(
+                                    width: SizeConfig.screenWidth * 0.0203),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                    padding: EdgeInsets.fromLTRB(0, 0,
+                                        SizeConfig.screenWidth * 0.0509, 0),
                                     child: RaisedButton(
                                       color: Colors.white,
                                       shape: RoundedRectangleBorder(
@@ -177,10 +186,10 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                   ReliReportEventSearchingClicked(
                                       startTime: _start, stopTime: _end));
                             }),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         Container(
-                          width: 350,
-                          height: 500,
+                          width: SizeConfig.screenWidth * 0.8912,
+                          height: SizeConfig.screenHeight * 0.5761,
                           decoration: BoxDecoration(border: Border.all()),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
@@ -235,14 +244,19 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                     child: Column(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          padding: EdgeInsets.fromLTRB(
+                              0, SizeConfig.screenHeight * 0.0256, 0, 0),
                           child: HeaderWidget(
                             title: 'Chọn khoảng thời gian',
                             child: Row(
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        SizeConfig.screenWidth * 0.0509,
+                                        0,
+                                        0,
+                                        0),
                                     child: RaisedButton(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
@@ -265,16 +279,19 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 8),
+                                SizedBox(
+                                    width: SizeConfig.screenWidth * 0.0203),
                                 Icon(
                                   Icons.arrow_forward,
                                   color: Constants.mainColor,
                                   size: 40,
                                 ),
-                                const SizedBox(width: 8),
+                                SizedBox(
+                                    width: SizeConfig.screenWidth * 0.0203),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                    padding: EdgeInsets.fromLTRB(0, 0,
+                                        SizeConfig.screenWidth * 0.0509, 0),
                                     child: RaisedButton(
                                       color: Colors.white,
                                       shape: RoundedRectangleBorder(
@@ -311,10 +328,10 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                   ReliCBReportEventSearchingClicked(
                                       startTime: _startCB, stopTime: _endCB));
                             }),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         Container(
-                          width: 350,
-                          height: 500,
+                          width: SizeConfig.screenWidth * 0.8912,
+                          height: SizeConfig.screenHeight * 0.5761,
                           decoration: BoxDecoration(border: Border.all()),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,

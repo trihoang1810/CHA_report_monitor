@@ -10,6 +10,7 @@ class MonitorModeScreen extends StatefulWidget {
 class _MonitorModeScreenState extends State<MonitorModeScreen> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     final reportButton = new CustomizedButton(
       text: "Độ bền",
       onPressed: () {
@@ -44,10 +45,12 @@ class _MonitorModeScreenState extends State<MonitorModeScreen> {
       body: Center(
         child: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: EdgeInsets.only(
+              left: SizeConfig.screenWidth * 0.0611,
+              right: SizeConfig.screenWidth * 0.0611),
           children: <Widget>[
             SizedBox(
-              height: 30,
+              height: SizeConfig.screenHeight * 0.0384,
             ),
             Text(
               "GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM",
@@ -55,12 +58,12 @@ class _MonitorModeScreenState extends State<MonitorModeScreen> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             ),
             SizedBox(
-              height: 60.0,
+              height: SizeConfig.screenHeight * 0.1024,
             ),
             reportButton,
-            SizedBox(height: 15.0),
+            SizedBox(height: SizeConfig.screenHeight * 0.0192),
             reportButtonCB,
-            SizedBox(height: 100),
+            SizedBox(height: SizeConfig.screenHeight * 0.128),
           ],
         ),
       ),

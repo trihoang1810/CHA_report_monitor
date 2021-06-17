@@ -36,10 +36,10 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
             for (var mau in item.mauKiemTraLucUon) {
               MyDeforBendingReportView _myDeforBendingReportView =
                   MyDeforBendingReportView(
-                      mauSo: item.id.toString(),
+                      mauSo: mau.id.toString(),
                       tenSanPham: item.sanPham.tenSanPham,
-                      taiTrong: mau.taiTrong,
-                      thoiGian: mau.thoiGian,
+                      taiTrong: mau.taiTrong.toString(),
+                      thoiGian: mau.thoiGian.toString(),
                       doCongVenh: mau.doCongVenh,
                       tongLoi: mau.tongLoi,
                       ghiChu: mau.ghiChu,
@@ -119,7 +119,7 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
             for (var mau in item.mauKiemTraChiuTaiTinh) {
               MyDeforStaticReportView _myDeforStaticReportView =
                   MyDeforStaticReportView(
-                      mauSo: item.id.toString(),
+                      mauSo: mau.id.toString(),
                       tenSanPham: item.sanPham.tenSanPham,
                       tinhTrang: mau.ketQuaKiemTraTaiTinh,
                       tongLoi: mau.tongLoi,
@@ -200,10 +200,10 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
             for (var mau in item.mauKiemTraRockTest) {
               MyDeforRockReportView _myDeforRockReportView =
                   MyDeforRockReportView(
-                      mauSo: item.id.toString(),
+                      mauSo: mau.id.toString(),
                       tenSanPham: item.sanPham.tenSanPham,
-                      taiTrong: mau.taiTrong,
-                      soLanThu: mau.soLanThuNghiem,
+                      taiTrong: mau.taiTrong.toString(),
+                      soLanThu: mau.soLanThuNghiem.toString(),
                       ketQuaDanhGia: mau.ketQuaDanhGia,
                       tongLoi: mau.tongLoi,
                       ghiChu: mau.ghiChu,

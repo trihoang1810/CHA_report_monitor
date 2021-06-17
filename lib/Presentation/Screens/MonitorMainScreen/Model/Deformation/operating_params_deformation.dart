@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/presentation/widget/constant.dart';
 
 //HỆ 2
 class MonitorOperatingParamsDefor extends StatefulWidget {
@@ -12,11 +13,9 @@ class MonitorOperatingParamsDefor extends StatefulWidget {
   String data2 = "";
   String data3 = "";
   String data4 = "";
- 
 
   MonitorOperatingParamsDefor({
     Key key,
-  
     @required this.data4,
     @required this.text1,
     @required this.text2,
@@ -25,7 +24,6 @@ class MonitorOperatingParamsDefor extends StatefulWidget {
     @required this.data1,
     @required this.data2,
     @required this.data3,
-  
     @required this.colorText1,
   }) : super(key: key);
   @override
@@ -37,6 +35,7 @@ class _MonitorOperatingParamsDeforState
     extends State<MonitorOperatingParamsDefor> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -67,7 +66,7 @@ class _MonitorOperatingParamsDeforState
             ),
           ],
         ),
-        SizedBox(width: 35),
+        SizedBox(width: SizeConfig.screenWidth * 0.0896),
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -82,26 +81,26 @@ class _MonitorOperatingParamsDeforState
               ),
             ),
             Container(
-              width: 150,
-              height: 30,
+              width: SizeConfig.screenWidth * 0.3841,
+              height: SizeConfig.screenHeight * 0.03841,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data1)),
             ),
             Container(
-              width: 150,
-              height: 30,
+              width: SizeConfig.screenWidth * 0.3841,
+              height: SizeConfig.screenHeight * 0.03841,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data2)),
             ),
             Container(
-              width: 150,
-              height: 30,
+              width: SizeConfig.screenWidth * 0.3841,
+              height: SizeConfig.screenHeight * 0.03841,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data3)),
             ),
             Container(
-              width: 150,
-              height: 30,
+              width: SizeConfig.screenWidth * 0.3841,
+              height: SizeConfig.screenHeight * 0.03841,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data4)),
             ),
@@ -124,7 +123,7 @@ class MonitorOperatingParamsDefor1 extends StatefulWidget {
   String data2 = "";
   String data3 = "";
   String data4 = "";
-   String data5 = "";
+  String data5 = "";
   MonitorOperatingParamsDefor1(
       {Key key,
       @required this.text1,
@@ -148,6 +147,7 @@ class _MonitorOperatingParamsDefor1State
     extends State<MonitorOperatingParamsDefor1> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -178,7 +178,7 @@ class _MonitorOperatingParamsDefor1State
             ),
           ],
         ),
-        SizedBox(width: 35),
+        SizedBox(width: SizeConfig.screenWidth * 0.0896),
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -195,7 +195,7 @@ class _MonitorOperatingParamsDefor1State
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(width: 30),
+                SizedBox(width: SizeConfig.screenWidth * 0.11522),
                 Container(
                   decoration: BoxDecoration(
                     color: widget.colorText2,
@@ -209,20 +209,20 @@ class _MonitorOperatingParamsDefor1State
               ],
             ),
             Container(
-              width: 180,
-              height: 30,
+              width: SizeConfig.screenWidth * 0.4609,
+              height: SizeConfig.screenHeight * 0.03841,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data1)),
             ),
             Container(
-              width: 180,
-              height: 30,
+              width: SizeConfig.screenWidth * 0.4609,
+              height: SizeConfig.screenHeight * 0.03841,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data2)),
             ),
             Container(
-              width: 180,
-              height: 30,
+              width: SizeConfig.screenWidth * 0.4609,
+              height: SizeConfig.screenHeight * 0.03841,
               decoration: BoxDecoration(color: Colors.black26),
               child: Center(child: Text(widget.data3)),
             ),
@@ -230,15 +230,15 @@ class _MonitorOperatingParamsDefor1State
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  width: 80,
-                  height: 30,
+                  width: SizeConfig.screenWidth * 0.2048,
+                  height: SizeConfig.screenHeight * 0.03841,
                   decoration: BoxDecoration(color: Colors.black26),
                   child: Center(child: Text(widget.data4)),
                 ),
-                SizedBox(width: 20),
+                SizedBox(width: SizeConfig.screenWidth * 0.05121),
                 Container(
-                  width: 80,
-                  height: 30,
+                  width: SizeConfig.screenWidth * 0.2048,
+                  height: SizeConfig.screenHeight * 0.03841,
                   decoration: BoxDecoration(color: Colors.black26),
                   child: Center(child: Text(widget.data5)),
                 ),

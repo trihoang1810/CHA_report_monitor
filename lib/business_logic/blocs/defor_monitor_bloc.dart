@@ -36,19 +36,20 @@ class DeforMonitorBloc extends Bloc<DeforMonitorEvent, DeforMonitorState> {
                         print('Do something with period loading $error'));
           } else
             _streamSubscription.resume();
-        } else if (event is ErrorPackage) {
+        } else if (deforMonitorData is ErrorPackage) {
           await _streamSubscription?.cancel();
           _streamSubscription = null;
           yield Defor12MonitorStateLoadingFail(
               timestamp: event.timestamp, errorPackage: deforMonitorData);
         } else {
+          print(deforMonitorData.toString());
           yield Defor12MonitorStateLoadingFail(
               timestamp: event.timestamp,
               errorPackage: ErrorPackage(
                   message: "Có lỗi xảy ra", detail: "vui lòng thử lại"));
           await _streamSubscription?.cancel();
           _streamSubscription = null;
-          print('Lỗi bậy bạ');
+          print('Lỗi bậy bạ 1');
         }
       } on SocketException {
         print("Lỗi socket");
@@ -97,13 +98,14 @@ class DeforMonitorBloc extends Bloc<DeforMonitorEvent, DeforMonitorState> {
           yield Defor12MonitorStateLoadingFail(
               timestamp: event.timestamp, errorPackage: deforMonitorData);
         } else {
+          print(deforMonitorData.toString());
           yield Defor12MonitorStateLoadingFail(
               timestamp: event.timestamp,
               errorPackage: ErrorPackage(
                   message: "Có lỗi xảy ra", detail: "vui lòng thử lại"));
           await _streamSubscription?.cancel();
           _streamSubscription = null;
-          print('Lỗi bậy bạ');
+          print('Lỗi bậy bạ 12');
         }
       } on SocketException {
         print("Lỗi socket");

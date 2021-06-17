@@ -41,7 +41,6 @@ class DeforBendingReport {
 
 class ItemBending {
   ItemBending({
-    this.id,
     this.mucDichKiemTra,
     this.ngayBatDau,
     this.ngayKetThuc,
@@ -51,7 +50,6 @@ class ItemBending {
     this.mauKiemTraLucUon,
   });
 
-  int id;
   String mucDichKiemTra;
   DateTime ngayBatDau;
   DateTime ngayKetThuc;
@@ -62,19 +60,18 @@ class ItemBending {
 
   factory ItemBending.fromJson(dynamic json) {
     List<MauKiemTraLucUon> mauKiemTraLucUon = [];
-    List items = json["mauKiemTraLucUon"];
+    List items = json["curlingForceTestSheet"];
     for (var item in items) {
       MauKiemTraLucUon giKiemTraLucUon = MauKiemTraLucUon.fromJson(item);
       mauKiemTraLucUon.add(giKiemTraLucUon);
     }
     return ItemBending(
-      id: json["id"],
-      mucDichKiemTra: json["mucDichKiemTra"],
-      ngayBatDau: DateTime.parse(json["ngayBatDau"]),
-      ngayKetThuc: DateTime.parse(json["ngayKetThuc"]),
-      maSanPham: json["maSanPham"],
-      sanPham: SanPhamBending.fromJson(json["sanPham"]),
-      tieuChuanThuNghiem: json["tieuChuanThuNghiem"],
+      mucDichKiemTra: json["target"],
+      ngayBatDau: DateTime.parse(json["startTime"]),
+      ngayKetThuc: DateTime.parse(json["stopTime"]),
+      maSanPham: json["productId"],
+      sanPham: SanPhamBending.fromJson(json["product"]),
+      tieuChuanThuNghiem: json["standard"],
       mauKiemTraLucUon: mauKiemTraLucUon,
     );
   }
@@ -82,8 +79,7 @@ class ItemBending {
 
 class MauKiemTraLucUon {
   MauKiemTraLucUon(
-      {this.phieuKtLucUonId,
-      this.id,
+      {this.id,
       this.doCongVenh,
       this.tongLoi,
       this.ghiChu,
@@ -91,10 +87,9 @@ class MauKiemTraLucUon {
       this.taiTrong,
       this.thoiGian});
 
-  int phieuKtLucUonId;
   int id;
-  String taiTrong;
-  String thoiGian;
+  int taiTrong;
+  int thoiGian;
   String doCongVenh;
   String tongLoi;
   String ghiChu;
@@ -102,14 +97,13 @@ class MauKiemTraLucUon {
 
   factory MauKiemTraLucUon.fromJson(dynamic json) {
     return MauKiemTraLucUon(
-      phieuKtLucUonId: json["phieuKtLucUonId"],
       id: json["id"],
-      taiTrong: json["taiTrong"],
-      thoiGian: json["thoiGian"],
-      doCongVenh: json["doCongVenh"],
-      tongLoi: json["tongLoi"],
-      ghiChu: json["nhanXet"],
-      nhanVienKiemTra: json["nhanVienKiemTra"],
+      taiTrong: json["mass"],
+      thoiGian: json["timeSpan"],
+      doCongVenh: json["warping"],
+      tongLoi: json["totalError"],
+      ghiChu: json["remark"],
+      nhanVienKiemTra: json["employee"],
     );
   }
 }
@@ -125,7 +119,7 @@ class SanPhamBending {
 
   factory SanPhamBending.fromJson(dynamic json) {
     return SanPhamBending(
-      tenSanPham: json["tenSanPham"],
+      tenSanPham: json["name"],
       id: json["id"],
     );
   }

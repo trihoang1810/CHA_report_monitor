@@ -12,12 +12,16 @@ class DeforMonitorRepository {
   Future loadingDeforDataRequest() async {
     final response = await this
         .httpClient
-        .get(Uri.parse(Constants.baseUrl + "/api/qualityinspectionmachine"))
+        .get(Uri.parse(Constants.baseUrl + "/api/monitorendurance"))
         .timeout(Constants.timeOutLimitation);
+
     try {
       final json = jsonDecode(response.body);
+      print(json);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         DeforMonitorData deforMonitorData = DeforMonitorData.fromJson(json);
+        print(deforMonitorData.errorStatus);
         return deforMonitorData;
       } else {
         final errJson = jsonDecode(response.body);

@@ -13,7 +13,7 @@ class ReliMonitorRepository {
   Future loadingReliDataRequest() async {
     final response = await this
         .httpClient
-        .get(Uri.parse(Constants.baseUrl + "/api/giamsattestdongem"))
+        .get(Uri.parse(Constants.baseUrl + "/api/monitorreliability"))
         .timeout(Constants.timeOutLimitation);
     try {
       final json = jsonDecode(response.body);
@@ -29,7 +29,8 @@ class ReliMonitorRepository {
         return ErrorPackage.fromJson(errJson);
       }
     } on SocketException {
-      return ErrorPackage(errorCode: "", detail: "Lỗi socket", message: "");
+      return ErrorPackage(
+          errorCode: "", detail: "Mất kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
       return ErrorPackage(
           errorCode: "", detail: e.toString(), message: "Lỗi lạ");

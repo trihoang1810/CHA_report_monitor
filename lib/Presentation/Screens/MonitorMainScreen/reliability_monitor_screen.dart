@@ -30,6 +30,7 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
   bool running2 = false;
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     LoadingDialog loadingDialog = LoadingDialog(buildContext: context);
     return DefaultTabController(
       length: 2,
@@ -88,8 +89,8 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
                         context: context,
-                        title: "Truy xuất thất bại",
-                        desc: "Vui lòng thử lại",
+                        title: reliMonitorState.errorPackage.message,
+                        desc: reliMonitorState.errorPackage.detail,
                         textBtn: "OK",
                         closePressed: () {},
                         onPressedBtn: () {})
@@ -111,8 +112,8 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                   is ReliMonitorStateLoadingRefetchFailure) {
                 AlertDialogOneBtnCustomized(
                         context: context,
-                        title: "Truy xuất thất bại",
-                        desc: "Vui lòng thử lại",
+                        title: reliMonitorState.errorPackage.message,
+                        desc: reliMonitorState.errorPackage.detail,
                         textBtn: "OK",
                         closePressed: () {},
                         onPressedBtn: () {})
@@ -136,8 +137,8 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                 loadingDialog.dismiss();
                 AlertDialogOneBtnCustomized(
                         context: context,
-                        title: "Có lỗi xảy ra trong quá trình giám sát",
-                        desc: "Vui lòng thử lại",
+                        title: reliMonitorState.errorPackage.message,
+                        desc: reliMonitorState.errorPackage.detail,
                         textBtn: "OK",
                         closePressed: () {},
                         onPressedBtn: () {})
@@ -180,22 +181,22 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         CustomizedButton(
                           fontSize: 25,
-                          width: 200,
-                          height: 40,
+                          width: SizeConfig.screenWidth * 0.5121,
+                          height: SizeConfig.screenHeight * 0.05121,
                           onPressed: () {
                             BlocProvider.of<ReliMonitorBloc>(context)
                                 .add(ReliMonitorEventSearchingClicked());
                           },
                           text: "Truy xuất",
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         Container(
                           decoration: BoxDecoration(border: Border.all()),
-                          width: 350,
-                          height: 200,
+                          width: SizeConfig.screenWidth * 0.8962,
+                          height: SizeConfig.screenHeight * 0.2561,
                           child: MonitorOperatingParamsReli(
                               text1: "Thời gian đóng nắp cầu",
                               text2: "Thời gian mở nắp cầu",
@@ -206,7 +207,7 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                               data3: data3,
                               data4: data4),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0256),
                         Text(
                           'BẢNG GIÁM SÁT',
                           style: TextStyle(
@@ -214,10 +215,11 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0256),
                         Container(
                           decoration: BoxDecoration(border: Border.all()),
-                          width: 350,
-                          height: 170,
+                          width: SizeConfig.screenWidth * 0.8962,
+                          height: SizeConfig.screenHeight * 0.2176,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
@@ -226,8 +228,8 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    width: 100.0,
-                                    height: 100.0,
+                                    width: SizeConfig.screenHeight * 0.1280,
+                                    height: SizeConfig.screenHeight * 0.1280,
                                     decoration: new BoxDecoration(
                                       color: running
                                           ? Colors.green
@@ -247,8 +249,8 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    width: 100.0,
-                                    height: 100.0,
+                                    width: SizeConfig.screenHeight * 0.1280,
+                                    height: SizeConfig.screenHeight * 0.1280,
                                     decoration: new BoxDecoration(
                                       color:
                                           warning ? Colors.red : Colors.black26,
@@ -273,7 +275,7 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                   child: Center(
                     child: Column(
                       children: <Widget>[
-                        SizedBox(height: 30),
+                        SizedBox(height: SizeConfig.screenHeight * 0.03841),
                         Text(
                           'THÔNG SỐ VẬN HÀNH',
                           style: TextStyle(
@@ -281,22 +283,22 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         CustomizedButton(
                           fontSize: 25,
-                          width: 200,
-                          height: 40,
+                          width: SizeConfig.screenWidth * 0.5121,
+                          height: SizeConfig.screenHeight * 0.05121,
                           onPressed: () {
                             BlocProvider.of<ReliMonitorBloc>(context)
                                 .add(ReliCBMonitorEventSearchingClicked());
                           },
                           text: "Truy xuất",
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         Container(
                           decoration: BoxDecoration(border: Border.all()),
-                          width: 350,
-                          height: 200,
+                          width: SizeConfig.screenWidth * 0.8962,
+                          height: SizeConfig.screenHeight * 0.2561,
                           child: MonitorOperatingParamsReli(
                               text1: "Thời gian dừng lên",
                               text2: "Thời gian dừng xuống",
@@ -307,7 +309,7 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                               data3: data23,
                               data4: data24),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0256),
                         Text(
                           'BẢNG GIÁM SÁT',
                           style: TextStyle(
@@ -315,10 +317,11 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0256),
                         Container(
                           decoration: BoxDecoration(border: Border.all()),
-                          width: 350,
-                          height: 170,
+                          width: SizeConfig.screenWidth * 0.8962,
+                          height: SizeConfig.screenHeight * 0.2176,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
@@ -327,8 +330,8 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    width: 100.0,
-                                    height: 100.0,
+                                    width: SizeConfig.screenHeight * 0.1280,
+                                    height: SizeConfig.screenHeight * 0.1280,
                                     decoration: new BoxDecoration(
                                       color: running2
                                           ? Colors.green
@@ -348,8 +351,8 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    width: 100.0,
-                                    height: 100.0,
+                                    width: SizeConfig.screenHeight * 0.1280,
+                                    height: SizeConfig.screenHeight * 0.1280,
                                     decoration: new BoxDecoration(
                                       color: warning2
                                           ? Colors.red

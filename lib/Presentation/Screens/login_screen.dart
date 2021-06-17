@@ -8,7 +8,7 @@ import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
 import 'package:mobile_app/business_logic/events/login_event.dart';
 import 'package:mobile_app/business_logic/states/login_state.dart';
 
-import 'file:///C:/flutterprojects/mobile_app/lib/Presentation/Widget/constant.dart';
+import 'package:mobile_app/presentation/widget/constant.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -22,8 +22,12 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _showPass = true;
   bool _isUsernameErr = false;
   bool _isPasswordErr = false;
+  String errorTitle = "";
+  String errorDetail = "";
+  String errorButton = "";
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     LoadingDialog loadingDialog = LoadingDialog(buildContext: context);
     return BlocProvider(
       create: (context) => LoginBloc(),
@@ -43,12 +47,13 @@ class _LoginScreenState extends State<LoginScreen> {
         body: SingleChildScrollView(
           child: BlocConsumer<LoginBloc, LoginState>(
             listener: (context, loginState) async {
-              print("Đang trong listener");
               if (loginState is LoginStateLoadingRequest) {
-                print("Đang ở loading request");
                 loadingDialog.show();
               } else if (loginState is LoginStateLoginSuccessful) {
                 loadingDialog.dismiss();
+                tokenOverall = (loginState.loginData.token.authToken != null
+                    ? loginState.loginData.token.authToken
+                    : "");
                 employeeIdOverall =
                     loginState.loginData.employee.employeeId != null
                         ? loginState.loginData.employee.employeeId
@@ -61,19 +66,40 @@ class _LoginScreenState extends State<LoginScreen> {
                     loginState.loginData.employee.lastName != null
                         ? loginState.loginData.employee.lastName
                         : "";
+                print(tokenOverall);
                 Navigator.popAndPushNamed(context, '/modescreen');
               } else if (loginState is LoginStateLoginFailure) {
                 print("Đã thất bại");
                 loadingDialog.dismiss();
+                if (loginState.errorPackage.message != null) {
+                  if (loginState.errorPackage.message == "Lỗi mạng") {
+                    errorTitle = loginState.errorPackage.message;
+                    errorDetail = loginState.errorPackage.detail;
+                    errorButton = "OK";
+                  } else if (loginState.errorPackage.message == "Lỗi lạ") {
+                    errorTitle = loginState.errorPackage.message;
+                    errorDetail = loginState.errorPackage.detail;
+                    errorButton = "OK";
+                  } else if (loginState.errorPackage.message ==
+                      "Request could not be process because of invalid request.") {
+                    errorTitle = "Đăng nhập thất bại";
+                    errorDetail = "Tên đăng nhập hoặc mật khẩu không đúng";
+                    errorButton = "Đăng nhập lại";
+                  } else {
+                    errorTitle = "Lỗi xảy ra";
+                    errorDetail = "Vui lòng đăng nhập lại";
+                    errorButton = "Đăng nhập lại";
+                  }
+                } else {
+                  errorTitle = "Lỗi xảy ra";
+                  errorDetail = "Vui lòng đăng nhập lại";
+                  errorButton = "Đăng nhập lại";
+                }
                 AlertDialogOneBtnCustomized(
                     context: context,
-                    title: loginState.errorPackage.message != null
-                        ? loginState.errorPackage.message
-                        : "Lỗi xảy ra",
-                    desc: loginState.errorPackage.detail != null
-                        ? loginState.errorPackage.detail
-                        : "Vui lòng đăng nhập lại",
-                    textBtn: "Đăng nhập lại",
+                    title: errorTitle,
+                    desc: errorDetail,
+                    textBtn: errorButton,
                     closePressed: () {
                       userController.text = "";
                       passController.text = "";
@@ -102,22 +128,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.only(left: 24.0, right: 24.0),
                     children: <Widget>[
                       SizedBox(
-                        height: 30,
+                        height: SizeConfig.screenHeight * 0.03841,
                       ),
                       //Text(
                       // "GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM NẮP BỒN CẦU",
                       //textAlign: TextAlign.center,
                       //style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
                       // ),
-                      SizedBox(height: 40),
+                      SizedBox(height: SizeConfig.screenHeight * 0.05121),
                       MainAppName(),
-                      SizedBox(height: 45.0),
+                      SizedBox(height: SizeConfig.screenHeight * 0.05761),
                       TextFormField(
                         autofocus: false,
                         controller: userController,
                         decoration: InputDecoration(
                           errorText: _isUsernameErr
-                              ? "Tên đăng nhập phải dài hơn $minLength ký tự"
+                              ? "Tên đăng nhập phải dài hơn $minLengthAcc ký tự"
                               : null,
                           errorStyle:
                               TextStyle(color: Colors.red, fontSize: 15),
@@ -135,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                       ),
-                      SizedBox(height: 10.0),
+                      SizedBox(height: SizeConfig.screenHeight * 0.0128),
                       Stack(
                         alignment: _isPasswordErr
                             ? AlignmentDirectional.topEnd
@@ -147,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             obscureText: _showPass,
                             decoration: InputDecoration(
                               errorText: _isPasswordErr
-                                  ? "Mật khẩu phải dài hơn $minLength ký tự"
+                                  ? "Mật khẩu phải chứa $minLength đến $maxLength ký tự"
                                   : null,
                               errorStyle:
                                   TextStyle(color: Colors.red, fontSize: 15),
@@ -179,8 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: 15.0,
-                        width: 30.0,
+                        height: SizeConfig.screenHeight * 0.0192,
                       ),
                       CustomizedButton(
                         onPressed: (userController.text == "" ||
@@ -200,14 +225,21 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                         text: "Đăng nhập",
                       ),
-                      SizedBox(height: 60),
+                      SizedBox(height: SizeConfig.screenHeight * 0.0768),
                     ],
                   ),
-                  Text(
-                    'SISTRAIN All rights reserved',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                  Column(
+                    children: [
+                      Text(
+                        'SISTRAIN All rights reserved',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: (SizeConfig.screenHeight / 100),
+                      )
+                    ],
                   ),
                 ],
               );

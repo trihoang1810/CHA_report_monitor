@@ -23,7 +23,7 @@ class ReliReportRepository {
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
-              "/api/phieukiemtradongem/?StartTime=" +
+              "/api/reportreliability/?StartTime=" +
               start.toString() +
               "&StopTime=" +
               end.toString()))
@@ -42,7 +42,7 @@ class ReliReportRepository {
       }
     } on SocketException {
       print('loi socket');
-      return ErrorPackage(errorCode: "", detail: "Lỗi socket", message: "");
+      return ErrorPackage(errorCode: "", detail: "Không có kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
       print('loi catch' + e.toString());
       return ErrorPackage(

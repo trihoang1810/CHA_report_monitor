@@ -14,7 +14,7 @@ class ReliCBMonitorRepository {
     try {
       final response = await this
           .httpClient
-          .get(Uri.parse(Constants.baseUrl + "/api/giamsattestdongcuongbuc"))
+          .get(Uri.parse(Constants.baseUrl + "/api/monitordeformation"))
           .timeout(Constants.timeOutLimitation);
       final json = jsonDecode(response.body);
       if (response.statusCode == 200) {
@@ -31,7 +31,8 @@ class ReliCBMonitorRepository {
         return ErrorPackage.fromJson(errJson);
       }
     } on SocketException {
-      return ErrorPackage(errorCode: "", detail: "Lỗi socket", message: "");
+      return ErrorPackage(
+          errorCode: "", detail: "Mất kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
       return ErrorPackage(
           errorCode: "", detail: e.toString(), message: "Lỗi lạ");

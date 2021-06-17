@@ -3,6 +3,8 @@ import 'package:mobile_app/models/func.dart';
 import 'package:mobile_app/models/login.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
+// import 'package:mobile_app/presentation/widget/constant.dart';
+// import 'package:mobile_app/presentation/widget/constant.dart';
 
 // ignore: must_be_immutable
 class ModeScreen extends StatefulWidget {
@@ -13,16 +15,17 @@ class ModeScreen extends StatefulWidget {
 class _ModeScreenState extends State<ModeScreen> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     final logo =
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
       Image.asset(
         'lib/assets/CHAlogo.png',
-        width: 120,
+        width: SizeConfig.screenWidth * 0.3056,
       ),
-      SizedBox(width: 30),
+      SizedBox(width: SizeConfig.screenWidth * 0.0764),
       Image.asset(
         'lib/assets/BK_VIAMLAB.png',
-        width: 120,
+        width: SizeConfig.screenWidth * 0.3056,
       ),
     ]);
 
@@ -53,11 +56,11 @@ class _ModeScreenState extends State<ModeScreen> {
                   borderRadius: BorderRadius.circular(20),
                   color: Constants.mainColor,
                 ),
-                width: 400,
-                height: 300,
+                width: SizeConfig.screenHeight * 0.5121,
+                height: SizeConfig.screenHeight * 0.3841,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: 40),
+                    SizedBox(height: SizeConfig.screenHeight * 0.05121),
                     Text(
                       employeeLastNameOverall + " " + employeeFirstNameOverall,
                       style: TextStyle(
@@ -66,7 +69,7 @@ class _ModeScreenState extends State<ModeScreen> {
                           color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 40),
+                    SizedBox(height: SizeConfig.screenHeight * 0.05121),
                     Text(
                       employeeIdOverall,
                       style: TextStyle(
@@ -75,13 +78,13 @@ class _ModeScreenState extends State<ModeScreen> {
                           color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: SizeConfig.screenHeight * 0.03841),
                   ],
                 ),
               ),
               Row(
                 children: [
-                  SizedBox(width: 15),
+                  SizedBox(width: SizeConfig.screenHeight * 0.0192),
                   Icon(
                     Icons.arrow_back,
                     color: Colors.white,
@@ -120,22 +123,22 @@ class _ModeScreenState extends State<ModeScreen> {
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
             SizedBox(
-              height: 30,
+              height: SizeConfig.screenHeight * 0.0384,
             ),
             Text(
               "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM",
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: SizeConfig.screenHeight * 0.05),
             logo,
             SizedBox(
-              height: 80.0,
+              height: SizeConfig.screenHeight * 0.1,
             ),
             reportButton,
-            SizedBox(height: 15.0),
+            SizedBox(height: SizeConfig.screenHeight * 0.0192),
             monitorButton,
-            SizedBox(height: 100),
+            SizedBox(height: SizeConfig.screenHeight * 0.12804),
           ],
         ),
       ),
