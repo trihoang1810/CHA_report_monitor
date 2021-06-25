@@ -9,7 +9,7 @@ class MainAppName extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
+      children:[
         Text(
           "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM",
           textAlign: TextAlign.center,

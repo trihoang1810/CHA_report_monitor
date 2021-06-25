@@ -41,7 +41,6 @@ class _ModeScreenState extends State<ModeScreen> {
         Navigator.pushNamed(context, '/monitormodescreen');
       },
     );
-
     return Scaffold(
       drawer: Theme(
         data: Theme.of(context).copyWith(
@@ -105,7 +104,7 @@ class _ModeScreenState extends State<ModeScreen> {
         ),
       ),
       appBar: AppBar(
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: true, //tự tạo nút ra drawer
         backgroundColor: Constants.mainColor,
         //leading: IconButton(
         //icon: Icon(
@@ -118,7 +117,7 @@ class _ModeScreenState extends State<ModeScreen> {
       ),
       backgroundColor: Colors.white,
       body: Center(
-        child: ListView(
+        child: ListView( // <>children
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[

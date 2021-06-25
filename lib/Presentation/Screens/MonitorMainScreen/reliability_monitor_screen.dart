@@ -265,7 +265,7 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                                 ],
                               ),
                             ],
-                          ),
+                          ), //null safety --> ko được để null
                         ),
                       ],
                     ),

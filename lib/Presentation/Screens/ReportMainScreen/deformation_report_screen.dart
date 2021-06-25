@@ -134,7 +134,7 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
             },
             builder: (context, deforReportState) => TabBarView(
               children: <Widget>[
-                SingleChildScrollView(
+                SingleChildScrollView( //length = 3 => children của tabbarview phải bằng 3
                   child: Center(
                     child: Column(
                       children: <Widget>[
@@ -145,7 +145,7 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                             title: 'Chọn khoảng thời gian',
                             child: Row(
                               children: [
-                                Expanded(
+                                Expanded( //đừng để ý expanded
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(
                                         SizeConfig.screenWidth * 0.0509,
@@ -217,15 +217,16 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                           ),
                         ),
                         CustomizedButton(
+                          //height/width ko khai báo sẽ để mặc định,
                             text: "Truy xuất",
                             onPressed: () {
                               BlocProvider.of<DeforReportBloc>(context).add(
                                   DeforBendingReportEventSearchingClicked(
                                       startTime: _startBending,
                                       stopTime: _endBending));
-                            }),
+                            },),
                         SizedBox(height: SizeConfig.screenHeight * 0.0128),
-                        Container(
+                        Container(//tùy từng widget mà sẽ có child hay children
                           width: SizeConfig.screenWidth * 0.8912,
                           height: SizeConfig.screenHeight * 0.5761,
                           decoration: BoxDecoration(border: Border.all()),

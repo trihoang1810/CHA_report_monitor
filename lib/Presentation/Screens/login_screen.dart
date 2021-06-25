@@ -18,7 +18,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String text = "a";
   TextEditingController userController = new TextEditingController();
-  TextEditingController passController = new TextEditingController();
+  TextEditingController passController = new TextEditingController();//null safety --> dart
   bool _showPass = true;
   bool _isUsernameErr = false;
   bool _isPasswordErr = false;
@@ -127,14 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     shrinkWrap: true,
                     padding: EdgeInsets.only(left: 24.0, right: 24.0),
                     children: <Widget>[
-                      SizedBox(
-                        height: SizeConfig.screenHeight * 0.03841,
-                      ),
-                      //Text(
-                      // "GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM NẮP BỒN CẦU",
-                      //textAlign: TextAlign.center,
-                      //style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-                      // ),
+                      SizedBox(height: SizeConfig.screenHeight * 0.03841),
                       SizedBox(height: SizeConfig.screenHeight * 0.05121),
                       MainAppName(),
                       SizedBox(height: SizeConfig.screenHeight * 0.05761),
@@ -149,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               TextStyle(color: Colors.red, fontSize: 15),
                           hintText: 'Nhập tài khoản',
                           contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0), //logical pixel <-- -- physical pixel
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(32.0)),
                         ),
@@ -201,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ? Icons.visibility
                                     : Icons.visibility_off,
                                 color: Constants.mainColor,
-                              ))
+                              ),)
                         ],
                       ),
                       SizedBox(

@@ -382,8 +382,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                             data3: data3,
                             colorText1: cylinder1 ? Colors.green : null,
                             colorText2: cylinder2 ? Colors.green : null,
-                            data4: data4,
-                            data5: data5,
+                            data4: data4, //xilanh 1
+                            data5: data5, //xilanh 2
                           ),
                         ),
                         SizedBox(height: SizeConfig.screenHeight * 0.0256),

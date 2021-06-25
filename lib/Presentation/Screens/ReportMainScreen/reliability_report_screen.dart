@@ -92,7 +92,7 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                 _getUntilCB = reliReportState.getUntil;
                 _startCB = reliReportState.dateRange.start;
                 _endCB = reliReportState.dateRange.end;
-              }
+              } //tab
             },
             builder: (context, reliReportState) => TabBarView(
               children: <Widget>[
@@ -185,7 +185,7 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                               BlocProvider.of<ReliReportBloc>(context).add(
                                   ReliReportEventSearchingClicked(
                                       startTime: _start, stopTime: _end));
-                            }),
+                            },),
                         SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         Container(
                           width: SizeConfig.screenWidth * 0.8912,
@@ -230,7 +230,7 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                       ),
                                     )
                                     .toList(),
-                              ),
+                              ), //thuộc về độ bền êm
                             ),
                           ),
                         )
@@ -327,7 +327,7 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                               BlocProvider.of<ReliReportBloc>(context).add(
                                   ReliCBReportEventSearchingClicked(
                                       startTime: _startCB, stopTime: _endCB));
-                            }),
+                            }), //thuộc về tab độ bền CB
                         SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         Container(
                           width: SizeConfig.screenWidth * 0.8912,

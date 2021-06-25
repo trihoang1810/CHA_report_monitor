@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; //cupertino.dart cho iOS
 import 'package:mobile_app/Presentation/Widget/main_app_name.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 import 'package:mobile_app/presentation/widget/constant.dart';
@@ -12,7 +12,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    print("${SizeConfig.screenHeight} + / + ${SizeConfig.screenWidth}");
+    //print("${SizeConfig.screenHeight} + / + ${SizeConfig.screenWidth}");
     final loginButton = new CustomizedButton(
       text: "Đăng nhập",
       onPressed: () {
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Center(
+          Center( 
             child: ListView(
               shrinkWrap: true,
               padding: EdgeInsets.only(left: 24.0, right: 24.0),
@@ -39,9 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: SizeConfig.screenHeight * 0.0384),
                 SizedBox(height: SizeConfig.screenHeight * 0.05),
                 MainAppName(),
-                SizedBox(
-                  height: SizeConfig.screenHeight * 0.1,
-                ),
+                SizedBox(height: SizeConfig.screenHeight * 0.1),
                 loginButton,
               ],
             ),

@@ -43,7 +43,7 @@ ReliCBReportRepository reliCBReportRepository =
     new ReliCBReportRepository(httpClient: http.Client());
 DeforMonitorRepository deforMonitorRepository =
     new DeforMonitorRepository(httpClient: http.Client());
-
+//-------------------------------------------------------------
 class AppRouter {
   static ReliMonitorBloc reliMonitorBloc = ReliMonitorBloc();
   static ReliReportBloc reliReportBloc = ReliReportBloc();
@@ -52,7 +52,7 @@ class AppRouter {
   static DeforMonitorBloc deforMonitorBloc = DeforMonitorBloc();
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case '/':
+      case '/': // "/" là flutter tự hiểu hiển thị đầu tiên
         return MaterialPageRoute(builder: (_) => HomeScreen());
         break;
       case '/loginscreen':
