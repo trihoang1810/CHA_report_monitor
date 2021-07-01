@@ -12,6 +12,10 @@ import 'package:mobile_app/presentation/routers/app_router.dart';
 
 List<MyReliReportView> reliReportList = [];
 List<MyReliReportView> reliReportListNew = [];
+
+
+
+
 List<MyReliCBReportView> reliCBReportList = [];
 List<MyReliCBReportView> reliCBReportListNew = [];
 
@@ -23,14 +27,14 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
     if (event is ReliReportEventSearchingClicked) {
       yield ReliReportStateLoadingRequest();
       try {
-        print('vao try relireport');
+        //print('vao try relireport');
         final reliReportData = await reliReportRepository
             .loadingReliDataRequest(event.startTime, event.stopTime);
         reliReportListNew.clear();
         if (reliReportData is ReliReport) {
           for (var item in reliReportData.items) {
             for (var mau in item.mauKiemTraDongEm) {
-              MyReliReportView _myReliReportView = MyReliReportView(
+              MyReliReportView _myReliReportView = MyReliReportView( //ngăn xếp cần mình truyền vào các đồ vật l
                   soLanThu: mau.soLanThu,
                   ngayBatDau:
                       DateFormat('dd-MM-yyyy - HH:mm').format(item.ngayBatDau),
@@ -78,14 +82,14 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
         start: DateTime.now().subtract(Duration(hours: 24 * 3)),
         end: DateTime.now(),
       );
-      final newDateRange = await showDateRangePicker(
+      final newDateRange = await showDateRangePicker( //show screen lịch và bắt buộc phải chọn lịch (thoát ra cũng tính là chọn)
         firstDate: DateTime(DateTime.now().year - 5),
         lastDate: DateTime(DateTime.now().year + 5),
         initialDateRange: initialDateRange,
         context: event.context,
       );
       if (newDateRange == null) {
-        yield ReliReportStateLoadingFailure(
+        yield ReliReportStateLoadingFailure( //yield ra state này nhằm mục đích hiển thị cái error dialog
             errorPackage: ErrorPackage(message: "Vui lòng chọn ngày"));
       } else {
         yield ReliReportStatePickDateRange(

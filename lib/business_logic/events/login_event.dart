@@ -12,7 +12,7 @@ class LoginEventChecking extends LoginEvent {
 }
 
 // ignore: must_be_immutable
-class LoginEventToggleShow extends LoginEvent {
+class LoginEventToggleShow extends LoginEvent { //IconButton hình con mắt
   bool isShow;
   LoginEventToggleShow({this.isShow});
 

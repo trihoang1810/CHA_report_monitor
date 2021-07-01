@@ -21,7 +21,7 @@ class DeforMonitorRepository {
       print(response.statusCode);
       if (response.statusCode == 200) {
         DeforMonitorData deforMonitorData = DeforMonitorData.fromJson(json);
-        print(deforMonitorData.errorStatus);
+        //print(deforMonitorData.errorStatus);
         return deforMonitorData;
       } else {
         final errJson = jsonDecode(response.body);
@@ -30,7 +30,9 @@ class DeforMonitorRepository {
     } on SocketException {
       return ErrorPackage(errorCode: "", detail: "Lỗi socket", message: "");
     } catch (e) {
-      ErrorPackage(errorCode: "", detail: e.toString(), message: "Lỗi lạ");
+      print('lỗi lạ ở đây');
+      return ErrorPackage(
+          errorCode: "", detail: e.toString(), message: "Lỗi lạ");
     }
   }
 }

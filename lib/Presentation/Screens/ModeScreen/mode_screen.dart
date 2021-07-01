@@ -52,7 +52,10 @@ class _ModeScreenState extends State<ModeScreen> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  ),
                   color: Constants.mainColor,
                 ),
                 width: SizeConfig.screenHeight * 0.5121,
@@ -117,7 +120,8 @@ class _ModeScreenState extends State<ModeScreen> {
       ),
       backgroundColor: Colors.white,
       body: Center(
-        child: ListView( // <>children
+        child: ListView(
+          // <>children
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[

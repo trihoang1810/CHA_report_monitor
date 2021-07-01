@@ -34,7 +34,6 @@
 // }
 //-------------------------------------------------------------------------------
 class MyReliReportView {
-
   int soLanThu;
   String ngayBatDau;
   String ngayKetThuc;
@@ -42,13 +41,13 @@ class MyReliReportView {
   String thoiGianDongEmNap;
   MyReliReportView(
       {this.soLanThu,
-    
       this.ngayBatDau,
       this.ngayKetThuc,
       this.tenSanPham,
       this.thoiGianDongEmNap});
 }
 
+//đây là raw
 class ReliReport {
   ReliReport({
     this.items,
@@ -61,8 +60,8 @@ class ReliReport {
   factory ReliReport.fromJson(dynamic jsonObject) {
     List<Item> listItems = [];
     List items = jsonObject["items"];
-    for (var items in items) {
-      Item item = Item.fromJson(items);
+    for (var itemsmini in items) {
+      Item item = Item.fromJson(itemsmini);
       listItems.add(item);
     }
     return ReliReport(items: listItems, totalItems: jsonObject["totalItems"]);

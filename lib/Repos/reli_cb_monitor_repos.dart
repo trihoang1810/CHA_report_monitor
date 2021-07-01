@@ -18,15 +18,15 @@ class ReliCBMonitorRepository {
           .timeout(Constants.timeOutLimitation);
       final json = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        print('thanh cong 5');
+        //print('thanh cong 5');
         ReliCBMonitorData reliCBMonitorData = ReliCBMonitorData.fromJson(json);
         return reliCBMonitorData;
       } else if (response.statusCode == 400 || response.statusCode == 404) {
-        print('co loi 1');
+        //print('co loi 1');
         final errJson = jsonDecode(response.body);
         return ErrorPackage.fromJson(errJson);
       } else {
-        print('co loi 2');
+        //print('co loi 2');
         final errJson = jsonDecode(response.body);
         return ErrorPackage.fromJson(errJson);
       }

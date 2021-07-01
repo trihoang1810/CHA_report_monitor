@@ -26,14 +26,17 @@ class LoginRepository {
         LoginData loginData = LoginData.fromJson(json);
         return loginData;
       } else if (response.statusCode == 400 || response.statusCode == 404) {
-        return ErrorPackage.fromJson(json);
+        final errJson = jsonDecode(response.body);
+        return ErrorPackage.fromJson(errJson);
       } else if (response.statusCode == 500) {
-        return ErrorPackage.fromJson(json);
+        final errJson = jsonDecode(response.body);
+        return ErrorPackage.fromJson(errJson);
       }
     } on SocketException {
       return ErrorPackage(
           errorCode: "", detail: "Không có kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
+      return
       ErrorPackage(errorCode: "", detail: e.toString(), message: "Lỗi lạ");
     }
   }

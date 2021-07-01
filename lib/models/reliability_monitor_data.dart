@@ -24,7 +24,7 @@ class ReliMonitorData extends Equatable {
         thoiGianGiuNapMo,
         alarm,
         running,
-      ];
+      ]; //ko quan tâm
   factory ReliMonitorData.fromJson(Map<String, dynamic> json) =>
       ReliMonitorData(
         soLanDongNapCaiDat: json["numberClosingSp"],

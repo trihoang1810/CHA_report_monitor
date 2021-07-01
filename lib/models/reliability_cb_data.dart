@@ -98,8 +98,8 @@ class ReliCBReport {
   factory ReliCBReport.fromJson(dynamic jsonObject) {
     List<ItemCB> listItems = [];
     List items = jsonObject["items"];
-    for (var items in items) {
-      ItemCB item = ItemCB.fromJson(items);
+    for (var itemsmini in items) {
+      ItemCB item = ItemCB.fromJson(itemsmini);
       listItems.add(item);
     }
     return ReliCBReport(items: listItems, totalItems: jsonObject["totalItems"]);

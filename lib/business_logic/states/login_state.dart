@@ -10,7 +10,7 @@ abstract class LoginState extends Equatable {
 }
 
 class LoginStateFormatChecking extends LoginState {
-  bool isUsernameErr;
+  bool isUsernameErr;  //Do Gi là 2 kí tự nên isUsernameErr = true
   bool isPasswordErr;
   LoginStateFormatChecking({this.isUsernameErr, this.isPasswordErr});
 
@@ -20,7 +20,8 @@ class LoginStateFormatChecking extends LoginState {
 }
 
 class LoginStateToggleShow extends LoginState {
-  bool isShow;
+  bool isShow; //isShow mình cài đặt mặc định trong BloC là false
+  //isShow khi nhấn nút con mắt sẽ là true do BloC xử lý
   LoginStateToggleShow({this.isShow});
 
   @override
@@ -29,9 +30,9 @@ class LoginStateToggleShow extends LoginState {
 }
 
 class LoginStateLoadingRequest extends LoginState {
-  DateTime timestamp;
+  DateTime timestamp; 
   LoginStateLoadingRequest({this.timestamp});
-
+//UI đọc được LoadingRequest sẽ hiển thị loadingDialog
   @override
   // TODO: implement props
   List<Object> get props => [timestamp];
@@ -64,4 +65,4 @@ class LoginStateInitial extends LoginState {
   @override
   // TODO: implement props
   List<Object> get props => [isUsernameErr, isPasswordErr, isShow];
-}
+} 

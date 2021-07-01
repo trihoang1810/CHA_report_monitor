@@ -97,7 +97,6 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                     .show();
               } else if (reliMonitorState
                   is ReliMonitorStateLoadingRefetchSuccessful) {
-                loadingDialog.dismiss();
                 data1 = reliMonitorState.reliMonitorData.thoiGianGiuNapDong
                     .toString();
                 data2 = reliMonitorState.reliMonitorData.thoiGianGiuNapMo

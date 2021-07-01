@@ -10,6 +10,7 @@ import 'package:mobile_app/business_logic/states/login_state.dart';
 
 import 'package:mobile_app/presentation/widget/constant.dart';
 
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => new _LoginScreenState();
@@ -51,25 +52,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 loadingDialog.show();
               } else if (loginState is LoginStateLoginSuccessful) {
                 loadingDialog.dismiss();
-                tokenOverall = (loginState.loginData.token.authToken != null
-                    ? loginState.loginData.token.authToken
-                    : "");
+                // tokenOverall = (loginState.loginData.token.authToken != null
+                //     ? loginState.loginData.token.authToken
+                //     : "");
                 employeeIdOverall =
-                    loginState.loginData.employee.employeeId != null
-                        ? loginState.loginData.employee.employeeId
-                        : "";
+                    loginState.loginData.employee.employeeId;
                 employeeFirstNameOverall =
-                    loginState.loginData.employee.firstName != null
-                        ? loginState.loginData.employee.firstName
-                        : "";
+                    loginState.loginData.employee.firstName;
                 employeeLastNameOverall =
-                    loginState.loginData.employee.lastName != null
-                        ? loginState.loginData.employee.lastName
-                        : "";
-                print(tokenOverall);
+                    loginState.loginData.employee.lastName;
+                //print(tokenOverall);
                 Navigator.popAndPushNamed(context, '/modescreen');
               } else if (loginState is LoginStateLoginFailure) {
-                print("Đã thất bại");
+                //print("Đã thất bại");
                 loadingDialog.dismiss();
                 if (loginState.errorPackage.message != null) {
                   if (loginState.errorPackage.message == "Lỗi mạng") {
@@ -127,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     shrinkWrap: true,
                     padding: EdgeInsets.only(left: 24.0, right: 24.0),
                     children: <Widget>[
-                      SizedBox(height: SizeConfig.screenHeight * 0.03841),
+                      SizedBox(height: SizeConfig.screenHeight * 0.03841),//100/SizeConfig.screenHeight = const
                       SizedBox(height: SizeConfig.screenHeight * 0.05121),
                       MainAppName(),
                       SizedBox(height: SizeConfig.screenHeight * 0.05761),
@@ -135,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         autofocus: false,
                         controller: userController,
                         decoration: InputDecoration(
-                          errorText: _isUsernameErr
+                          errorText: _isUsernameErr // <-- true
                               ? "Tên đăng nhập phải dài hơn $minLengthAcc ký tự"
                               : null,
                           errorStyle:
@@ -148,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         onChanged: (_) {
                           BlocProvider.of<LoginBloc>(context).add(
-                            LoginEventChecking(
+                            LoginEventChecking( //Gia --> -->Gi
                                 userName: userController.text,
                                 passWord: passController.text),
                           );
@@ -163,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextFormField(
                             controller: passController,
                             autofocus: false,
-                            obscureText: _showPass,
+                            obscureText: _showPass, //true -->, nhấn vào sẽ thành false
                             decoration: InputDecoration(
                               errorText: _isPasswordErr
                                   ? "Mật khẩu phải chứa $minLength đến $maxLength ký tự"
@@ -200,9 +195,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: SizeConfig.screenHeight * 0.0192,
                       ),
-                      CustomizedButton(
+                      CustomizedButton( //xám khi ko nhập gì hoặc nhập sai
                         onPressed: (userController.text == "" ||
-                                passController.text == "" ||
+                                passController.text == "" || 
                                 _isPasswordErr ||
                                 _isUsernameErr)
                             ? null

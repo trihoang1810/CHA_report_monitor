@@ -5,6 +5,7 @@ import 'package:mobile_app/models/reliability_data.dart';
 
 abstract class ReliReportState extends Equatable {}
 
+//đóng êm
 class ReliReportStateLoadingRequest extends ReliReportState {
   DateTime timestamp;
   ReliReportStateLoadingRequest({this.timestamp});
@@ -14,6 +15,7 @@ class ReliReportStateLoadingRequest extends ReliReportState {
 }
 
 class ReliReportStatePickDateRange extends ReliReportState {
+  //mở screen lịch và mình phải chọn
   DateTime timestamp;
   String getFrom = "Từ ngày";
   String getUntil = "Đến ngày";
@@ -33,6 +35,7 @@ class ReliReportStateInit extends ReliReportState {
   List<Object> get props => [timestamp];
 }
 
+
 class ReliReportStateLoadingSuccessful extends ReliReportState {
   DateTime timestamp;
   ReliReport reliReport;
@@ -51,6 +54,7 @@ class ReliReportStateLoadingFailure extends ReliReportState {
   List<Object> get props => [timestamp];
 }
 
+//------cưỡng bức
 class ReliCBReportStateLoadingRequest extends ReliReportState {
   DateTime timestamp;
   ReliCBReportStateLoadingRequest({this.timestamp});

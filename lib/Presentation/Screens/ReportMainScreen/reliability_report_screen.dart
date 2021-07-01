@@ -55,7 +55,7 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
             listener: (context, reliReportState) async {
               if (reliReportState is ReliReportStateLoadingRequest) {
                 loadingDialog.show();
-              } else if (reliReportState is ReliReportStateLoadingSuccessful) {
+              } else if (reliReportState is ReliReportStateLoadingSuccessful) { //phần hiển thị báo cáo đã có reliReportList lo
                 loadingDialog.dismiss();
               } else if (reliReportState is ReliReportStateLoadingFailure) {
                 loadingDialog.dismiss();
@@ -83,7 +83,7 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                         onPressedBtn: () {})
                     .show();
               } else if (reliReportState is ReliReportStatePickDateRange) {
-                _getFrom = reliReportState.getFrom;
+                _getFrom = reliReportState.getFrom; 
                 _getUntil = reliReportState.getUntil;
                 _start = reliReportState.dateRange.start;
                 _end = reliReportState.dateRange.end;
@@ -180,12 +180,13 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                           ),
                         ),
                         CustomizedButton(
-                            text: "Truy xuất",
-                            onPressed: () {
-                              BlocProvider.of<ReliReportBloc>(context).add(
-                                  ReliReportEventSearchingClicked(
-                                      startTime: _start, stopTime: _end));
-                            },),
+                          text: "Truy xuất",
+                          onPressed: () {
+                            BlocProvider.of<ReliReportBloc>(context).add(
+                                ReliReportEventSearchingClicked(
+                                    startTime: _start, stopTime: _end));
+                          },
+                        ),
                         SizedBox(height: SizeConfig.screenHeight * 0.0128),
                         Container(
                           width: SizeConfig.screenWidth * 0.8912,

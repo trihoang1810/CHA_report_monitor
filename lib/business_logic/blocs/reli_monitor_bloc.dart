@@ -32,7 +32,7 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
               timestamp: event.timestamp, reliMonitorData: reliMonitorData);
           if (_periodicSubscription == null) {
             _periodicSubscription ??=
-                Stream.periodic(const Duration(seconds: 10), (x) => x).listen(
+                Stream.periodic(const Duration(seconds: 5), (x) => x).listen(
                     (_) => add(ReliMonitorEventRefetchData()),
                     onError: (error) => print("Do something with $error"));
           } else {
@@ -92,7 +92,7 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
               reliMonitorData: reliMonitorRefetchData);
           if (_periodicSubscription == null) {
             _periodicSubscription ??=
-                Stream.periodic(const Duration(seconds: 10), (x) => x).listen(
+                Stream.periodic(const Duration(seconds: 5), (x) => x).listen(
                     (_) => add(ReliMonitorEventRefetchData()),
                     onError: (error) => print("Do something with $error"));
           } else {
@@ -144,6 +144,14 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
           print('moment là ${reliCBMonitorData.soLanDongNapHienTai}');
           yield ReliCBMonitorStateLoadingSuccessful(
               timestamp: event.timestamp, reliCBMonitorData: reliCBMonitorData);
+          if (_periodicSubscription1 == null) {
+            _periodicSubscription1 ??=
+                Stream.periodic(const Duration(seconds: 5), (x) => x).listen(
+                    (_) => add(ReliCBMonitorEventRefetchData()),
+                    onError: (error) => print("Do something with $error"));
+          } else {
+            _periodicSubscription1.resume();
+          }
         } else if (reliCBMonitorData is ErrorPackage) {
           print('thất bại');
           yield ReliCBMonitorStateLoadingFailure(
@@ -183,7 +191,7 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
               reliCBMonitorData: reliCBMonitorRefetchData);
           if (_periodicSubscription1 == null) {
             _periodicSubscription1 ??=
-                Stream.periodic(const Duration(seconds: 10), (x) => x).listen(
+                Stream.periodic(const Duration(seconds: 5), (x) => x).listen(
                     (_) => add(ReliCBMonitorEventRefetchData()),
                     onError: (error) => print("Do something with $error"));
           } else {

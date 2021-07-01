@@ -20,17 +20,17 @@ class DeforMonitorData extends Equatable {
     this.errorStatus,
   });
 
-  final noPressPv1;
-  final noPressPv2;
-  final noPressPv3;
-  final noPressSp12;
-  final noPressSp3;
-  final errorCode;
-  final modeStatus;
-  final forceCylinderSp12;
-  final forceCylinderSp3;
-  final timeHoldSp12;
-  final timeHoldSp3;
+  int noPressPv1;
+  int noPressPv2;
+  int noPressPv3;
+  int noPressSp12;
+  int noPressSp3;
+  int errorCode;
+  int modeStatus;
+  String forceCylinderSp12;
+  String forceCylinderSp3;
+  int timeHoldSp12;
+  int timeHoldSp3;
   bool seclect1;
   bool seclect2;
   bool redStatus;
@@ -64,8 +64,8 @@ class DeforMonitorData extends Equatable {
         noPressSp3: json["numberOfTestSp3"],
         errorCode: json["errorCode"],
         modeStatus: json["modeStatus"],
-        forceCylinderSp12: json["forceCylinderSp12"],
-        forceCylinderSp3: json["forceCylinderSp3"],
+        forceCylinderSp12: json["forceCylinderSp12"].toString(),
+        forceCylinderSp3: json["forceCylinderSp3"].toString(),
         timeHoldSp12: json["timeHoldSp12"],
         timeHoldSp3: json["timeHoldSp3"],
         seclect1: json["seclect1"],

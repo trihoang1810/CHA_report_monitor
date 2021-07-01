@@ -25,7 +25,7 @@ class ReliCBMonitorData extends Equatable {
         alarm,
         running,
       ];
-  factory ReliCBMonitorData.fromJson(Map<String, dynamic> json) =>
+  factory ReliCBMonitorData.fromJson(Map<String, dynamic> json) => //mũi tên là return
       ReliCBMonitorData(
         soLanDongNapCaiDat: json["numberClosingSp"],
         soLanDongNapHienTai: json["numberClosingPv"],

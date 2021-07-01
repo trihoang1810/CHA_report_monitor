@@ -11,7 +11,7 @@ class ReliMonitorRepository {
   ReliMonitorRepository({this.httpClient});
 
   Future loadingReliDataRequest() async {
-    final response = await this
+    final response = await this //await là đợi cho tới khi thực hiện xong mới nhảy qua lệnh kế tiếp
         .httpClient
         .get(Uri.parse(Constants.baseUrl + "/api/monitorreliability"))
         .timeout(Constants.timeOutLimitation);
@@ -19,10 +19,10 @@ class ReliMonitorRepository {
       final json = jsonDecode(response.body);
       if (response.statusCode == 200) {
         ReliMonitorData reliMonitorData = ReliMonitorData.fromJson(json);
-        print(reliMonitorData.alarm);
-        return reliMonitorData;
+        //print(reliMonitorData.alarm);
+        return reliMonitorData; 
       } else if (response.statusCode == 400 || response.statusCode == 404) {
-        final errJson = jsonDecode(response.body);
+        final errJson = jsonDecode(response.body); //4xx là bad request
         return ErrorPackage.fromJson(errJson);
       } else {
         final errJson = jsonDecode(response.body);
@@ -31,7 +31,7 @@ class ReliMonitorRepository {
     } on SocketException {
       return ErrorPackage(
           errorCode: "", detail: "Mất kết nối mạng", message: "Lỗi mạng");
-    } catch (e) {
+    } catch (e) { //messagbe box
       return ErrorPackage(
           errorCode: "", detail: e.toString(), message: "Lỗi lạ");
     }

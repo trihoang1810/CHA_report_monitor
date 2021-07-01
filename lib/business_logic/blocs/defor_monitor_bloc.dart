@@ -30,7 +30,7 @@ class DeforMonitorBloc extends Bloc<DeforMonitorEvent, DeforMonitorState> {
               deforMonitorData: deforMonitorData);
           if (_streamSubscription == null) {
             _streamSubscription ??=
-                Stream.periodic(const Duration(seconds: 10), (x) => x).listen(
+                Stream.periodic(const Duration(seconds: 5), (x) => x).listen(
                     (_) => add(Defor1MonitorEventRefetchData()),
                     onError: (error) =>
                         print('Do something with period loading $error'));
@@ -86,7 +86,7 @@ class DeforMonitorBloc extends Bloc<DeforMonitorEvent, DeforMonitorState> {
               deforMonitorData: deforMonitorData);
           if (_streamSubscription == null) {
             _streamSubscription ??=
-                Stream.periodic(const Duration(seconds: 10), (x) => x).listen(
+                Stream.periodic(const Duration(seconds: 5), (x) => x).listen(
                     (_) => add(Defor1MonitorEventRefetchData()),
                     onError: (error) =>
                         print('Do something with period loading $error'));
