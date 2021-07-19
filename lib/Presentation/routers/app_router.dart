@@ -52,7 +52,7 @@ class AppRouter {
   static DeforMonitorBloc deforMonitorBloc = DeforMonitorBloc();
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case '/': // "/" là flutter tự hiểu hiển thị đầu tiên
+      case '/':
         return MaterialPageRoute(builder: (_) => HomeScreen());
         break;
       case '/loginscreen':

@@ -7,7 +7,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //duy nhất 1 MaterialApp
       onGenerateRoute: _appRouter.onGenerateRoute,
       title: 'Báo cáo và Giám sát',
     );
