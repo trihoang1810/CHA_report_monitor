@@ -56,7 +56,7 @@ class ItemStatic {
 
   factory ItemStatic.fromJson(dynamic json) {
     List<MauKiemTraChiuTaiTinh> mauKiemTraChiuTaiTinh = [];
-    List items = json["staticLoadTestSheet"];
+    List items = json["staticLoadTestSheets"];
     for (var item in items) {
       MauKiemTraChiuTaiTinh giKiemTraChiuTaiTinh =
           MauKiemTraChiuTaiTinh.fromJson(item);

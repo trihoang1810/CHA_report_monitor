@@ -60,7 +60,7 @@ class ItemRock {
 
   factory ItemRock.fromJson(dynamic json) {
     List<MauKiemTraRockTest> mauKiemTraRockTest = [];
-    List items = json["rockTestSheet"];
+    List items = json["rockTestSheets"];
     for (var item in items) {
       MauKiemTraRockTest giKiemTraRockTest = MauKiemTraRockTest.fromJson(item);
       mauKiemTraRockTest.add(giKiemTraRockTest);

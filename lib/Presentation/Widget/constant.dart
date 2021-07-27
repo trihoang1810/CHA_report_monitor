@@ -4,7 +4,7 @@ double screenWidthGlobal;
 
 class Constants {
   static const String baseUrl =
-      "http://192.168.1.13:8083";
+      "https://phong-kiem-tra-chat-luong-sp.herokuapp.com";
   static const Color mainColor = Color(0xff001D37);
   static const Color secondaryColor = Color(0xff00294D);
   static const Duration timeOutLimitation = Duration(seconds: 10);

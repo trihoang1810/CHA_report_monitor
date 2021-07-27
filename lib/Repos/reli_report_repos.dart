@@ -20,15 +20,17 @@ class ReliReportRepository {
       final end = (stopTime == null)
           ? DateFormat('yyyy-MM-dd').format(DateTime.now())
           : DateFormat('yyyy-MM-dd').format(stopTime);
+      print('start ' + start + ' and end ' + end);
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
-              "/api/reportreliability/?StartTime=" +
+              "/api/reliabilityreports/?StartTime=" +
               start.toString() +
               "&StopTime=" +
               end.toString()))
           .timeout(Constants.timeOutLimitation);
       if (response.statusCode == 200) {
+        print('thanh cong');
         ReliReport reliReport = ReliReport.fromJson(jsonDecode(response.body));
         return reliReport;
       } else if (response.statusCode == 400 || response.statusCode == 404) {
@@ -42,9 +44,10 @@ class ReliReportRepository {
       }
     } on SocketException {
       print('loi socket');
-      return ErrorPackage(errorCode: "", detail: "Không có kết nối mạng", message: "Lỗi mạng");
+      return ErrorPackage(
+          errorCode: "", detail: "Không có kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
-      print('loi catch' + e.toString());
+      print('loi catch ' + e.toString());
       return ErrorPackage(
           errorCode: "", detail: e.toString(), message: "Lỗi lạ");
     }

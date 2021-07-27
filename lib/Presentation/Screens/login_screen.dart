@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: <Widget>[
                       SizedBox(height: SizeConfig.screenHeight * 0.03841),//100/SizeConfig.screenHeight = const
                       SizedBox(height: SizeConfig.screenHeight * 0.05121),
-                      MainAppName(),
+                      MainAppName(text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
                       SizedBox(height: SizeConfig.screenHeight * 0.05761),
                       TextFormField(
                         autofocus: false,

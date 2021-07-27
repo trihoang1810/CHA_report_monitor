@@ -25,7 +25,7 @@ class DeforRockReportRepository {
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
-              "/api/reportrocktest/?StartTime=" +
+              "/api/rocktestreports/?StartTime=" +
               start.toString() +
               "&StopTime=" +
               end.toString()))

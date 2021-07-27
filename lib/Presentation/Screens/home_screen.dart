@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 SizedBox(height: SizeConfig.screenHeight * 0.0384),
                 SizedBox(height: SizeConfig.screenHeight * 0.05),
-                MainAppName(),
+                MainAppName(text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
                 SizedBox(height: SizeConfig.screenHeight * 0.1),
                 loginButton,
               ],

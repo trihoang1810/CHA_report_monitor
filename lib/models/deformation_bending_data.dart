@@ -60,7 +60,7 @@ class ItemBending {
 
   factory ItemBending.fromJson(dynamic json) {
     List<MauKiemTraLucUon> mauKiemTraLucUon = [];
-    List items = json["curlingForceTestSheet"];
+    List items = json["curlingForceTestSheets"];
     for (var item in items) {
       MauKiemTraLucUon giKiemTraLucUon = MauKiemTraLucUon.fromJson(item);
       mauKiemTraLucUon.add(giKiemTraLucUon);

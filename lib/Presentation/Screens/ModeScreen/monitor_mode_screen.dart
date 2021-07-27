@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
+import 'package:mobile_app/presentation/widget/main_app_name.dart';
 
 class MonitorModeScreen extends StatefulWidget {
   @override
@@ -26,6 +27,7 @@ class _MonitorModeScreenState extends State<MonitorModeScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        title: Text("Giám sát"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -52,11 +54,7 @@ class _MonitorModeScreenState extends State<MonitorModeScreen> {
             SizedBox(
               height: SizeConfig.screenHeight * 0.0384,
             ),
-            Text(
-              "GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
+            MainAppName(text: 'GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM'),
             SizedBox(
               height: SizeConfig.screenHeight * 0.1024,
             ),

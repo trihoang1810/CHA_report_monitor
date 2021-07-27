@@ -25,7 +25,7 @@ class ReliCBReportRepository {
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
-              "/api/reportdeformation/?StartTime=" +
+              "/api/deformationreports/?StartTime=" +
               start +
               "&StopTime=" +
               end))

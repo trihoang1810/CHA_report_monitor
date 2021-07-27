@@ -25,7 +25,7 @@ class DeforBendingReportRepository {
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
-              "/api/reportcurlingforce/?StartTime=" +
+              "/api/curlingforcereports/?StartTime=" +
               start.toString() +
               "&StopTime=" +
               end.toString()))

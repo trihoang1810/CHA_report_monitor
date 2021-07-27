@@ -26,7 +26,7 @@ class DeforStaticReportRepository {
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
-              "/api/reportstaticload/?StartTime=" +
+              "/api/staticloadreports/?StartTime=" +
               start.toString() +
               "&StopTime=" +
               end.toString()))

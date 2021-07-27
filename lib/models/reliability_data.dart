@@ -89,7 +89,7 @@ class Item {
 
   factory Item.fromJson(dynamic json) {
     List<MauKiemTraDongEm> mauKiemTraDongEm = [];
-    List items = json["reliabilityTestSheet"];
+    List items = json["reliabilityTestSheets"];
     for (var item in items) {
       MauKiemTraDongEm giKiemTraDongEm = MauKiemTraDongEm.fromJson(item);
       mauKiemTraDongEm.add(giKiemTraDongEm);

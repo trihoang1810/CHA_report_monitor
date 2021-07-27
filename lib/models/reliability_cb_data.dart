@@ -129,7 +129,7 @@ class ItemCB {
 
   factory ItemCB.fromJson(dynamic json) {
     List<MauKiemTraDongCuongBuc> mauKiemTraDongCuongBuc = [];
-    List items = json["deformationTestSheet"];
+    List items = json["deformationTestSheets"];
     for (var item in items) {
       MauKiemTraDongCuongBuc giKiemTraDongCuongBuc =
           MauKiemTraDongCuongBuc.fromJson(item);

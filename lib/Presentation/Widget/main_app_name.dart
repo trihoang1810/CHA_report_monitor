@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'constant.dart';
 
 class MainAppName extends StatelessWidget {
+  String text = '';
+  MainAppName({@required this.text});
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children:[
+      children: [
         Text(
-          "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM",
+          text,
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 34,
