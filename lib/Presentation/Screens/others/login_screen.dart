@@ -10,7 +10,6 @@ import 'package:mobile_app/business_logic/states/login_state.dart';
 
 import 'package:mobile_app/presentation/widget/constant.dart';
 
-
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => new _LoginScreenState();
@@ -19,7 +18,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String text = "a";
   TextEditingController userController = new TextEditingController();
-  TextEditingController passController = new TextEditingController();//null safety --> dart
+  TextEditingController passController =
+      new TextEditingController(); //null safety --> dart
   bool _showPass = true;
   bool _isUsernameErr = false;
   bool _isPasswordErr = false;
@@ -52,19 +52,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 loadingDialog.show();
               } else if (loginState is LoginStateLoginSuccessful) {
                 loadingDialog.dismiss();
-                // tokenOverall = (loginState.loginData.token.authToken != null
-                //     ? loginState.loginData.token.authToken
-                //     : "");
-                employeeIdOverall =
+                String employeeIdOverall =
                     loginState.loginData.employee.employeeId;
-                employeeFirstNameOverall =
+                String employeeFirstNameOverall =
                     loginState.loginData.employee.firstName;
-                employeeLastNameOverall =
+                String employeeLastNameOverall =
                     loginState.loginData.employee.lastName;
-                //print(tokenOverall);
-                Navigator.popAndPushNamed(context, '/modescreen');
+                Navigator.popAndPushNamed(context, '/modescreen', arguments: {
+                  'id': employeeIdOverall.toString(),
+                  'firstName': employeeFirstNameOverall.toString(),
+                  'lastName': employeeLastNameOverall.toString()
+                });
               } else if (loginState is LoginStateLoginFailure) {
-                //print("Đã thất bại");
                 loadingDialog.dismiss();
                 if (loginState.errorPackage.message != null) {
                   if (loginState.errorPackage.message == "Lỗi mạng") {
@@ -122,9 +121,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     shrinkWrap: true,
                     padding: EdgeInsets.only(left: 24.0, right: 24.0),
                     children: <Widget>[
-                      SizedBox(height: SizeConfig.screenHeight * 0.03841),//100/SizeConfig.screenHeight = const
+                      SizedBox(
+                          height: SizeConfig.screenHeight *
+                              0.03841), //100/SizeConfig.screenHeight = const
                       SizedBox(height: SizeConfig.screenHeight * 0.05121),
-                      MainAppName(text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
+                      MainAppName(
+                          text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
                       SizedBox(height: SizeConfig.screenHeight * 0.05761),
                       TextFormField(
                         autofocus: false,
@@ -136,14 +138,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           errorStyle:
                               TextStyle(color: Colors.red, fontSize: 15),
                           hintText: 'Nhập tài khoản',
-                          contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0), //logical pixel <-- -- physical pixel
+                          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0,
+                              10.0), //logical pixel <-- -- physical pixel
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(32.0)),
                         ),
                         onChanged: (_) {
                           BlocProvider.of<LoginBloc>(context).add(
-                            LoginEventChecking( //Gia --> -->Gi
+                            LoginEventChecking(
+                                //Gia --> -->Gi
                                 userName: userController.text,
                                 passWord: passController.text),
                           );
@@ -158,7 +161,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextFormField(
                             controller: passController,
                             autofocus: false,
-                            obscureText: _showPass, //true -->, nhấn vào sẽ thành false
+                            obscureText:
+                                _showPass, //true -->, nhấn vào sẽ thành false
                             decoration: InputDecoration(
                               errorText: _isPasswordErr
                                   ? "Mật khẩu phải chứa $minLength đến $maxLength ký tự"
@@ -180,24 +184,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           IconButton(
-                              onPressed: () {
-                                BlocProvider.of<LoginBloc>(context).add(
-                                    LoginEventToggleShow(isShow: _showPass));
-                              },
-                              icon: Icon(
-                                _showPass
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: Constants.mainColor,
-                              ),)
+                            onPressed: () {
+                              BlocProvider.of<LoginBloc>(context)
+                                  .add(LoginEventToggleShow(isShow: _showPass));
+                            },
+                            icon: Icon(
+                              _showPass
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Constants.mainColor,
+                            ),
+                          )
                         ],
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight * 0.0192,
                       ),
-                      CustomizedButton( //xám khi ko nhập gì hoặc nhập sai
+                      CustomizedButton(
+                        //xám khi ko nhập gì hoặc nhập sai
                         onPressed: (userController.text == "" ||
-                                passController.text == "" || 
+                                passController.text == "" ||
                                 _isPasswordErr ||
                                 _isUsernameErr)
                             ? null

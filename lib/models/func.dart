@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/presentation/dialog/dialog.dart';
 
 import 'login.dart';
 
 void logout(BuildContext context) {
-  employeeIdOverall = "";
-  employeeFirstNameOverall = "";
-  employeeLastNameOverall = "";
-  while (Navigator.canPop(context)) {
-    Navigator.pop(context);
-    print("Đã pop");
-  }
+  AlertDialogTwoBtnCustomized alertDialogOneBtnCustomized =
+      AlertDialogTwoBtnCustomized(
+          context: context,
+          title: "Bạn có muốn?",
+          desc: "Đăng xuất",
+          textBtn1: "Có",
+          textBtn2: "Quay lại",
+          onPressedBtn1: () {
+            while (Navigator.canPop(context)) {
+              Navigator.pop(context);
+              //print("Đã pop");
+            }
+          });
+  alertDialogOneBtnCustomized.show();
 }

@@ -1,7 +1,3 @@
-String employeeIdOverall = "";
-String employeeLastNameOverall = "";
-String employeeFirstNameOverall = "";
-String tokenOverall = "";
 
 class LoginData {
   Token token;

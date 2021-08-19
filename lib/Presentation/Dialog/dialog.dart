@@ -11,7 +11,7 @@ class AlertDialogTwoBtnCustomized {
   String textBtn2;
   Color bgBtn1, bgBtn2, fgBtn1, fgBtn2;
   double titleFSize, descFSize;
-  VoidCallback onPressedBtn1, onPressedBtn2;
+  VoidCallback onPressedBtn1, onPressedBtn2, closeFunction;
   AlertDialogTwoBtnCustomized({
     @required this.context,
     this.title = "Nhập title",
@@ -24,6 +24,7 @@ class AlertDialogTwoBtnCustomized {
     this.fgBtn2 = Constants.mainColor,
     this.onPressedBtn1,
     this.onPressedBtn2,
+    this.closeFunction,
     this.descFSize = 18,
     this.titleFSize = 22,
   });
@@ -32,6 +33,12 @@ class AlertDialogTwoBtnCustomized {
             context: context,
             title: title,
             desc: desc,
+            closeFunction: () {
+              Navigator.of(context).pop();
+              if (closeFunction != null) {
+                closeFunction();
+              }
+            },
             buttons: [
               DialogButton(
                 color: bgBtn1,
@@ -64,8 +71,11 @@ class AlertDialogTwoBtnCustomized {
             ],
             style: AlertStyle(
                 descStyle: TextStyle(
-                    fontSize: descFSize, fontWeight: FontWeight.normal),
-                titleStyle: TextStyle(fontSize: titleFSize)))
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
+                    height: 1.5),
+                titleStyle:
+                    TextStyle(fontSize: 20)))
         .show();
   }
 }
