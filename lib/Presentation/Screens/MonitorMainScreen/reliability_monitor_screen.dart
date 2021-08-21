@@ -72,9 +72,7 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              hubConnection.state == HubConnectionState.connected
-                  ? null
-                  : Navigator.pop(context);
+              Navigator.pop(context);
             },
           ),
           title: Text("Giám sát kiểm tra độ bền"),
