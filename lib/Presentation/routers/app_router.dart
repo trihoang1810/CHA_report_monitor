@@ -16,20 +16,13 @@ import 'package:mobile_app/business_logic/blocs/defor_monitor_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/reli__report_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/reli_monitor_bloc.dart';
-import 'package:mobile_app/models/login.dart';
 import 'package:mobile_app/repos/defor_bending_report_repos.dart';
 import 'package:mobile_app/repos/defor_monitor_repos.dart';
 import 'package:mobile_app/repos/defor_rock_report_repos.dart';
 import 'package:mobile_app/repos/defor_static_report_repos.dart';
-import 'package:mobile_app/repos/reli_cb_monitor_repos.dart';
 import 'package:mobile_app/repos/reli_cb_report_repos.dart';
-import 'package:mobile_app/repos/reli_monitor_repos.dart';
 import 'package:mobile_app/repos/reli_report_repos.dart';
 
-ReliCBMonitorRepository reliCBMonitorRepository =
-    new ReliCBMonitorRepository(httpClient: http.Client());
-ReliMonitorRepository reliMonitorRepository =
-    new ReliMonitorRepository(httpClient: http.Client());
 DeforRockReportRepository deforRockReportRepository =
     new DeforRockReportRepository(httpClient: http.Client());
 DeforStaticReportRepository deforStaticReportRepository =
@@ -68,8 +61,7 @@ class AppRouter {
         break;
       case '/modescreen':
         return MaterialPageRoute(
-          settings: routeSettings,
-          builder: (context) => ModeScreen());
+            settings: routeSettings, builder: (context) => ModeScreen());
         break;
       case '/reliabilityreportscreen':
         return MaterialPageRoute(

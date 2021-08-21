@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app/models/func.dart';
 import 'package:mobile_app/Presentation/Widget/constant.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
-// import 'package:mobile_app/presentation/widget/constant.dart';
-// import 'package:mobile_app/presentation/widget/constant.dart';
 
 // ignore: must_be_immutable
 class ModeScreen extends StatefulWidget {

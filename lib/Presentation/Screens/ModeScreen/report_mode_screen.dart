@@ -12,20 +12,6 @@ class _ReportModeScreenState extends State<ReportModeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final reportButton = new CustomizedButton(
-      text: 'Độ bền',
-      onPressed: () {
-        Navigator.pushNamed(context, '/reliabilityreportscreen');
-      },
-    );
-    // Widget reportButtonCB = new CustomizedButton(
-    //   width: 120,
-    //   text: 'Độ biến dạng',
-    //   onPressed: () {
-    //     Navigator.pushNamed(context, '/deformationreportscreen');
-    //   },
-    // );
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Báo cáo"),
@@ -53,7 +39,12 @@ class _ReportModeScreenState extends State<ReportModeScreen> {
             SizedBox(
               height: SizeConfig.screenHeight * 0.1024,
             ),
-            reportButton,
+            CustomizedButton(
+              text: 'Độ bền',
+              onPressed: () {
+                Navigator.pushNamed(context, '/reliabilityreportscreen');
+              },
+            ),
             SizedBox(height: SizeConfig.screenHeight * 0.0192),
             CustomizedButton(
               text: 'Độ biến dạng',

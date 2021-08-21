@@ -35,13 +35,6 @@ class _MonitorModeScreenState extends State<MonitorModeScreen> {
           },
         ),
         backgroundColor: Constants.mainColor,
-        //leading: IconButton(
-        //icon: Icon(
-        //Icons.menu,
-        //color: Colors.white,
-        //),
-        // onPressed: () {},
-        //),
       ),
       backgroundColor: Colors.white,
       body: Center(

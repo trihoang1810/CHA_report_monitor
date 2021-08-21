@@ -28,7 +28,7 @@ dependencies:
   equatable: ^2.0.0
   ndialog: ^4.1.0
   rflutter_alert: ^2.0.2
-
+  signalr_core: ^1.0.8
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.3

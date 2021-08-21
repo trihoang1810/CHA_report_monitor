@@ -11,83 +11,26 @@ class ReliMonitorStateInit extends ReliMonitorState {
   String data2;
   String data3;
   String data4;
+  bool warning;
+  bool running;
   ReliMonitorStateInit(
-      {this.timestamp, this.data1, this.data2, this.data3, this.data4});
+      {this.timestamp,
+      this.data1,
+      this.data2,
+      this.data3,
+      this.data4,
+      this.running,
+      this.warning});
 
   @override
   // TODO: implement props
-  List<Object> get props => [timestamp, data1, data2, data3, data4];
+  List<Object> get props =>
+      [timestamp, data1, data2, data3, data4, running, warning];
 }
 
 class ReliMonitorStateLoadingRequest extends ReliMonitorState {
   DateTime timestamp;
   ReliMonitorStateLoadingRequest({this.timestamp});
-
-  @override
-  // TODO: implement props
-  List<Object> get props => [timestamp];
-}
-
-class ReliMonitorStateLoadingSuccessful extends ReliMonitorState {
-  DateTime timestamp;
-  ReliMonitorData reliMonitorData;
-  ReliMonitorStateLoadingSuccessful({this.reliMonitorData, this.timestamp});
-
-  @override
-  // TODO: implement props
-  List<Object> get props => [timestamp, reliMonitorData];
-}
-
-class ReliMonitorStateLoadingRefetchSuccessful extends ReliMonitorState {
-  DateTime timestamp;
-  ReliMonitorData reliMonitorData;
-  ReliMonitorStateLoadingRefetchSuccessful(
-      {this.reliMonitorData, this.timestamp});
-
-  @override
-  // TODO: implement props
-  List<Object> get props => [timestamp, reliMonitorData];
-}
-
-class ReliMonitorStateLoadingFailure extends ReliMonitorState {
-  DateTime timestamp;
-  ErrorPackage errorPackage;
-  ReliMonitorStateLoadingFailure({errorPackage, timestamp});
-
-  @override
-  // TODO: implement props
-  List<Object> get props => [errorPackage, timestamp];
-}
-
-class ReliMonitorStateLoadingRefetchFailure extends ReliMonitorState {
-  DateTime timestamp;
-  ErrorPackage errorPackage;
-  ReliMonitorStateLoadingRefetchFailure({errorPackage, timestamp});
-
-  @override
-  // TODO: implement props
-  List<Object> get props => [errorPackage, timestamp];
-}
-
-class ReliMonitorStateCancelLoadingRefetch extends ReliMonitorState {
-  DateTime timestamp;
-  ErrorPackage errorPackage;
-  ReliMonitorStateCancelLoadingRefetch({errorPackage, timestamp});
-
-  @override
-  // TODO: implement props
-  List<Object> get props => [errorPackage, timestamp];
-}
-
-//--------------------------------------------------------------------
-class ReliCBMonitorStateInit extends ReliMonitorState {
-  DateTime timestamp;
-  String data1;
-  String data2;
-  String data3;
-  String data4;
-  ReliCBMonitorStateInit(
-      {this.timestamp, this.data1, this.data2, this.data3, this.data4});
 
   @override
   // TODO: implement props
@@ -103,53 +46,52 @@ class ReliCBMonitorStateLoadingRequest extends ReliMonitorState {
   List<Object> get props => [timestamp];
 }
 
-class ReliCBMonitorStateLoadingSuccessful extends ReliMonitorState {
+//------------------------------
+class ReliMonitorStateConnectSucessful extends ReliMonitorState {
+  DateTime timestamp;
+  ReliMonitorData reliMonitorData;
+  ReliMonitorStateConnectSucessful({this.reliMonitorData, this.timestamp});
+  @override
+  List<Object> get props => [timestamp, reliMonitorData];
+}
+
+class ReliMonitorStateConnectFail extends ReliMonitorState {
+  DateTime timestamp;
+  ErrorPackage errorPackage;
+  ReliMonitorStateConnectFail({this.timestamp, this.errorPackage});
+  @override
+  List<Object> get props => [timestamp, errorPackage];
+}
+
+class ReliMonitorStateDataUpdated extends ReliMonitorState {
+  DateTime timestamp;
+  ReliMonitorData reliMonitorData;
+  ReliMonitorStateDataUpdated({this.reliMonitorData, this.timestamp});
+  @override
+  List<Object> get props => [timestamp, reliMonitorData];
+}
+
+//----------------------------------------
+class ReliCBMonitorStateConnectSucessful extends ReliMonitorState {
   DateTime timestamp;
   ReliCBMonitorData reliCBMonitorData;
-  ReliCBMonitorStateLoadingSuccessful({this.reliCBMonitorData, this.timestamp});
-
+  ReliCBMonitorStateConnectSucessful({this.reliCBMonitorData, this.timestamp});
   @override
-  // TODO: implement props
   List<Object> get props => [timestamp, reliCBMonitorData];
 }
 
-class ReliCBMonitorStateLoadingFailure extends ReliMonitorState {
+class ReliCBMonitorStateConnectFail extends ReliMonitorState {
   DateTime timestamp;
   ErrorPackage errorPackage;
-  ReliCBMonitorStateLoadingFailure({errorPackage, timestamp});
-
+  ReliCBMonitorStateConnectFail({this.timestamp, this.errorPackage});
   @override
-  // TODO: implement props
-  List<Object> get props => [errorPackage, timestamp];
+  List<Object> get props => [timestamp, errorPackage];
 }
 
-class ReliCBMonitorStateLoadingRefetchFailure extends ReliMonitorState {
-  DateTime timestamp;
-  ErrorPackage errorPackage;
-  ReliCBMonitorStateLoadingRefetchFailure({errorPackage, timestamp});
-
-  @override
-  // TODO: implement props
-  List<Object> get props => [errorPackage, timestamp];
-}
-
-class ReliCBMonitorStateCancelLoadingRefetch extends ReliMonitorState {
-  DateTime timestamp;
-  ErrorPackage errorPackage;
-  ReliCBMonitorStateCancelLoadingRefetch({errorPackage, timestamp});
-
-  @override
-  // TODO: implement props
-  List<Object> get props => [errorPackage, timestamp];
-}
-
-class ReliCBMonitorStateLoadingRefetchSuccessful extends ReliMonitorState {
+class ReliCBMonitorStateDataUpdated extends ReliMonitorState {
   DateTime timestamp;
   ReliCBMonitorData reliCBMonitorData;
-  ReliCBMonitorStateLoadingRefetchSuccessful(
-      {this.reliCBMonitorData, this.timestamp});
-
+  ReliCBMonitorStateDataUpdated({this.reliCBMonitorData, this.timestamp});
   @override
-  // TODO: implement props
   List<Object> get props => [timestamp, reliCBMonitorData];
 }

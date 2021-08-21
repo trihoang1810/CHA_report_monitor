@@ -1,51 +1,40 @@
 import 'package:equatable/equatable.dart';
+import 'package:mobile_app/models/reliability_cb_monitor_data.dart';
+import 'package:mobile_app/models/reliability_monitor_data.dart';
+import 'package:signalr_core/signalr_core.dart';
 
 abstract class ReliMonitorEvent extends Equatable {}
 
-class ReliMonitorEventSearchingClicked extends ReliMonitorEvent {
+//---------------------------------------------------
+class ReliMonitorEventHubConnected extends ReliMonitorEvent {
   DateTime timestamp;
-  ReliMonitorEventSearchingClicked({this.timestamp});
+  HubConnection hubConnection;
+  ReliMonitorEventHubConnected({this.hubConnection, this.timestamp});
   @override
-  // TODO: implement props
-  List<Object> get props => [timestamp];
+  List<Object> get props => [timestamp, hubConnection];
 }
 
-class ReliMonitorEventRefetchData extends ReliMonitorEvent {
+class ReliMonitorEventDataUpdated extends ReliMonitorEvent {
   DateTime timestamp;
-  ReliMonitorEventRefetchData({this.timestamp});
+  ReliMonitorData reliMonitorData;
+  ReliMonitorEventDataUpdated({this.timestamp, this.reliMonitorData});
   @override
-  // TODO: implement props
-  List<Object> get props => [timestamp];
+  List<Object> get props => [timestamp, reliMonitorData];
 }
 
-class ReliMonitorEventCancelRefetchData extends ReliMonitorEvent {
+//---------------------------------------------------
+class ReliCBMonitorEventHubConnected extends ReliMonitorEvent {
   DateTime timestamp;
-  ReliMonitorEventCancelRefetchData({this.timestamp});
+  HubConnection hubConnection;
+  ReliCBMonitorEventHubConnected({this.hubConnection, this.timestamp});
   @override
-  // TODO: implement props
-  List<Object> get props => [timestamp];
+  List<Object> get props => [timestamp, hubConnection];
 }
 
-class ReliCBMonitorEventSearchingClicked extends ReliMonitorEvent {
+class ReliCBMonitorEventDataUpdated extends ReliMonitorEvent {
   DateTime timestamp;
-  ReliCBMonitorEventSearchingClicked({this.timestamp});
+  ReliCBMonitorData reliCBMonitorData;
+  ReliCBMonitorEventDataUpdated({this.timestamp, this.reliCBMonitorData});
   @override
-  // TODO: implement props
-  List<Object> get props => [timestamp];
-}
-
-class ReliCBMonitorEventRefetchData extends ReliMonitorEvent {
-  DateTime timestamp;
-  ReliCBMonitorEventRefetchData({this.timestamp});
-  @override
-  // TODO: implement props
-  List<Object> get props => [timestamp];
-}
-
-class ReliCBMonitorEventCancelRefetchData extends ReliMonitorEvent {
-  DateTime timestamp;
-  ReliCBMonitorEventCancelRefetchData({this.timestamp});
-  @override
-  // TODO: implement props
-  List<Object> get props => [timestamp];
+  List<Object> get props => [timestamp, reliCBMonitorData];
 }
