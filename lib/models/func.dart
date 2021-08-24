@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/presentation/dialog/dialog.dart';
 
-import 'login.dart';
 
 void logout(BuildContext context) {
   AlertDialogTwoBtnCustomized alertDialogOneBtnCustomized =

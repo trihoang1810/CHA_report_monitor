@@ -63,13 +63,6 @@ class ReliCBReportStateLoadingRequest extends ReliReportState {
   List<Object> get props => [timestamp];
 }
 
-class ReliCBReportStateInit extends ReliReportState {
-  DateTime timestamp;
-  ReliCBReportStateInit({this.timestamp});
-  @override
-  // TODO: implement props
-  List<Object> get props => [timestamp];
-}
 
 class ReliCBReportStateLoadingSuccessful extends ReliReportState {
   DateTime timestamp;

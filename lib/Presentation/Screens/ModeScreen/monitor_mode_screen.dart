@@ -12,19 +12,6 @@ class _MonitorModeScreenState extends State<MonitorModeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final reportButton = new CustomizedButton(
-      text: "Độ bền",
-      onPressed: () {
-        Navigator.pushNamed(context, '/reliabilitymonitorscreen');
-      },
-    );
-    final reportButtonCB = new CustomizedButton(
-      text: 'Độ biến dạng',
-      onPressed: () {
-        Navigator.pushNamed(context, '/deformationmonitorscreen');
-      },
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Giám sát"),
@@ -51,9 +38,19 @@ class _MonitorModeScreenState extends State<MonitorModeScreen> {
             SizedBox(
               height: SizeConfig.screenHeight * 0.1024,
             ),
-            reportButton,
+            CustomizedButton(
+              text: "Độ bền",
+              onPressed: () {
+                Navigator.pushNamed(context, '/reliabilitymonitorscreen');
+              },
+            ),
             SizedBox(height: SizeConfig.screenHeight * 0.0192),
-            reportButtonCB,
+            CustomizedButton(
+              text: 'Độ biến dạng',
+              onPressed: () {
+                Navigator.pushNamed(context, '/deformationmonitorscreen');
+              },
+            ),
             SizedBox(height: SizeConfig.screenHeight * 0.128),
           ],
         ),

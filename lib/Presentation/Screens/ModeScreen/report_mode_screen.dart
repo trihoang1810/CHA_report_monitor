@@ -52,7 +52,6 @@ class _ReportModeScreenState extends State<ReportModeScreen> {
                 Navigator.pushNamed(context, '/deformationreportscreen');
               },
             ),
-            // reportButtonCB,
             SizedBox(height: SizeConfig.screenHeight * 0.128),
           ],
         ),

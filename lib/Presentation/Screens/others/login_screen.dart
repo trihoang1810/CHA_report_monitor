@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     SizedBox(
                         height: SizeConfig.screenHeight *
-                            0.03841), //100/SizeConfig.screenHeight = const
+                            0.03841),
                     SizedBox(height: SizeConfig.screenHeight * 0.05121),
                     MainAppName(
                         text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
@@ -130,20 +130,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       autofocus: false,
                       controller: userController,
                       decoration: InputDecoration(
-                        errorText: _isUsernameErr // <-- true
+                        errorText: _isUsernameErr
                             ? "Tên đăng nhập phải dài hơn $minLengthAcc ký tự"
                             : null,
                         errorStyle: TextStyle(color: Colors.red, fontSize: 15),
                         hintText: 'Nhập tài khoản',
                         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0,
-                            10.0), //logical pixel <-- -- physical pixel
+                            10.0),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32.0)),
                       ),
                       onChanged: (_) {
                         BlocProvider.of<LoginBloc>(context).add(
                           LoginEventChecking(
-                              //Gia --> -->Gi
                               userName: userController.text,
                               passWord: passController.text),
                         );
@@ -159,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: passController,
                           autofocus: false,
                           obscureText:
-                              _showPass, //true -->, nhấn vào sẽ thành false
+                              _showPass,
                           decoration: InputDecoration(
                             errorText: _isPasswordErr
                                 ? "Mật khẩu phải chứa $minLength đến $maxLength ký tự"
@@ -196,21 +195,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: SizeConfig.screenHeight * 0.0192,
                     ),
                     CustomizedButton(
-                      //xám khi ko nhập gì hoặc nhập sai
                       onPressed: (userController.text == "" ||
                               passController.text == "" ||
                               _isPasswordErr ||
                               _isUsernameErr)
                           ? null
                           : () async {
-                              //Code này cho bản full
                               BlocProvider.of<LoginBloc>(context).add(
                                   LoginEventLoginClicked(
                                       username: userController.text,
                                       password: passController.text,
                                       timestamp: DateTime.now()));
-                              //Code này cho bản test
-                              // Navigator.popAndPushNamed(context, '/modescreen');
                             },
                       text: "Đăng nhập",
                     ),

@@ -20,31 +20,6 @@ class _ModeScreenState extends State<ModeScreen> {
     this.employeeIdOverall = arg['id'];
     this.employeeLastNameOverall = arg['lastName'];
     SizeConfig().init(context);
-    final logo =
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-      Image.asset(
-        'lib/assets/CHAlogo.png',
-        width: SizeConfig.screenWidth * 0.3056,
-      ),
-      SizedBox(width: SizeConfig.screenWidth * 0.0764),
-      Image.asset(
-        'lib/assets/BK_VIAMLAB.png',
-        width: SizeConfig.screenWidth * 0.3056,
-      ),
-    ]);
-
-    final reportButton = new CustomizedButton(
-      text: 'BÁO CÁO',
-      onPressed: () {
-        Navigator.pushNamed(context, '/reportmodescreen');
-      },
-    );
-    final monitorButton = new CustomizedButton(
-      text: 'GIÁM SÁT',
-      onPressed: () {
-        Navigator.pushNamed(context, '/monitormodescreen');
-      },
-    );
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -103,7 +78,7 @@ class _ModeScreenState extends State<ModeScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        logout(context);            
+                        logout(context);
                       },
                       child: Text(
                         "Đăng xuất",
@@ -144,13 +119,35 @@ class _ModeScreenState extends State<ModeScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
               ),
               SizedBox(height: SizeConfig.screenHeight * 0.05),
-              logo,
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      'lib/assets/CHAlogo.png',
+                      width: SizeConfig.screenWidth * 0.3056,
+                    ),
+                    SizedBox(width: SizeConfig.screenWidth * 0.0764),
+                    Image.asset(
+                      'lib/assets/BK_VIAMLAB.png',
+                      width: SizeConfig.screenWidth * 0.3056,
+                    ),
+                  ]),
               SizedBox(
                 height: SizeConfig.screenHeight * 0.1,
               ),
-              reportButton,
+              CustomizedButton(
+                text: 'BÁO CÁO',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/reportmodescreen');
+                },
+              ),
               SizedBox(height: SizeConfig.screenHeight * 0.0192),
-              monitorButton,
+              CustomizedButton(
+                text: 'GIÁM SÁT',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/monitormodescreen');
+                },
+              ),
               SizedBox(height: SizeConfig.screenHeight * 0.12804),
             ],
           ),

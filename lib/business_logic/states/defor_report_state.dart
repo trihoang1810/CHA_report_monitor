@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app/models/deformation_bending_data.dart';
+import 'package:mobile_app/models/deformation_rocktest_data.dart';
 import 'package:mobile_app/models/deformation_staticload_data.dart';
 import 'package:mobile_app/models/error_package.dart';
 
@@ -121,9 +122,9 @@ class DeforRockReportStateInit extends DeforReportState {
 
 class DeforRockReportStateLoadingSuccessful extends DeforReportState {
   DateTime timestamp;
-  DeforBendingReport deforBendingReport;
+  DeforRockReport deforRockReport;
   DeforRockReportStateLoadingSuccessful(
-      {this.deforBendingReport, this.timestamp});
+      {this.deforRockReport, this.timestamp});
 
   @override
   List<Object> get props => [timestamp];

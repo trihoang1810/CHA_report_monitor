@@ -7,7 +7,7 @@ import 'package:mobile_app/business_logic/states/login_state.dart';
 
 int minLength = 6;
 int maxLength = 12;
-int minLengthAcc = 3; //biến toàn cục
+int minLengthAcc = 3;
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc()
@@ -20,10 +20,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     if (event is LoginEventChecking) {
       bool _isUsernameErr = true, _isPasswordErr = true;
-      _isUsernameErr = (event.userName.length < minLengthAcc); //Gi = 2 < 3 => true
-      _isPasswordErr = event.passWord.length < minLength || // 6 = 6 = > false
+      _isUsernameErr = (event.userName.length < minLengthAcc);
+      _isPasswordErr = event.passWord.length < minLength ||
           event.passWord.length > maxLength;
-      yield LoginStateFormatChecking( //yield giống return nhưng return được nhiều lần
+      yield LoginStateFormatChecking(
         isUsernameErr: _isUsernameErr,
         isPasswordErr: _isPasswordErr,
       );
@@ -33,8 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } else if (event is LoginEventLoginClicked) {
       yield LoginStateLoadingRequest();
       final loginDataOrErr =
-          await loginRepository.loginRequest(event.username, event.password); //await là chỉ khi xử lý xong mới nhảy qua dòng code kế tiếp
-      //loginRequest(username, password) có thể là LoginData hoặc ErrorPackage
+          await loginRepository.loginRequest(event.username, event.password);
       if (loginDataOrErr is LoginData) {
         yield LoginStateLoginSuccessful(
             timestamp: event.timestamp, loginData: loginDataOrErr);

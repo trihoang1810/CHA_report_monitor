@@ -13,40 +13,38 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     //print("${SizeConfig.screenHeight} + / + ${SizeConfig.screenWidth}");
-    final loginButton = new CustomizedButton(
-      text: "Đăng nhập",
-      onPressed: () {
-        Navigator.pushNamed(context, '/loginscreen');
-      },
-    );
-
-    final rightsReserved = Text(
-      'SISTRAIN All rights reserved',
-      textAlign: TextAlign.center,
-      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-    );
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Center( 
+          Center(
             child: ListView(
               shrinkWrap: true,
               padding: EdgeInsets.only(left: 24.0, right: 24.0),
               children: <Widget>[
                 SizedBox(height: SizeConfig.screenHeight * 0.0384),
                 SizedBox(height: SizeConfig.screenHeight * 0.05),
-                MainAppName(text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
+                MainAppName(
+                    text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
                 SizedBox(height: SizeConfig.screenHeight * 0.1),
-                loginButton,
+                CustomizedButton(
+                  text: "Đăng nhập",
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/loginscreen');
+                  },
+                ),
               ],
             ),
           ),
           Column(
             children: [
-              rightsReserved,
+              Text(
+                'SISTRAIN All rights reserved',
+                textAlign: TextAlign.center,
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              ),
               SizedBox(
                 height: (SizeConfig.screenHeight / 100),
               )

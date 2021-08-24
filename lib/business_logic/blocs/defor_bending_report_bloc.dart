@@ -194,11 +194,11 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
       try {
         final deforRockReportData = await deforRockReportRepository
             .loadingDeforRockDataRequest(event.startTime, event.stopTime);
-        deforBendingReportListNew.clear();
+        deforRockReportListNew.clear();
         if (deforRockReportData is DeforRockReport) {
           for (var item in deforRockReportData.items) {
             for (var mau in item.mauKiemTraRockTest) {
-              MyDeforRockReportView _myDeforRockReportView =
+              MyDeforRockReportView myDeforRockReportView =
                   MyDeforRockReportView(
                       mauSo: mau.id.toString(),
                       tenSanPham: item.sanPham.tenSanPham,
@@ -208,11 +208,10 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
                       tongLoi: mau.tongLoi,
                       ghiChu: mau.ghiChu,
                       nhanVienKiemTra: mau.nhanVienKiemTra);
-              deforRockReportListNew.add(_myDeforRockReportView);
+              deforRockReportListNew.add(myDeforRockReportView);
             }
           }
           deforRockReportList = deforRockReportListNew;
-          print('rock bloc thanh cong');
           yield DeforRockReportStateLoadingSuccessful(
               timestamp: event.timestamp);
         } else if (deforRockReportData is ErrorPackage) {

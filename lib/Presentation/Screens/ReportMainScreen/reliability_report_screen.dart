@@ -49,7 +49,7 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
           ),
           title: Text("Báo cáo kiểm tra độ bền"),
         ),
-        body: BlocConsumer<ReliReportBloc, ReliReportState>(
+      body: BlocConsumer<ReliReportBloc, ReliReportState>(
           listener: (context, reliReportState) async {
             if (reliReportState is ReliReportStateLoadingRequest) {
               loadingDialog.show();

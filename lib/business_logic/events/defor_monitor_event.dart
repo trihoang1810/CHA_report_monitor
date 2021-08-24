@@ -1,26 +1,30 @@
 import 'package:equatable/equatable.dart';
+import 'package:mobile_app/models/deformation_monitor_data.dart';
+import 'package:mobile_app/models/error_package.dart';
+import 'package:signalr_core/signalr_core.dart';
 
 abstract class DeforMonitorEvent extends Equatable {}
 
-class Defor1MonitorEventSearchingClicked extends DeforMonitorEvent {
+//-----------------------------------------------
+class DeforMonitorEventHubConnected extends DeforMonitorEvent {
   DateTime timestamp;
-  Defor1MonitorEventSearchingClicked({this.timestamp});
+  HubConnection hubConnection;
+  DeforMonitorEventHubConnected({this.hubConnection, this.timestamp});
   @override
-  List<Object> get props => [timestamp];
+  List<Object> get props => [timestamp, hubConnection];
 }
 
-class Defor1MonitorEventRefetchData extends DeforMonitorEvent {
+class DeforMonitorEventDataUpdated extends DeforMonitorEvent {
   DateTime timestamp;
-  Defor1MonitorEventRefetchData({this.timestamp});
+  DeforMonitorData deforMonitorData;
+  DeforMonitorEventDataUpdated({this.timestamp, this.deforMonitorData});
   @override
-  // TODO: implement props
-  List<Object> get props => [timestamp];
+  List<Object> get props => [timestamp, deforMonitorData];
 }
 
-class Defor1MonitorEventCancelRefetchData extends DeforMonitorEvent {
-  DateTime timestamp;
-  Defor1MonitorEventCancelRefetchData({this.timestamp});
+class DeforMonitorEventConnectFail extends DeforMonitorEvent {
+  ErrorPackage errorPackage;
+  DeforMonitorEventConnectFail({this.errorPackage});
   @override
-  // TODO: implement props
-  List<Object> get props => [timestamp];
+  List<Object> get props => [errorPackage];
 }
