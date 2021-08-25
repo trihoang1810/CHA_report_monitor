@@ -24,5 +24,5 @@ class ReliMonitorData extends Equatable {
         thoiGianGiuNapMo,
         alarm,
         running,
-      ]; //ko quan tâm
+      ];
 }

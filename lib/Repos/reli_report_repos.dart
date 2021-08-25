@@ -20,7 +20,6 @@ class ReliReportRepository {
       final end = (stopTime == null)
           ? DateFormat('yyyy-MM-dd').format(DateTime.now())
           : DateFormat('yyyy-MM-dd').format(stopTime);
-      print('start ' + start + ' and end ' + end);
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +

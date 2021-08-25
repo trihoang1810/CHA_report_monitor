@@ -29,8 +29,8 @@ class DeforMonitorData extends Equatable {
   int modeStatus;
   String forceCylinderSp12;
   String forceCylinderSp3;
-  int timeHoldSp12;
-  int timeHoldSp3;
+  String timeHoldSp12;
+  String timeHoldSp3;
   bool seclect1;
   bool seclect2;
   bool redStatus;
@@ -55,23 +55,4 @@ class DeforMonitorData extends Equatable {
         greenStatus,
         errorStatus
       ];
-  factory DeforMonitorData.fromJson(Map<String, dynamic> json) =>
-      DeforMonitorData(
-        noPressPv1: json["numberOfTestPv1"],
-        noPressPv2: json["numberOfTestPv2"],
-        noPressPv3: json["numberOfTestPv3"],
-        noPressSp12: json["numberOfTestSp12"],
-        noPressSp3: json["numberOfTestSp3"],
-        errorCode: json["errorCode"],
-        modeStatus: json["modeStatus"],
-        forceCylinderSp12: json["forceCylinderSp12"].toString(),
-        forceCylinderSp3: json["forceCylinderSp3"].toString(),
-        timeHoldSp12: json["timeHoldSp12"],
-        timeHoldSp3: json["timeHoldSp3"],
-        seclect1: json["seclect1"],
-        seclect2: json["seclect2"],
-        redStatus: json["redStatus"],
-        greenStatus: json["greenStatus"],
-        errorStatus: json["errorStatus"],
-      );
 }

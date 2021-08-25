@@ -640,8 +640,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
           Map<String, dynamic>.from(data[0])["forceCylinderSp12"].toString(),
       forceCylinderSp3:
           Map<String, dynamic>.from(data[0])["forceCylinderSp3"].toString(),
-      timeHoldSp12: Map<String, dynamic>.from(data[0])["timeHoldSp12"],
-      timeHoldSp3: Map<String, dynamic>.from(data[0])["timeHoldSp3"],
+      timeHoldSp12: Map<String, dynamic>.from(data[0])["timeHoldSp12"].toString(),
+      timeHoldSp3: Map<String, dynamic>.from(data[0])["timeHoldSp3"].toString(),
       seclect1: Map<String, dynamic>.from(data[0])["seclect1"],
       seclect2: Map<String, dynamic>.from(data[0])["seclect2"],
       redStatus: Map<String, dynamic>.from(data[0])["redStatus"],

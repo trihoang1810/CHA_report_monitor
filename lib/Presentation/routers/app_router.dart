@@ -17,7 +17,6 @@ import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/reli__report_bloc.dart';
 import 'package:mobile_app/business_logic/blocs/reli_monitor_bloc.dart';
 import 'package:mobile_app/repos/defor_bending_report_repos.dart';
-import 'package:mobile_app/repos/defor_monitor_repos.dart';
 import 'package:mobile_app/repos/defor_rock_report_repos.dart';
 import 'package:mobile_app/repos/defor_static_report_repos.dart';
 import 'package:mobile_app/repos/reli_cb_report_repos.dart';
@@ -35,8 +34,6 @@ ReliReportRepository reliReportRepository =
     new ReliReportRepository(httpClient: http.Client());
 ReliCBReportRepository reliCBReportRepository =
     new ReliCBReportRepository(httpClient: http.Client());
-DeforMonitorRepository deforMonitorRepository =
-    new DeforMonitorRepository(httpClient: http.Client());
 
 //-------------------------------------------------------------
 class AppRouter {

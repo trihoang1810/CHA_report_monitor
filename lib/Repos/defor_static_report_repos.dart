@@ -21,8 +21,6 @@ class DeforStaticReportRepository {
       final end = (stopTime == null)
           ? DateFormat('yyyy-MM-dd').format(DateTime.now())
           : DateFormat('yyyy-MM-dd').format(stopTime);
-      //print('ngay bat dau la' + start);
-      //print('ngay ket thuc la' + end);
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
