@@ -4,6 +4,7 @@ double screenWidthGlobal;
 
 class Constants {
   static const String baseUrl =
+      //"https://storagewebapi20210714122113.azurewebsites.net/";
       "https://phong-kiem-tra-chat-luong-sp.herokuapp.com";
   static const Color mainColor = Color(0xff001D37);
   static const Color secondaryColor = Color(0xff00294D);

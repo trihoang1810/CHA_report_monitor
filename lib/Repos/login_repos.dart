@@ -11,6 +11,8 @@ class LoginRepository {
   LoginRepository({this.httpClient});
 
   Future loginRequest(String userName, String password) async {
+    print('userName: ${userName}');
+    print('passWord: ${password}');
     Map<String, String> headers = {"Content-type": "application/json"};
     Map<String, String> body = {
       "userName": "$userName",
@@ -30,14 +32,15 @@ class LoginRepository {
         return ErrorPackage.fromJson(errJson);
       } else if (response.statusCode == 500) {
         final errJson = jsonDecode(response.body);
-        return ErrorPackage.fromJson(errJson);
+        return ErrorPackage(
+            detail: 'Vui lòng kiểm tra lại server', message: 'Lỗi server');
       }
     } on SocketException {
       return ErrorPackage(
           errorCode: "", detail: "Không có kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
-      return
-      ErrorPackage(errorCode: "", detail: e.toString(), message: "Lỗi lạ");
+      return ErrorPackage(
+          errorCode: "", detail: e.toString(), message: "Lỗi lạ");
     }
   }
 }
