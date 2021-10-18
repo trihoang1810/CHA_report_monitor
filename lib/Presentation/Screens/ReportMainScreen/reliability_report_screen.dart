@@ -18,11 +18,11 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
   String _getUntil = "Đến ngày";
   String _getFrom = "Từ ngày";
   DateTime _start = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _end = DateTime.now();
+  DateTime _end = DateTime.now().add(Duration(hours: 24*1));
   String _getUntilCB = "Đến ngày";
   String _getFromCB = "Từ ngày";
   DateTime _startCB = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _endCB = DateTime.now();
+  DateTime _endCB = DateTime.now().add(Duration(hours: 24*1));
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

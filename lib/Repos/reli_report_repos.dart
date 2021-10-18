@@ -29,24 +29,24 @@ class ReliReportRepository {
               end.toString()))
           .timeout(Constants.timeOutLimitation);
       if (response.statusCode == 200) {
-        print('thanh cong');
+        // print('thanh cong');
         ReliReport reliReport = ReliReport.fromJson(jsonDecode(response.body));
         return reliReport;
       } else if (response.statusCode == 400 || response.statusCode == 404) {
-        print('co loi 1');
+        // print('co loi 1');
         final errJson = jsonDecode(response.body);
         return ErrorPackage.fromJson(errJson);
       } else {
-        print('co loi 2');
+        // print('co loi 2');
         final errJson = jsonDecode(response.body);
         return ErrorPackage.fromJson(errJson);
       }
     } on SocketException {
-      print('loi socket');
+      // print('loi socket');
       return ErrorPackage(
           errorCode: "", detail: "Không có kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
-      print('loi catch ' + e.toString());
+      // print('loi catch ' + e.toString());
       return ErrorPackage(
           errorCode: "", detail: e.toString(), message: "Lỗi lạ");
     }

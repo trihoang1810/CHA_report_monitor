@@ -61,14 +61,14 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
               detail: ""),
         );
       } on TimeoutException {
-        print('loi time out exception');
+        // print('loi time out exception');
         yield ReliReportStateLoadingFailure(
           errorPackage: new ErrorPackage(
               errorCode: "TimeoutException", message: "Overtime", detail: ""),
         );
-        print('loi bloc');
+        // print('loi bloc');
       } catch (e) {
-        print(e.toString());
+        // print(e.toString());
         //Chỗ này tránh các lỗi bậy bạ
         yield ReliReportStateLoadingFailure(
           errorPackage: new ErrorPackage(
@@ -78,7 +78,7 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
     } else if (event is ReliReportEventPickDateRange) {
       final initialDateRange = DateTimeRange(
         start: DateTime.now().subtract(Duration(hours: 24 * 3)),
-        end: DateTime.now(),
+        end: DateTime.now().add(Duration(hours: 24)),
       );
       final newDateRange = await showDateRangePicker(
         firstDate: DateTime(DateTime.now().year - 5),
@@ -96,17 +96,17 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
             getUntil: DateFormat('yyyy-MM-dd').format(newDateRange.end));
       }
     } else if (event is ReliCBReportEventSearchingClicked) {
-      print('reli RPCB clicked');
+      // print('reli RPCB clicked');
       yield ReliCBReportStateLoadingRequest();
       try {
-        print('vao try relicbreport');
+        // print('vao try relicbreport');
         final reliCBReportData = await reliCBReportRepository
             .loadingReliCBDataRequest(event.startTime, event.stopTime);
         reliCBReportListNew.clear();
         if (reliCBReportData is ReliCBReport) {
-          print('load cb thanh cong');
+          // print('load cb thanh cong');
           for (var item in reliCBReportData.items) {
-            print(item.mucDichKiemTra);
+            // print(item.mucDichKiemTra);
             for (var mau in item.mauKiemTraDongCuongBuc) {
               MyReliCBReportView _myReliCBReportView = MyReliCBReportView(
                   soLanThu: mau.soLanThu,
@@ -120,7 +120,7 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
             }
           }
           reliCBReportList = reliCBReportListNew;
-          print(reliCBReportList.toString());
+          // print(reliCBReportList.toString());
           yield ReliCBReportStateLoadingSuccessful(timestamp: event.timestamp);
         } else if (reliCBReportData is ErrorPackage) {
           ReliCBReportStateLoadingFailure(
@@ -130,7 +130,7 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
                   message: reliCBReportData.message,
                   detail: reliCBReportData.detail));
         } else {
-          print("clgt nay");
+          // print("ok");
         }
       } on SocketException {
         yield ReliCBReportStateLoadingFailure(
@@ -138,16 +138,16 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
               errorCode: "Mất kết nối mạng", message: "Lỗi mạng", detail: ""),
         );
       } on TimeoutException {
-        print('loi time out exception');
+        // print('loi time out exception');
         yield ReliCBReportStateLoadingFailure(
           errorPackage: ErrorPackage(
               errorCode: "TimeoutException",
               message: "Lỗi time out",
               detail: "Quá hạn thời gian truy xuất"),
         );
-        print('loi bloc');
+        // print('loi bloc');
       } catch (e) {
-        print('loi bay ba');
+        // print('loi bay ba');
         //Chỗ này tránh các lỗi bậy bạ
         yield ReliCBReportStateLoadingFailure(
           errorPackage: ErrorPackage(
@@ -157,7 +157,7 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
     } else if (event is ReliCBReportEventPickDateRange) {
       final initialDateRange = DateTimeRange(
         start: DateTime.now().subtract(Duration(hours: 24 * 3)),
-        end: DateTime.now(),
+        end: DateTime.now().add(Duration(hours: 24)),
       );
       final newDateRange = await showDateRangePicker(
         firstDate: DateTime(DateTime.now().year - 5),

@@ -29,25 +29,25 @@ class DeforRockReportRepository {
               end.toString()))
           .timeout(Constants.timeOutLimitation);
       if (response.statusCode == 200) {
-        print("rock thanh cong");
+        // print("rock thanh cong");
         DeforRockReport deforRockReport =
             DeforRockReport.fromJson(jsonDecode(response.body));
         return deforRockReport;
       } else if (response.statusCode == 400 || response.statusCode == 404) {
-        print("rock that bai 1");
+        // print("rock that bai 1");
         final errJson = jsonDecode(response.body);
         return ErrorPackage.fromJson(errJson);
       } else {
-        print("rock that bai2");
+        // print("rock that bai2");
         final errJson = jsonDecode(response.body);
         return ErrorPackage.fromJson(errJson);
       }
     } on SocketException {
-      print("rock that bai 3");
+      // print("rock that bai 3");
       return ErrorPackage(
           errorCode: "", detail: "Mất kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
-      print("rock that bai 4");
+      // print("rock that bai 4");
       return ErrorPackage(
           errorCode: "", detail: e.toString(), message: "Lỗi lạ");
     }

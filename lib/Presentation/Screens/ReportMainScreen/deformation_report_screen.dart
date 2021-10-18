@@ -18,15 +18,15 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
   String _getUntilStatic = "Đến ngày";
   String _getFromStatic = "Từ ngày";
   DateTime _startStatic = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _endStatic = DateTime.now();
+  DateTime _endStatic = DateTime.now().add(Duration(hours: 24*1));
   String _getUntilBending = "Đến ngày";
   String _getFromBending = "Từ ngày";
   DateTime _startBending = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _endBending = DateTime.now();
+  DateTime _endBending =  DateTime.now().add(Duration(hours: 24*1));
   String _getUntilRock = "Đến ngày";
   String _getFromRock = "Từ ngày";
   DateTime _startRock = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _endRock = DateTime.now();
+  DateTime _endRock = DateTime.now().add(Duration(hours: 24*1));
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -121,10 +121,10 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
               _getUntilRock = deforReportState.getUntil;
               _startRock = deforReportState.dateRange.start;
               _endRock = deforReportState.dateRange.end;
-              print(_getFromRock);
-              print(_getUntilRock);
-              print(_startRock);
-              print(_endRock);
+              // print(_getFromRock);
+              // print(_getUntilRock);
+              // print(_startRock);
+              // print(_endRock);
             }
           },
           builder: (context, deforReportState) => TabBarView(

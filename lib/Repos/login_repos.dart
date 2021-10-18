@@ -11,8 +11,8 @@ class LoginRepository {
   LoginRepository({this.httpClient});
 
   Future loginRequest(String userName, String password) async {
-    print('userName: ${userName}');
-    print('passWord: ${password}');
+    // print('userName: ${userName}');
+    // print('passWord: ${password}');
     Map<String, String> headers = {"Content-type": "application/json"};
     Map<String, String> body = {
       "userName": "$userName",

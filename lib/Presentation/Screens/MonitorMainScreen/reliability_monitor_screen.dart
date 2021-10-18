@@ -45,14 +45,14 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
           .withUrl(Constants.baseUrl + '/hub')
           .withAutomaticReconnect()
           .build();
-      hubConnection.keepAliveIntervalInMilliseconds = 30000;
-      hubConnection.serverTimeoutInMilliseconds = 30000;
+      hubConnection.keepAliveIntervalInMilliseconds = 10000;
+      hubConnection.serverTimeoutInMilliseconds = 10000;
       hubConnection.onclose((error) {
-        return BlocProvider.of<ReliMonitorBloc>(context).add(
+        return error != null? BlocProvider.of<ReliMonitorBloc>(context).add(
             ReliMonitorEventConnectFail(
                 errorPackage: ErrorPackage(
-                    message: "Không tìm thấy máy chủ",
-                    detail: "Vui lòng kiểm tra đường truyền!")));
+                        message: "Ngắt kết nối",
+                        detail: "Đã ngắt kết nối đến máy chủ!"))):null;
       });
       hubConnection.on("MonitorReliability", monitorReliabilityHandlers);
       hubConnection.on("MonitorDeformation", monitorDeformationHandlers);
@@ -500,6 +500,7 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
   }
 
   void monitorReliabilityHandlers(List<dynamic> data) {
+    print(Map<String, dynamic>.from(data[0])["alarm"]);
     BlocProvider.of<ReliMonitorBloc>(context).add(ReliMonitorEventDataUpdated(
         reliMonitorData: ReliMonitorData(
             alarm: Map<String, dynamic>.from(data[0])["alarm"],
@@ -515,6 +516,7 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
 
   void monitorDeformationHandlers(List<dynamic> data) {
     print('Hứng dữ liệu');
+    print(Map<String, dynamic>.from(data[0])["alarm"]);
     BlocProvider.of<ReliMonitorBloc>(context).add(ReliCBMonitorEventDataUpdated(
         reliCBMonitorData: ReliCBMonitorData(
             alarm: Map<String, dynamic>.from(data[0])["alarm"],

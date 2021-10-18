@@ -58,7 +58,7 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
                   message: deforBendingReportData.message,
                   detail: deforBendingReportData.detail));
         } else {
-          print("vcl");
+          // print("ok");
         }
       } on SocketException {
         yield DeforBendingReportStateLoadingFailure(
@@ -89,7 +89,7 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
     } else if (event is DeforBendingReportEventPickDateRange) {
       final initialDateRange = DateTimeRange(
         start: DateTime.now().subtract(Duration(hours: 24 * 3)),
-        end: DateTime.now(),
+        end: DateTime.now().add(Duration(hours: 24)),
       );
       final newDateRange = await showDateRangePicker(
         firstDate: DateTime(DateTime.now().year - 5),
@@ -139,7 +139,7 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
                   message: deforStaticReportData.message,
                   detail: deforStaticReportData.detail));
         } else {
-          print("vcl");
+          // print("ok");
         }
       } on SocketException {
         yield DeforStaticReportStateLoadingFailure(
@@ -170,7 +170,7 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
     } else if (event is DeforStaticReportEventPickDateRange) {
       final initialDateRange = DateTimeRange(
         start: DateTime.now().subtract(Duration(hours: 24 * 3)),
-        end: DateTime.now(),
+        end: DateTime.now().add(Duration(hours: 24)),
       );
       final newDateRange = await showDateRangePicker(
         firstDate: DateTime(DateTime.now().year - 5),
@@ -222,7 +222,7 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
                   message: deforRockReportData.message,
                   detail: deforRockReportData.detail));
         } else {
-          print("vcl1");
+          // print("ok");
         }
       } on SocketException {
         yield DeforRockReportStateLoadingFailure(
@@ -253,7 +253,7 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
     } else if (event is DeforRockReportEventPickDateRange) {
       final initialDateRange = DateTimeRange(
         start: DateTime.now().subtract(Duration(hours: 24 * 3)),
-        end: DateTime.now(),
+        end: DateTime.now().add(Duration(hours: 24)),
       );
       final newDateRange = await showDateRangePicker(
         firstDate: DateTime(DateTime.now().year - 5),

@@ -20,8 +20,8 @@ class ReliCBReportRepository {
       final end = (stopTime == null)
           ? DateFormat('yyyy-MM-dd').format(DateTime.now())
           : DateFormat('yyyy-MM-dd').format(stopTime);
-      print(start);
-      print(end);
+      // print(start);
+      // print(end);
       final response = await this
           .httpClient
           .get(Uri.parse(Constants.baseUrl +
@@ -31,16 +31,16 @@ class ReliCBReportRepository {
               end))
           .timeout(Constants.timeOutLimitation);
       if (response.statusCode == 200) {
-        print('thanh cong');
+        // print('thanh cong');
         ReliCBReport reliCBReport =
             ReliCBReport.fromJson(jsonDecode(response.body));
         return reliCBReport;
       } else if (response.statusCode == 400 || response.statusCode == 404) {
-        print('co loi 1');
+        // print('co loi 1');
         final errJson = jsonDecode(response.body);
         return ErrorPackage.fromJson(errJson);
       } else {
-        print('co loi 2');
+        // print('co loi 2');
         final errJson = jsonDecode(response.body);
         return ErrorPackage.fromJson(errJson);
       }

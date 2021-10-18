@@ -51,16 +51,16 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
           .withUrl(Constants.baseUrl + '/hub')
           .withAutomaticReconnect()
           .build();
-      hubConnection.keepAliveIntervalInMilliseconds = 30000;
-      hubConnection.serverTimeoutInMilliseconds = 30000;
+      hubConnection.keepAliveIntervalInMilliseconds = 10000;
+      hubConnection.serverTimeoutInMilliseconds = 10000;
       hubConnection.onclose((error) {
         print(error);
         return error != null
             ? BlocProvider.of<DeforMonitorBloc>(context).add(
                 DeforMonitorEventConnectFail(
                     errorPackage: ErrorPackage(
-                        message: "Không tìm thấy máy chủ",
-                        detail: "Vui lòng kiểm tra đường truyền!")))
+                        message: "Ngắt kết nối",
+                        detail: "Đã ngắt kết nối đến máy chủ!")))
             : null;
       });
       hubConnection.on("MonitorEndurance", monitorEnduranceHandlers);
@@ -255,10 +255,10 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                 }
                 data1 = deforMonitorState.deforMonitorData.forceCylinderSp12
                     .toString();
-                data3 =
-                    deforMonitorState.deforMonitorData.noPressSp12.toString();
                 data2 =
                     deforMonitorState.deforMonitorData.timeHoldSp12.toString();
+                data3 =
+                    deforMonitorState.deforMonitorData.noPressSp12.toString();
                 data4 =
                     deforMonitorState.deforMonitorData.noPressPv1.toString();
                 data5 =
@@ -442,7 +442,7 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                                     height: SizeConfig.screenHeight * 0.1024,
                                     decoration: new BoxDecoration(
                                       color: warning
-                                          ? Colors.green
+                                          ? Colors.red
                                           : Colors.black26,
                                       shape: BoxShape.circle,
                                     ),
@@ -598,7 +598,7 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
                                     height: SizeConfig.screenHeight * 0.1024,
                                     decoration: new BoxDecoration(
                                       color: warning
-                                          ? Colors.green
+                                          ? Colors.red
                                           : Colors.black26,
                                       shape: BoxShape.circle,
                                     ),
@@ -645,8 +645,8 @@ class _DeformationMonitorScreenState extends State<DeformationMonitorScreen> {
       seclect1: Map<String, dynamic>.from(data[0])["seclect1"],
       seclect2: Map<String, dynamic>.from(data[0])["seclect2"],
       redStatus: Map<String, dynamic>.from(data[0])["redStatus"],
-      errorStatus: Map<String, dynamic>.from(data[0])["greenStatus"],
-      greenStatus: Map<String, dynamic>.from(data[0])["errorStatus"],
+      errorStatus: Map<String, dynamic>.from(data[0])["errorStatus"],
+      greenStatus: Map<String, dynamic>.from(data[0])["greenStatus"],
     )));
   }
 }
