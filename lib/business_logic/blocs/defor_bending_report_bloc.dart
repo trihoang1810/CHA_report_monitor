@@ -103,8 +103,8 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
       } else {
         yield DeforBendingReportStatePickDateRange(
             dateRange: newDateRange,
-            getFrom: DateFormat('yyyy-MM-dd').format(newDateRange.start),
-            getUntil: DateFormat('yyyy-MM-dd').format(newDateRange.end));
+            getFrom: DateFormat('yyyy/MM/dd').format(newDateRange.start),
+            getUntil: DateFormat('yyyy/MM/dd').format(newDateRange.end));
       }
     }
     //static_load_bloc
@@ -184,8 +184,8 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
       } else {
         yield DeforStaticReportStatePickDateRange(
             dateRange: newDateRange,
-            getFrom: DateFormat('yyyy-MM-dd').format(newDateRange.start),
-            getUntil: DateFormat('yyyy-MM-dd').format(newDateRange.end));
+            getFrom: DateFormat('yyyy/MM/dd').format(newDateRange.start),
+            getUntil: DateFormat('yyyy/MM/dd').format(newDateRange.end));
       }
     }
     // rock_test_bloc
@@ -267,8 +267,8 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
       } else {
         yield DeforRockReportStatePickDateRange(
             dateRange: newDateRange,
-            getFrom: DateFormat('yyyy-MM-dd').format(newDateRange.start),
-            getUntil: DateFormat('yyyy-MM-dd').format(newDateRange.end));
+            getFrom: DateFormat('yyyy/MM/dd').format(newDateRange.start),
+            getUntil: DateFormat('yyyy/MM/dd').format(newDateRange.end));
       }
     }
   }

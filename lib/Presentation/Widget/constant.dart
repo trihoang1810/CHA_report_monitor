@@ -6,7 +6,7 @@ class Constants {
   static const String baseUrl =
       //"https://storagewebapi20210714122113.azurewebsites.net/";
       // "https://phong-kiem-tra-chat-luong-sp.herokuapp.com";
-      "http://10.84.60.10:8086";
+      "http://10.84.50.10:8084";
   static const Color mainColor = Color(0xff001D37);
   static const Color secondaryColor = Color(0xff00294D);
   static const Duration timeOutLimitation = Duration(seconds: 10);

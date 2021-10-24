@@ -92,8 +92,8 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
       } else {
         yield ReliReportStatePickDateRange(
             dateRange: newDateRange,
-            getFrom: DateFormat('yyyy-MM-dd').format(newDateRange.start),
-            getUntil: DateFormat('yyyy-MM-dd').format(newDateRange.end));
+            getFrom: DateFormat('yyyy/MM/dd').format(newDateRange.start),
+            getUntil: DateFormat('yyyy/MM/dd').format(newDateRange.end));
       }
     } else if (event is ReliCBReportEventSearchingClicked) {
       // print('reli RPCB clicked');
@@ -171,8 +171,8 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
       } else {
         yield ReliCBReportStatePickDateRange(
             dateRange: newDateRange,
-            getFrom: DateFormat('yyyy-MM-dd').format(newDateRange.start),
-            getUntil: DateFormat('yyyy-MM-dd').format(newDateRange.end));
+            getFrom: DateFormat('yyyy/MM/dd').format(newDateRange.start),
+            getUntil: DateFormat('yyyy/MM/dd').format(newDateRange.end));
       }
     }
   }

@@ -8,7 +8,6 @@ import 'package:mobile_app/models/reliability_monitor_data.dart';
 import 'package:signalr_core/signalr_core.dart';
 
 class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
-  int count = 0;
   ReliMonitorBloc()
       : super(ReliMonitorStateInit(
             timestamp: DateTime.now(),
@@ -24,26 +23,18 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
       yield ReliMonitorStateLoadingRequest(timestamp: event.timestamp);
       event.hubConnection.state == HubConnectionState.disconnected
           ? await event.hubConnection.start().onError((error, stackTrace) {
-              count = 1;
               return ReliMonitorBloc().add(ReliMonitorEventConnectFail(
                   errorPackage: ErrorPackage(
                       message: "Không thể kết nối tới máy chủ",
                       detail: "vui lòng kiểm tra đường truyền")));
             })
           : await event.hubConnection.stop();
-      if (event.hubConnection.state == HubConnectionState.disconnected &&
-          count == 0) {
+      if (event.hubConnection.state == HubConnectionState.disconnected) {
+        // print('Trạng thái hub:' + event.hubConnection.state.toString());
         yield ReliMonitorStateConnectFail(
             errorPackage: ErrorPackage(
                 message: "Ngắt kết nối",
                 detail: "Đã ngắt kết nối tới máy chủ"));
-      } else if (event.hubConnection.state == HubConnectionState.disconnected &&
-          count == 1) {
-        yield ReliMonitorStateConnectFail(
-            errorPackage: ErrorPackage(
-                message: "Không thể kết nối tới máy chủ",
-                detail: "vui lòng kiểm tra đường truyền"));
-        count = 0;
       } else if (event.hubConnection.state == HubConnectionState.connected) {
         ReliMonitorData reliMonitorData = ReliMonitorData(
             alarm: false,
@@ -57,8 +48,8 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
         );
       }
     } else if (event is ReliMonitorEventDataUpdated) {
-      print('đã bắt được event');
-      print(event.reliMonitorData.soLanDongNapCaiDat);
+      // print('đã bắt được event');
+      // print(event.reliMonitorData.soLanDongNapCaiDat);
       yield ReliMonitorStateDataUpdated(
           timestamp: DateTime.now(), reliMonitorData: event.reliMonitorData);
     }
@@ -68,24 +59,15 @@ class ReliMonitorBloc extends Bloc<ReliMonitorEvent, ReliMonitorState> {
       yield ReliCBMonitorStateLoadingRequest(timestamp: event.timestamp);
       event.hubConnection.state == HubConnectionState.disconnected
           ? await event.hubConnection.start().onError((error, stackTrace) {
-              count = 1;
               var e = error.toString();
               return e;
             })
           : await event.hubConnection.stop();
-      if (event.hubConnection.state == HubConnectionState.disconnected &&
-          count == 0) {
+      if (event.hubConnection.state == HubConnectionState.disconnected) {
         yield ReliCBMonitorStateConnectFail(
             errorPackage: ErrorPackage(
                 message: "Ngắt kết nối",
                 detail: "Đã ngắt kết nối tới máy chủ"));
-      } else if (event.hubConnection.state == HubConnectionState.disconnected &&
-          count == 1) {
-        yield ReliCBMonitorStateConnectFail(
-            errorPackage: ErrorPackage(
-                message: "Không thể kết nối tới máy chủ",
-                detail: "vui lòng kiểm tra đường truyền"));
-        count = 0;
       } else if (event.hubConnection.state == HubConnectionState.connected) {
         ReliCBMonitorData reliCBMonitorData = ReliCBMonitorData(
             alarm: false,

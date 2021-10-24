@@ -71,11 +71,8 @@ class AlertDialogTwoBtnCustomized {
             ],
             style: AlertStyle(
                 descStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                    height: 1.5),
-                titleStyle:
-                    TextStyle(fontSize: 20)))
+                    fontSize: 20, fontWeight: FontWeight.normal, height: 1.5),
+                titleStyle: TextStyle(fontSize: 20)))
         .show();
   }
 }
@@ -107,7 +104,7 @@ class AlertDialogOneBtnCustomized {
             closeFunction: () {
               if (Navigator.canPop(context)) {
                 Navigator.of(context).pop();
-                print("can pop");
+                // print("can pop");
               }
               if (closePressed != null) {
                 closePressed();

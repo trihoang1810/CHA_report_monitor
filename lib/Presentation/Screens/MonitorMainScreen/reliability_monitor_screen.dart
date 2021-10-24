@@ -48,11 +48,13 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
       hubConnection.keepAliveIntervalInMilliseconds = 10000;
       hubConnection.serverTimeoutInMilliseconds = 10000;
       hubConnection.onclose((error) {
-        return error != null? BlocProvider.of<ReliMonitorBloc>(context).add(
-            ReliMonitorEventConnectFail(
-                errorPackage: ErrorPackage(
+        return error != null
+            ? BlocProvider.of<ReliMonitorBloc>(context).add(
+                ReliMonitorEventConnectFail(
+                    errorPackage: ErrorPackage(
                         message: "Ngắt kết nối",
-                        detail: "Đã ngắt kết nối đến máy chủ!"))):null;
+                        detail: "Đã ngắt kết nối đến máy chủ!")))
+            : null;
       });
       hubConnection.on("MonitorReliability", monitorReliabilityHandlers);
       hubConnection.on("MonitorDeformation", monitorDeformationHandlers);
@@ -91,7 +93,7 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                 });
         hubConnection.state == HubConnectionState.connected
             ? alertDialogOneBtnCustomized.show()
-            : print("adu");
+            : null;
         return true;
       },
       child: DefaultTabController(
@@ -154,10 +156,10 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                 warning = reliMonitorState.reliMonitorData.alarm;
                 running = reliMonitorState.reliMonitorData.running;
 
-                print(hubConnection.state.toString());
+                // print(hubConnection.state.toString());
               } else if (reliMonitorState is ReliMonitorStateDataUpdated) {
                 loadingDialog.dismiss();
-                print('chụp được state nè');
+                // print('chụp được state nè');
                 data1 = reliMonitorState.reliMonitorData.soLanDongNapCaiDat
                     .toString();
                 data2 = reliMonitorState.reliMonitorData.soLanDongNapHienTai
@@ -196,10 +198,10 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                     .toString();
                 warning2 = reliMonitorState.reliCBMonitorData.alarm;
                 running2 = reliMonitorState.reliCBMonitorData.running;
-                print(hubConnection.state.toString());
+                // print(hubConnection.state.toString());
               } else if (reliMonitorState is ReliCBMonitorStateDataUpdated) {
                 loadingDialog.dismiss();
-                print('chụp được state nè');
+                // print('chụp được state nè');
                 data21 = reliMonitorState.reliCBMonitorData.soLanDongNapCaiDat
                     .toString();
                 data22 = reliMonitorState.reliCBMonitorData.soLanDongNapHienTai
@@ -218,279 +220,344 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
                     ? false
                     : true;
               },
-              child: TabBarView(
-                children: <Widget>[
-                  SingleChildScrollView(
-                    child: Center(
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: 30),
-                          Text(
-                            'THÔNG SỐ VẬN HÀNH',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: SizeConfig.screenHeight * 0.0128),
-                          CustomizedButton(
-                            fontSize: 25,
-                            width: SizeConfig.screenWidth * 0.5121,
-                            height: SizeConfig.screenHeight * 0.05121,
-                            onPressed: () {
-                              // BlocProvider.of<ReliMonitorBloc>(context)
-                              //     .add(ReliMonitorEventSearchingClicked());
-                              BlocProvider.of<ReliMonitorBloc>(context).add(
-                                  ReliMonitorEventHubConnected(
-                                      hubConnection: hubConnection));
-                            },
-                            text: "Truy xuất",
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                hubConnection.state ==
-                                        HubConnectionState.connected
-                                    ? Icons.check_box_rounded
-                                    : Icons.check_box_outline_blank_rounded,
-                                color: hubConnection.state ==
-                                        HubConnectionState.connected
-                                    ? Colors.green
-                                    : Colors.red,
-                                size: 20,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TabBarView(
+                  children: <Widget>[
+                    SingleChildScrollView(
+                      child: Center(
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(height: 30),
+                            Text(
+                              'THÔNG SỐ VẬN HÀNH',
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
                               ),
-                              SizedBox(width: 10),
-                              Text(
-                                hubConnection.state ==
-                                        HubConnectionState.connected
-                                    ? "Đã kết nối"
-                                    : "Ngắt kết nối",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: hubConnection.state ==
-                                            HubConnectionState.connected
-                                        ? Colors.green
-                                        : Colors.red),
-                              ),
-                              SizedBox(width: 20),
-                            ],
-                          ),
-                          SizedBox(height: SizeConfig.screenHeight * 0.0128),
-                          Container(
-                            decoration: BoxDecoration(border: Border.all()),
-                            width: SizeConfig.screenWidth * 0.8962,
-                            height: SizeConfig.screenHeight * 0.2561,
-                            child: MonitorOperatingParamsReli(
-                                text1: "Số lần đóng nắp cài đặt",
-                                text2: "Số lần đóng nắp hiện tại",
-                                text3: "Thời gian đóng nắp cầu",
-                                text4: "Thời gian mở nắp cầu",
-                                data1: data1,
-                                data2: data2,
-                                data3: data3,
-                                data4: data4),
-                          ),
-                          SizedBox(height: SizeConfig.screenHeight * 0.0256),
-                          Text(
-                            'BẢNG GIÁM SÁT',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
                             ),
-                          ),
-                          SizedBox(height: SizeConfig.screenHeight * 0.0256),
-                          Container(
-                            decoration: BoxDecoration(border: Border.all()),
-                            width: SizeConfig.screenWidth * 0.8962,
-                            height: SizeConfig.screenHeight * 0.2176,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      width: SizeConfig.screenHeight * 0.1280,
-                                      height: SizeConfig.screenHeight * 0.1280,
-                                      decoration: new BoxDecoration(
-                                        color: running
-                                            ? Colors.green
-                                            : Colors.black26,
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ),
-                                    Text(
-                                      "ĐANG CHẠY",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                            SizedBox(height: SizeConfig.screenHeight * 0.0128),
+                            CustomizedButton(
+                              fontSize: 25,
+                              width: SizeConfig.screenWidth * 0.5121,
+                              height: SizeConfig.screenHeight * 0.05121,
+                              onPressed: () {
+                                // BlocProvider.of<ReliMonitorBloc>(context)
+                                //     .add(ReliMonitorEventSearchingClicked());
+                                BlocProvider.of<ReliMonitorBloc>(context).add(
+                                    ReliMonitorEventHubConnected(
+                                        hubConnection: hubConnection));
+                              },
+                              text: "Truy xuất",
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  hubConnection.state ==
+                                          HubConnectionState.connected
+                                      ? Icons.check_box_rounded
+                                      : Icons.check_box_outline_blank_rounded,
+                                  color: hubConnection.state ==
+                                          HubConnectionState.connected
+                                      ? Colors.green
+                                      : Colors.red,
+                                  size: 20,
                                 ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      width: SizeConfig.screenHeight * 0.1280,
-                                      height: SizeConfig.screenHeight * 0.1280,
-                                      decoration: new BoxDecoration(
-                                        color: warning
-                                            ? Colors.red
-                                            : Colors.black26,
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ),
-                                    Text(
-                                      "CẢNH BÁO",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                                SizedBox(width: 10),
+                                Text(
+                                  hubConnection.state ==
+                                          HubConnectionState.connected
+                                      ? "Đã kết nối"
+                                      : "Ngắt kết nối",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: hubConnection.state ==
+                                              HubConnectionState.connected
+                                          ? Colors.green
+                                          : Colors.red),
                                 ),
+                                SizedBox(width: 20),
                               ],
                             ),
-                          ),
-                        ],
+                            SizedBox(height: SizeConfig.screenHeight * 0.0128),
+                            Container(
+                              decoration: BoxDecoration(border: Border.all()),
+                              width: SizeConfig.screenWidth * 0.8962,
+                              height: SizeConfig.screenHeight * 0.2561,
+                              child: MonitorOperatingParamsReli(
+                                  text1: "Số lần đóng nắp cài đặt",
+                                  text2: "Số lần đóng nắp hiện tại",
+                                  text3: "Thời gian đóng nắp cầu",
+                                  text4: "Thời gian mở nắp cầu",
+                                  data1: data1,
+                                  data2: data2,
+                                  data3: data3,
+                                  data4: data4),
+                            ),
+                            SizedBox(height: SizeConfig.screenHeight * 0.0256),
+                            Text(
+                              'BẢNG GIÁM SÁT',
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: SizeConfig.screenHeight * 0.0256),
+                            Container(
+                              decoration: BoxDecoration(border: Border.all()),
+                              width: SizeConfig.screenWidth * 0.8962,
+                              height: SizeConfig.screenHeight * 0.2176,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Container(
+                                        width: SizeConfig.screenHeight * 0.1280,
+                                        height:
+                                            SizeConfig.screenHeight * 0.1280,
+                                        decoration: new BoxDecoration(
+                                          color: running
+                                              ? Colors.green
+                                              : Colors.black26,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                      Text(
+                                        "ĐANG CHẠY",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Container(
+                                        width: SizeConfig.screenHeight * 0.1280,
+                                        height:
+                                            SizeConfig.screenHeight * 0.1280,
+                                        decoration: new BoxDecoration(
+                                          color: warning
+                                              ? Colors.red
+                                              : Colors.black26,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                      Text(
+                                        "CẢNH BÁO",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Visibility(
+                                visible:
+                                    warning && data1 == data2 ? true : false,
+                                child: Text(
+                                  'Đã hoàn thành chương trình!',
+                                  style: TextStyle(
+                                      color: Colors.red[700],
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Visibility(
+                                visible:
+                                    warning && data1 != data2 ? true : false,
+                                child: Text(
+                                  'Hệ thống xảy ra lỗi!',
+                                  style: TextStyle(
+                                      color: Colors.red[700],
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  SingleChildScrollView(
-                    child: Center(
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: SizeConfig.screenHeight * 0.03841),
-                          Text(
-                            'THÔNG SỐ VẬN HÀNH',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: SizeConfig.screenHeight * 0.0128),
-                          CustomizedButton(
-                            fontSize: 25,
-                            width: SizeConfig.screenWidth * 0.5121,
-                            height: SizeConfig.screenHeight * 0.05121,
-                            onPressed: () {
-                              BlocProvider.of<ReliMonitorBloc>(context).add(
-                                  ReliCBMonitorEventHubConnected(
-                                      hubConnection: hubConnection));
-                            },
-                            text: "Truy xuất",
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                hubConnection.state ==
-                                        HubConnectionState.connected
-                                    ? Icons.check_box_rounded
-                                    : Icons.check_box_outline_blank_rounded,
-                                color: hubConnection.state ==
-                                        HubConnectionState.connected
-                                    ? Colors.green
-                                    : Colors.red,
-                                size: 20,
+                    SingleChildScrollView(
+                      child: Center(
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(height: SizeConfig.screenHeight * 0.03841),
+                            Text(
+                              'THÔNG SỐ VẬN HÀNH',
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
                               ),
-                              SizedBox(width: 10),
-                              Text(
-                                hubConnection.state ==
-                                        HubConnectionState.connected
-                                    ? "Đã kết nối"
-                                    : "Ngắt kết nối",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: hubConnection.state ==
-                                            HubConnectionState.connected
-                                        ? Colors.green
-                                        : Colors.red),
-                              ),
-                              SizedBox(width: 20),
-                            ],
-                          ),
-                          SizedBox(height: SizeConfig.screenHeight * 0.0128),
-                          Container(
-                            decoration: BoxDecoration(border: Border.all()),
-                            width: SizeConfig.screenWidth * 0.8962,
-                            height: SizeConfig.screenHeight * 0.2561,
-                            child: MonitorOperatingParamsReli(
-                                text1: "Số lần đóng nắp cài đặt",
-                                text2: "Số lần đóng nắp hiện tại",
-                                text3: "Thời gian đóng nắp cầu",
-                                text4: "Thời gian mở nắp cầu",
-                                data1: data21,
-                                data2: data22,
-                                data3: data23,
-                                data4: data24),
-                          ),
-                          SizedBox(height: SizeConfig.screenHeight * 0.0256),
-                          Text(
-                            'BẢNG GIÁM SÁT',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
                             ),
-                          ),
-                          SizedBox(height: SizeConfig.screenHeight * 0.0256),
-                          Container(
-                            decoration: BoxDecoration(border: Border.all()),
-                            width: SizeConfig.screenWidth * 0.8962,
-                            height: SizeConfig.screenHeight * 0.2176,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      width: SizeConfig.screenHeight * 0.1280,
-                                      height: SizeConfig.screenHeight * 0.1280,
-                                      decoration: new BoxDecoration(
-                                        color: running2
-                                            ? Colors.green
-                                            : Colors.black26,
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ),
-                                    Text(
-                                      "ĐANG CHẠY",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                            SizedBox(height: SizeConfig.screenHeight * 0.0128),
+                            CustomizedButton(
+                              fontSize: 25,
+                              width: SizeConfig.screenWidth * 0.5121,
+                              height: SizeConfig.screenHeight * 0.05121,
+                              onPressed: () {
+                                BlocProvider.of<ReliMonitorBloc>(context).add(
+                                    ReliCBMonitorEventHubConnected(
+                                        hubConnection: hubConnection));
+                              },
+                              text: "Truy xuất",
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  hubConnection.state ==
+                                          HubConnectionState.connected
+                                      ? Icons.check_box_rounded
+                                      : Icons.check_box_outline_blank_rounded,
+                                  color: hubConnection.state ==
+                                          HubConnectionState.connected
+                                      ? Colors.green
+                                      : Colors.red,
+                                  size: 20,
                                 ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      width: SizeConfig.screenHeight * 0.1280,
-                                      height: SizeConfig.screenHeight * 0.1280,
-                                      decoration: new BoxDecoration(
-                                        color: warning2
-                                            ? Colors.red
-                                            : Colors.black26,
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ),
-                                    Text(
-                                      "CẢNH BÁO",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                                SizedBox(width: 10),
+                                Text(
+                                  hubConnection.state ==
+                                          HubConnectionState.connected
+                                      ? "Đã kết nối"
+                                      : "Ngắt kết nối",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: hubConnection.state ==
+                                              HubConnectionState.connected
+                                          ? Colors.green
+                                          : Colors.red),
                                 ),
+                                SizedBox(width: 20),
                               ],
                             ),
-                          ),
-                        ],
+                            SizedBox(height: SizeConfig.screenHeight * 0.0128),
+                            Container(
+                              decoration: BoxDecoration(border: Border.all()),
+                              width: SizeConfig.screenWidth * 0.8962,
+                              height: SizeConfig.screenHeight * 0.2561,
+                              child: MonitorOperatingParamsReli(
+                                  text1: "Số lần đóng nắp cài đặt",
+                                  text2: "Số lần đóng nắp hiện tại",
+                                  text3: "Thời gian dừng xuống",
+                                  text4: "Thời gian dừng lên",
+                                  data1: data21,
+                                  data2: data22,
+                                  data3: data23,
+                                  data4: data24),
+                            ),
+                            SizedBox(height: SizeConfig.screenHeight * 0.0256),
+                            Text(
+                              'BẢNG GIÁM SÁT',
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: SizeConfig.screenHeight * 0.0256),
+                            Container(
+                              decoration: BoxDecoration(border: Border.all()),
+                              width: SizeConfig.screenWidth * 0.8962,
+                              height: SizeConfig.screenHeight * 0.2176,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Container(
+                                        width: SizeConfig.screenHeight * 0.1280,
+                                        height:
+                                            SizeConfig.screenHeight * 0.1280,
+                                        decoration: new BoxDecoration(
+                                          color: running2
+                                              ? Colors.green
+                                              : Colors.black26,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                      Text(
+                                        "ĐANG CHẠY",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Container(
+                                        width: SizeConfig.screenHeight * 0.1280,
+                                        height:
+                                            SizeConfig.screenHeight * 0.1280,
+                                        decoration: new BoxDecoration(
+                                          color: warning2
+                                              ? Colors.red
+                                              : Colors.black26,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                      Text(
+                                        "CẢNH BÁO",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Visibility(
+                                visible:
+                                    warning2 && data21 == data22 ? true : false,
+                                child: Text(
+                                  'Đã hoàn thành chương trình!',
+                                  style: TextStyle(
+                                      color: Colors.red[700],
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Visibility(
+                                visible:
+                                    warning2 && data21 != data22 ? true : false,
+                                child: Text(
+                                  'Hệ thống xảy ra lỗi!',
+                                  style: TextStyle(
+                                      color: Colors.red[700],
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -515,8 +582,8 @@ class _ReliabilityMonitorScreenState extends State<ReliabilityMonitorScreen> {
   }
 
   void monitorDeformationHandlers(List<dynamic> data) {
-    print('Hứng dữ liệu');
-    print(Map<String, dynamic>.from(data[0])["alarm"]);
+    // print('Hứng dữ liệu');
+    // print(Map<String, dynamic>.from(data[0])["alarm"]);
     BlocProvider.of<ReliMonitorBloc>(context).add(ReliCBMonitorEventDataUpdated(
         reliCBMonitorData: ReliCBMonitorData(
             alarm: Map<String, dynamic>.from(data[0])["alarm"],

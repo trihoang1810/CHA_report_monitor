@@ -18,15 +18,15 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
   String _getUntilStatic = "Đến ngày";
   String _getFromStatic = "Từ ngày";
   DateTime _startStatic = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _endStatic = DateTime.now().add(Duration(hours: 24*1));
+  DateTime _endStatic = DateTime.now().add(Duration(hours: 24 * 1));
   String _getUntilBending = "Đến ngày";
   String _getFromBending = "Từ ngày";
   DateTime _startBending = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _endBending =  DateTime.now().add(Duration(hours: 24*1));
+  DateTime _endBending = DateTime.now().add(Duration(hours: 24 * 1));
   String _getUntilRock = "Đến ngày";
   String _getFromRock = "Từ ngày";
   DateTime _startRock = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _endRock = DateTime.now().add(Duration(hours: 24*1));
+  DateTime _endRock = DateTime.now().add(Duration(hours: 24 * 1));
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -127,444 +127,469 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
               // print(_endRock);
             }
           },
-          builder: (context, deforReportState) => TabBarView(
-            children: <Widget>[
-              SingleChildScrollView(
-                //length = 3 => children của tabbarview phải bằng 3
-                child: Center(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            0, SizeConfig.screenHeight * 0.0256, 0, 0),
-                        child: HeaderWidget(
-                          title: 'Chọn khoảng thời gian',
-                          child: Row(
-                            children: [
-                              Expanded(
-                                //đừng để ý expanded
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                      SizeConfig.screenWidth * 0.0509, 0, 0, 0),
-                                  child: RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(
-                                          color: Constants.mainColor),
-                                    ),
-                                    color: Colors.white,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(_getFromBending),
-                                        Icon(Icons.calendar_today),
-                                      ],
-                                    ),
-                                    onPressed: () => BlocProvider.of<
-                                            DeforReportBloc>(context)
-                                        .add(
-                                            DeforBendingReportEventPickDateRange(
-                                                context: context)),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: SizeConfig.screenWidth * 0.0203),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Constants.mainColor,
-                                size: 40,
-                              ),
-                              SizedBox(width: SizeConfig.screenWidth * 0.0203),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                      0, 0, SizeConfig.screenWidth * 0.0509, 0),
-                                  child: RaisedButton(
-                                    color: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(
-                                        color: Constants.mainColor,
+          builder: (context, deforReportState) => Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TabBarView(
+              children: <Widget>[
+                SingleChildScrollView(
+                  //length = 3 => children của tabbarview phải bằng 3
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(
+                              0, SizeConfig.screenHeight * 0.0256, 0, 0),
+                          child: HeaderWidget(
+                            title: 'Chọn khoảng thời gian',
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  //đừng để ý expanded
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        SizeConfig.screenWidth * 0.0509,
+                                        0,
+                                        0,
+                                        0),
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Constants.mainColor),
                                       ),
+                                      color: Colors.white,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getFromBending),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforBendingReportEventPickDateRange(
+                                                  context: context)),
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(_getUntilBending),
-                                        Icon(Icons.calendar_today),
-                                      ],
-                                    ),
-                                    onPressed: () => BlocProvider.of<
-                                            DeforReportBloc>(context)
-                                        .add(
-                                            DeforBendingReportEventPickDateRange(
-                                                context: context)),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      CustomizedButton(
-                        //height/width ko khai báo sẽ để mặc định,
-                        text: "Truy xuất",
-                        onPressed: () {
-                          BlocProvider.of<DeforReportBloc>(context).add(
-                              DeforBendingReportEventSearchingClicked(
-                                  startTime: _startBending,
-                                  stopTime: _endBending));
-                        },
-                      ),
-                      SizedBox(height: SizeConfig.screenHeight * 0.0128),
-                      Container(
-                        //tùy từng widget mà sẽ có child hay children
-                        width: SizeConfig.screenWidth * 0.8912,
-                        height: SizeConfig.screenHeight * 0.5761,
-                        decoration: BoxDecoration(border: Border.all()),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columns: <DataColumn>[
-                                DataColumn(
-                                  label: Text('Tên SP'),
+                                SizedBox(
+                                    width: SizeConfig.screenWidth * 0.0203),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Constants.mainColor,
+                                  size: 40,
                                 ),
-                                DataColumn(
-                                  label: Text('Mẫu số'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tải trọng'),
-                                ),
-                                DataColumn(
-                                  label: Text('Thời gian'),
-                                ),
-                                DataColumn(
-                                  label: Text('Độ cong vênh'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tổng lỗi'),
-                                ),
-                                DataColumn(
-                                  label: Text('Ghi chú'),
-                                ),
-                                DataColumn(
-                                  label: Text('NV kiểm tra'),
+                                SizedBox(
+                                    width: SizeConfig.screenWidth * 0.0203),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0,
+                                        SizeConfig.screenWidth * 0.0509, 0),
+                                    child: RaisedButton(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                          color: Constants.mainColor,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getUntilBending),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforBendingReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
                                 ),
                               ],
-                              rows: deforBendingReportList
-                                  .map(
-                                    (deforbending) => DataRow(
-                                      cells: <DataCell>[
-                                        DataCell(Text(deforbending.tenSanPham)),
-                                        DataCell(Text(
-                                            deforbending.mauSo.toString())),
-                                        DataCell(Text(deforbending.taiTrong)),
-                                        DataCell(Text(deforbending.thoiGian)),
-                                        DataCell(Text(deforbending.doCongVenh)),
-                                        DataCell(Text(deforbending.tongLoi)),
-                                        DataCell(Text(deforbending.ghiChu)),
-                                        DataCell(
-                                            Text(deforbending.nhanVienKiemTra)),
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SingleChildScrollView(
-                child: Center(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            0, SizeConfig.screenHeight * 0.0256, 0, 0),
-                        child: HeaderWidget(
-                          title: 'Chọn khoảng thời gian',
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                      SizeConfig.screenWidth * 0.0509, 0, 0, 0),
-                                  child: RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(
-                                          color: Constants.mainColor),
-                                    ),
-                                    color: Colors.white,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(_getFromStatic),
-                                        Icon(Icons.calendar_today),
-                                      ],
-                                    ),
-                                    onPressed: () => BlocProvider.of<
-                                            DeforReportBloc>(context)
-                                        .add(
-                                            DeforStaticReportEventPickDateRange(
-                                                context: context)),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: SizeConfig.screenWidth * 0.0203),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Constants.mainColor,
-                                size: 40,
-                              ),
-                              SizedBox(width: SizeConfig.screenWidth * 0.0203),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                      0, 0, SizeConfig.screenWidth * 0.0509, 0),
-                                  child: RaisedButton(
-                                    color: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(
-                                        color: Constants.mainColor,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(_getUntilStatic),
-                                        Icon(Icons.calendar_today),
-                                      ],
-                                    ),
-                                    onPressed: () => BlocProvider.of<
-                                            DeforReportBloc>(context)
-                                        .add(
-                                            DeforStaticReportEventPickDateRange(
-                                                context: context)),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      CustomizedButton(
+                        CustomizedButton(
+                          //height/width ko khai báo sẽ để mặc định,
                           text: "Truy xuất",
                           onPressed: () {
                             BlocProvider.of<DeforReportBloc>(context).add(
-                                DeforStaticReportEventSearchingClicked(
-                                    startTime: _startStatic,
-                                    stopTime: _endStatic));
-                          }),
-                      SizedBox(height: SizeConfig.screenHeight * 0.0128),
-                      Container(
-                        width: SizeConfig.screenWidth * 0.8912,
-                        height: SizeConfig.screenHeight * 0.5761,
-                        decoration: BoxDecoration(border: Border.all()),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columns: <DataColumn>[
-                                DataColumn(
-                                  label: Text('Tên SP'),
-                                ),
-                                DataColumn(
-                                  label: Text('Mẫu số'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tình trạng'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tổng lỗi'),
-                                ),
-                                DataColumn(
-                                  label: Text('Ghi chú'),
-                                ),
-                                DataColumn(
-                                  label: Text('NV kiểm tra'),
-                                ),
-                              ],
-                              rows: deforStaticReportList
-                                  .map(
-                                    (deforstatic) => DataRow(
-                                      cells: <DataCell>[
-                                        DataCell(Text(deforstatic.tenSanPham)),
-                                        DataCell(
-                                            Text(deforstatic.mauSo.toString())),
-                                        DataCell(Text(deforstatic.tinhTrang)),
-                                        DataCell(Text(deforstatic.tongLoi)),
-                                        DataCell(Text(deforstatic.ghiChu)),
-                                        DataCell(
-                                            Text(deforstatic.nhanVienKiemTra)),
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ),
+                                DeforBendingReportEventSearchingClicked(
+                                    startTime: _startBending,
+                                    stopTime: _endBending));
+                          },
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SingleChildScrollView(
-                child: Center(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            0, SizeConfig.screenHeight * 0.0256, 0, 0),
-                        child: HeaderWidget(
-                          title: 'Chọn khoảng thời gian',
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                      SizeConfig.screenWidth * 0.0509, 0, 0, 0),
-                                  child: RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(
-                                          color: Constants.mainColor),
-                                    ),
-                                    color: Colors.white,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(_getFromRock),
-                                        Icon(Icons.calendar_today),
-                                      ],
-                                    ),
-                                    onPressed: () => BlocProvider.of<
-                                            DeforReportBloc>(context)
-                                        .add(DeforRockReportEventPickDateRange(
-                                            context: context)),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
+                        Container(
+                          //tùy từng widget mà sẽ có child hay children
+                          width: SizeConfig.screenWidth * 0.8912,
+                          height: SizeConfig.screenHeight * 0.5761,
+                          decoration: BoxDecoration(border: Border.all()),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columns: <DataColumn>[
+                                  DataColumn(
+                                    label: Text('Tên SP'),
                                   ),
-                                ),
-                              ),
-                              SizedBox(width: SizeConfig.screenWidth * 0.0203),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Constants.mainColor,
-                                size: 40,
-                              ),
-                              SizedBox(width: SizeConfig.screenWidth * 0.0203),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                      0, 0, SizeConfig.screenWidth * 0.0509, 0),
-                                  child: RaisedButton(
-                                    color: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(
-                                        color: Constants.mainColor,
+                                  DataColumn(
+                                    label: Text('Mẫu số'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tải trọng'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Thời gian'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Độ cong vênh'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tổng lỗi'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ghi chú'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('NV kiểm tra'),
+                                  ),
+                                ],
+                                rows: deforBendingReportList
+                                    .map(
+                                      (deforbending) => DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                              Text(deforbending.tenSanPham)),
+                                          DataCell(Text(
+                                              deforbending.mauSo.toString())),
+                                          DataCell(Text(deforbending.taiTrong)),
+                                          DataCell(Text(deforbending.thoiGian)),
+                                          DataCell(
+                                              Text(deforbending.doCongVenh)),
+                                          DataCell(Text(deforbending.tongLoi)),
+                                          DataCell(Text(deforbending.ghiChu)),
+                                          DataCell(Text(
+                                              deforbending.nhanVienKiemTra)),
+                                        ],
                                       ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(_getUntilRock),
-                                        Icon(Icons.calendar_today),
-                                      ],
-                                    ),
-                                    onPressed: () => BlocProvider.of<
-                                            DeforReportBloc>(context)
-                                        .add(DeforRockReportEventPickDateRange(
-                                            context: context)),
-                                  ),
-                                ),
+                                    )
+                                    .toList(),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      CustomizedButton(
-                          text: "Truy xuất",
-                          onPressed: () {
-                            BlocProvider.of<DeforReportBloc>(context).add(
-                                DeforRockReportEventSearchingClicked(
-                                    startTime: _startRock, stopTime: _endRock));
-                          }),
-                      SizedBox(height: SizeConfig.screenHeight * 0.0128),
-                      Container(
-                        width: SizeConfig.screenWidth * 0.8912,
-                        height: SizeConfig.screenHeight * 0.5761,
-                        decoration: BoxDecoration(border: Border.all()),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: DataTable(
-                              columns: <DataColumn>[
-                                DataColumn(
-                                  label: Text('Tên SP'),
-                                ),
-                                DataColumn(
-                                  label: Text('Mẫu số'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tải trọng'),
-                                ),
-                                DataColumn(
-                                  label: Text('Số lần thử'),
-                                ),
-                                DataColumn(
-                                  label: Text('Kết quả đánh giá'),
-                                ),
-                                DataColumn(
-                                  label: Text('Tổng lỗi'),
-                                ),
-                                DataColumn(
-                                  label: Text('Ghi chú'),
-                                ),
-                                DataColumn(
-                                  label: Text('NV kiểm tra'),
-                                ),
-                              ],
-                              rows: deforRockReportList
-                                  .map(
-                                    (deforrock) => DataRow(
-                                      cells: <DataCell>[
-                                        DataCell(Text(deforrock.tenSanPham)),
-                                        DataCell(
-                                            Text(deforrock.mauSo.toString())),
-                                        DataCell(Text(deforrock.taiTrong)),
-                                        DataCell(Text(deforrock.soLanThu)),
-                                        DataCell(Text(deforrock.ketQuaDanhGia)),
-                                        DataCell(Text(deforrock.tongLoi)),
-                                        DataCell(Text(deforrock.ghiChu)),
-                                        DataCell(
-                                            Text(deforrock.nhanVienKiemTra)),
-                                      ],
-                                    ),
-                                  )
-                                  .toList(),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+                SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(
+                              0, SizeConfig.screenHeight * 0.0256, 0, 0),
+                          child: HeaderWidget(
+                            title: 'Chọn khoảng thời gian',
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        SizeConfig.screenWidth * 0.0509,
+                                        0,
+                                        0,
+                                        0),
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Constants.mainColor),
+                                      ),
+                                      color: Colors.white,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getFromStatic),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforStaticReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                    width: SizeConfig.screenWidth * 0.0203),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Constants.mainColor,
+                                  size: 40,
+                                ),
+                                SizedBox(
+                                    width: SizeConfig.screenWidth * 0.0203),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0,
+                                        SizeConfig.screenWidth * 0.0509, 0),
+                                    child: RaisedButton(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                          color: Constants.mainColor,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getUntilStatic),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforStaticReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        CustomizedButton(
+                            text: "Truy xuất",
+                            onPressed: () {
+                              BlocProvider.of<DeforReportBloc>(context).add(
+                                  DeforStaticReportEventSearchingClicked(
+                                      startTime: _startStatic,
+                                      stopTime: _endStatic));
+                            }),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
+                        Container(
+                          width: SizeConfig.screenWidth * 0.8912,
+                          height: SizeConfig.screenHeight * 0.5761,
+                          decoration: BoxDecoration(border: Border.all()),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columns: <DataColumn>[
+                                  DataColumn(
+                                    label: Text('Tên SP'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Mẫu số'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tình trạng'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tổng lỗi'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ghi chú'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('NV kiểm tra'),
+                                  ),
+                                ],
+                                rows: deforStaticReportList
+                                    .map(
+                                      (deforstatic) => DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(
+                                              Text(deforstatic.tenSanPham)),
+                                          DataCell(Text(
+                                              deforstatic.mauSo.toString())),
+                                          DataCell(Text(deforstatic.tinhTrang)),
+                                          DataCell(Text(deforstatic.tongLoi)),
+                                          DataCell(Text(deforstatic.ghiChu)),
+                                          DataCell(Text(
+                                              deforstatic.nhanVienKiemTra)),
+                                        ],
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(
+                              0, SizeConfig.screenHeight * 0.0256, 0, 0),
+                          child: HeaderWidget(
+                            title: 'Chọn khoảng thời gian',
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        SizeConfig.screenWidth * 0.0509,
+                                        0,
+                                        0,
+                                        0),
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Constants.mainColor),
+                                      ),
+                                      color: Colors.white,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getFromRock),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforRockReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                    width: SizeConfig.screenWidth * 0.0203),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Constants.mainColor,
+                                  size: 40,
+                                ),
+                                SizedBox(
+                                    width: SizeConfig.screenWidth * 0.0203),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0,
+                                        SizeConfig.screenWidth * 0.0509, 0),
+                                    child: RaisedButton(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                          color: Constants.mainColor,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(_getUntilRock),
+                                          Icon(Icons.calendar_today),
+                                        ],
+                                      ),
+                                      onPressed: () => BlocProvider.of<
+                                              DeforReportBloc>(context)
+                                          .add(
+                                              DeforRockReportEventPickDateRange(
+                                                  context: context)),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        CustomizedButton(
+                            text: "Truy xuất",
+                            onPressed: () {
+                              BlocProvider.of<DeforReportBloc>(context).add(
+                                  DeforRockReportEventSearchingClicked(
+                                      startTime: _startRock,
+                                      stopTime: _endRock));
+                            }),
+                        SizedBox(height: SizeConfig.screenHeight * 0.0128),
+                        Container(
+                          width: SizeConfig.screenWidth * 0.8912,
+                          height: SizeConfig.screenHeight * 0.5761,
+                          decoration: BoxDecoration(border: Border.all()),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: DataTable(
+                                columns: <DataColumn>[
+                                  DataColumn(
+                                    label: Text('Tên SP'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Mẫu số'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tải trọng'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Số lần thử'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Kết quả đánh giá'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Tổng lỗi'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ghi chú'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('NV kiểm tra'),
+                                  ),
+                                ],
+                                rows: deforRockReportList
+                                    .map(
+                                      (deforrock) => DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(Text(deforrock.tenSanPham)),
+                                          DataCell(
+                                              Text(deforrock.mauSo.toString())),
+                                          DataCell(Text(deforrock.taiTrong)),
+                                          DataCell(Text(deforrock.soLanThu)),
+                                          DataCell(
+                                              Text(deforrock.ketQuaDanhGia)),
+                                          DataCell(Text(deforrock.tongLoi)),
+                                          DataCell(Text(deforrock.ghiChu)),
+                                          DataCell(
+                                              Text(deforrock.nhanVienKiemTra)),
+                                        ],
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         backgroundColor: Colors.white,

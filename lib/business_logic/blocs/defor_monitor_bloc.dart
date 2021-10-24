@@ -8,7 +8,6 @@ import 'package:mobile_app/models/error_package.dart';
 import 'package:signalr_core/signalr_core.dart';
 
 class DeforMonitorBloc extends Bloc<DeforMonitorEvent, DeforMonitorState> {
-  int count = 0;
   DeforMonitorBloc()
       : super(Defor12MonitorStateInit(
           timestamp: DateTime.now(),
@@ -21,27 +20,21 @@ class DeforMonitorBloc extends Bloc<DeforMonitorEvent, DeforMonitorState> {
       yield Defor12MonitorStateLoadingRequest();
       event.hubConnection.state == HubConnectionState.disconnected
           ? await event.hubConnection.start().onError((error, stackTrace) {
-              count = 1;
               return DeforMonitorBloc().add(DeforMonitorEventConnectFail(
                   errorPackage: ErrorPackage(
                       message: "Không thể kết nối tới máy chủ",
                       detail: "vui lòng kiểm tra đường truyền")));
             })
           : await event.hubConnection.stop();
-      if (event.hubConnection.state == HubConnectionState.disconnected &&
-          count == 0) {
+      if (event.hubConnection.state == HubConnectionState.disconnected) {
+        print(event.hubConnection.state);
         yield DeforMonitorStateConnectFail(
             errorPackage: ErrorPackage(
                 message: "Ngắt kết nối",
                 detail: "Đã ngắt kết nối tới máy chủ"));
-      } else if (event.hubConnection.state == HubConnectionState.disconnected &&
-          count == 1) {
-        yield DeforMonitorStateConnectFail(
-            errorPackage: ErrorPackage(
-                message: "Không thể kết nối tới máy chủ",
-                detail: "vui lòng kiểm tra đường truyền"));
-        count = 0;
-      } else if (event.hubConnection.state == HubConnectionState.connected)
+      } else if (event.hubConnection.state == HubConnectionState.connected) {
+        print(event.hubConnection.state);
+
         yield DeforMonitorStateConnectSuccessful(
             deforMonitorData: DeforMonitorData(
                 errorCode: 0,
@@ -60,6 +53,7 @@ class DeforMonitorBloc extends Bloc<DeforMonitorEvent, DeforMonitorState> {
                 redStatus: false,
                 greenStatus: false,
                 errorStatus: false));
+      }
     } else if (event is DeforMonitorEventDataUpdated) {
       yield DeforMonitorStateDataUpdated(
           deforMonitorData: event.deforMonitorData);

@@ -18,7 +18,8 @@ class ReliCBReportRepository {
               .format(DateTime.now().subtract(Duration(hours: 24 * 3)))
           : DateFormat('yyyy-MM-dd').format(startTime);
       final end = (stopTime == null)
-          ? DateFormat('yyyy-MM-dd').format(DateTime.now())
+          ? DateFormat('yyyy-MM-dd')
+              .format(DateTime.now().add(Duration(hours: 24)))
           : DateFormat('yyyy-MM-dd').format(stopTime);
       // print(start);
       // print(end);
@@ -45,7 +46,8 @@ class ReliCBReportRepository {
         return ErrorPackage.fromJson(errJson);
       }
     } on SocketException {
-      return ErrorPackage(errorCode: "", detail: "Không có kết nối mạng", message: "Lỗi mạng");
+      return ErrorPackage(
+          errorCode: "", detail: "Không có kết nối mạng", message: "Lỗi mạng");
     } catch (e) {
       return ErrorPackage(
           errorCode: "", detail: e.toString(), message: "Lỗi lạ");
