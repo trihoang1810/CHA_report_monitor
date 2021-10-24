@@ -17,16 +17,16 @@ class DeformationReportScreen extends StatefulWidget {
 class _DeformationReportScreenState extends State<DeformationReportScreen> {
   String _getUntilStatic = "Đến ngày";
   String _getFromStatic = "Từ ngày";
-  DateTime _startStatic = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _endStatic = DateTime.now().add(Duration(hours: 24 * 1));
+  DateTime _startStatic = DateTime.now().subtract(Duration(hours: 24 * 2));
+  DateTime _endStatic = DateTime.now();
   String _getUntilBending = "Đến ngày";
   String _getFromBending = "Từ ngày";
-  DateTime _startBending = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _endBending = DateTime.now().add(Duration(hours: 24 * 1));
+  DateTime _startBending = DateTime.now().subtract(Duration(hours: 24 * 2));
+  DateTime _endBending = DateTime.now();
   String _getUntilRock = "Đến ngày";
   String _getFromRock = "Từ ngày";
-  DateTime _startRock = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _endRock = DateTime.now().add(Duration(hours: 24 * 1));
+  DateTime _startRock = DateTime.now().subtract(Duration(hours: 24 * 2));
+  DateTime _endRock = DateTime.now();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -236,9 +236,20 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: DataTable(
+                                headingTextStyle:
+                                    TextStyle(color: Colors.white),
+                                headingRowColor: MaterialStateColor.resolveWith(
+                                    (states) => Color(0xff5973c9)),
+                                // headingRowColor: Color(0xff5973c9),
                                 columns: <DataColumn>[
                                   DataColumn(
                                     label: Text('Tên SP'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ngày bắt đầu'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ngày kết thúc'),
                                   ),
                                   DataColumn(
                                     label: Text('Mẫu số'),
@@ -268,6 +279,10 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                         cells: <DataCell>[
                                           DataCell(
                                               Text(deforbending.tenSanPham)),
+                                          DataCell(
+                                              Text(deforbending.ngayBatDau)),
+                                          DataCell(
+                                              Text(deforbending.ngayKetThuc)),
                                           DataCell(Text(
                                               deforbending.mauSo.toString())),
                                           DataCell(Text(deforbending.taiTrong)),
@@ -390,9 +405,19 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: DataTable(
+                                headingTextStyle:
+                                    TextStyle(color: Colors.white),
+                                headingRowColor: MaterialStateColor.resolveWith(
+                                    (states) => Color(0xff5973c9)),
                                 columns: <DataColumn>[
                                   DataColumn(
                                     label: Text('Tên SP'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ngày bắt đầu'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ngày kết thúc'),
                                   ),
                                   DataColumn(
                                     label: Text('Mẫu số'),
@@ -416,6 +441,10 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                         cells: <DataCell>[
                                           DataCell(
                                               Text(deforstatic.tenSanPham)),
+                                          DataCell(
+                                              Text(deforstatic.ngayBatDau)),
+                                          DataCell(
+                                              Text(deforstatic.ngayKetThuc)),
                                           DataCell(Text(
                                               deforstatic.mauSo.toString())),
                                           DataCell(Text(deforstatic.tinhTrang)),
@@ -535,9 +564,19 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: DataTable(
+                                headingTextStyle:
+                                    TextStyle(color: Colors.white),
+                                headingRowColor: MaterialStateColor.resolveWith(
+                                    (states) => Color(0xff5973c9)),
                                 columns: <DataColumn>[
                                   DataColumn(
                                     label: Text('Tên SP'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ngày bắt đầu'),
+                                  ),
+                                  DataColumn(
+                                    label: Text('Ngày kết thúc'),
                                   ),
                                   DataColumn(
                                     label: Text('Mẫu số'),
@@ -566,6 +605,8 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                       (deforrock) => DataRow(
                                         cells: <DataCell>[
                                           DataCell(Text(deforrock.tenSanPham)),
+                                          DataCell(Text(deforrock.ngayBatDau)),
+                                          DataCell(Text(deforrock.ngayKetThuc)),
                                           DataCell(
                                               Text(deforrock.mauSo.toString())),
                                           DataCell(Text(deforrock.taiTrong)),

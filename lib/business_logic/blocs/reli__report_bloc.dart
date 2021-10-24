@@ -25,8 +25,9 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
       yield ReliReportStateLoadingRequest();
       try {
         //print('vao try relireport');
-        final reliReportData = await reliReportRepository
-            .loadingReliDataRequest(event.startTime, event.stopTime);
+        final reliReportData =
+            await reliReportRepository.loadingReliDataRequest(
+                event.startTime, event.stopTime.add(Duration(days: 1)));
         reliReportListNew.clear();
         if (reliReportData is ReliReport) {
           for (var item in reliReportData.items) {
@@ -77,8 +78,8 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
       }
     } else if (event is ReliReportEventPickDateRange) {
       final initialDateRange = DateTimeRange(
-        start: DateTime.now().subtract(Duration(hours: 24 * 3)),
-        end: DateTime.now().add(Duration(hours: 24)),
+        start: DateTime.now().subtract(Duration(hours: 24 * 2)),
+        end: DateTime.now(),
       );
       final newDateRange = await showDateRangePicker(
         firstDate: DateTime(DateTime.now().year - 5),
@@ -100,8 +101,9 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
       yield ReliCBReportStateLoadingRequest();
       try {
         // print('vao try relicbreport');
-        final reliCBReportData = await reliCBReportRepository
-            .loadingReliCBDataRequest(event.startTime, event.stopTime);
+        final reliCBReportData =
+            await reliCBReportRepository.loadingReliCBDataRequest(
+                event.startTime, event.stopTime.add(Duration(days: 1)));
         reliCBReportListNew.clear();
         if (reliCBReportData is ReliCBReport) {
           // print('load cb thanh cong');
@@ -156,8 +158,8 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
       }
     } else if (event is ReliCBReportEventPickDateRange) {
       final initialDateRange = DateTimeRange(
-        start: DateTime.now().subtract(Duration(hours: 24 * 3)),
-        end: DateTime.now().add(Duration(hours: 24)),
+        start: DateTime.now().subtract(Duration(hours: 24 * 2)),
+        end: DateTime.now(),
       );
       final newDateRange = await showDateRangePicker(
         firstDate: DateTime(DateTime.now().year - 5),

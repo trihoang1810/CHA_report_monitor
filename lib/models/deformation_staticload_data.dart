@@ -1,4 +1,6 @@
 class MyDeforStaticReportView {
+  String ngayBatDau;
+  String ngayKetThuc;
   String tenSanPham;
   String mauSo;
   String tinhTrang;
@@ -7,6 +9,8 @@ class MyDeforStaticReportView {
   String nhanVienKiemTra;
   MyDeforStaticReportView(
       {this.ghiChu,
+      this.ngayKetThuc,
+      this.ngayBatDau,
       this.mauSo,
       this.nhanVienKiemTra,
       this.tenSanPham,

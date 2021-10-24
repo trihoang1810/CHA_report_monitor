@@ -45,7 +45,11 @@ class AppRouter {
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/':
-        return MaterialPageRoute(builder: (context) => HomeScreen());
+        // return MaterialPageRoute(builder: (context) => HomeScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider<DeforReportBloc>.value(
+              value: deforReportBloc, child: DeformationReportScreen()),
+        );
         break;
       case '/loginscreen':
         return MaterialPageRoute(

@@ -1,4 +1,6 @@
 class MyDeforBendingReportView {
+  String ngayBatDau;
+  String ngayKetThuc;
   String tenSanPham;
   String mauSo;
   String taiTrong;
@@ -9,6 +11,8 @@ class MyDeforBendingReportView {
   String ghiChu;
   MyDeforBendingReportView(
       {this.ghiChu,
+      this.ngayBatDau,
+      this.ngayKetThuc,
       this.mauSo,
       this.nhanVienKiemTra,
       this.tenSanPham,

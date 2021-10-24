@@ -17,12 +17,12 @@ class ReliabilityReportScreen extends StatefulWidget {
 class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
   String _getUntil = "Đến ngày";
   String _getFrom = "Từ ngày";
-  DateTime _start = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _end = DateTime.now().add(Duration(hours: 24 * 1));
+  DateTime _start = DateTime.now().subtract(Duration(hours: 24 * 2));
+  DateTime _end = DateTime.now();
   String _getUntilCB = "Đến ngày";
   String _getFromCB = "Từ ngày";
-  DateTime _startCB = DateTime.now().subtract(Duration(hours: 24 * 3));
-  DateTime _endCB = DateTime.now().add(Duration(hours: 24 * 1));
+  DateTime _startCB = DateTime.now().subtract(Duration(hours: 24 * 2));
+  DateTime _endCB = DateTime.now();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -197,6 +197,10 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: DataTable(
+                                headingTextStyle:
+                                    TextStyle(color: Colors.white),
+                                headingRowColor: MaterialStateColor.resolveWith(
+                                    (states) => Color(0xff5973c9)),
                                 columns: <DataColumn>[
                                   DataColumn(
                                     label: Text('Tên SP'),
@@ -339,6 +343,10 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: DataTable(
+                                headingTextStyle:
+                                    TextStyle(color: Colors.white),
+                                headingRowColor: MaterialStateColor.resolveWith(
+                                    (states) => Color(0xff5973c9)),
                                 columns: <DataColumn>[
                                   DataColumn(
                                     label: Text('Tên SP'),

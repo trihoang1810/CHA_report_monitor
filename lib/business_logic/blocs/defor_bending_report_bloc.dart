@@ -28,14 +28,19 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
     if (event is DeforBendingReportEventSearchingClicked) {
       yield DeforBendingReportStateLoadingRequest();
       try {
-        final deforBendingReportData = await deforBendingReportRepository
-            .loadingDeforBendingDataRequest(event.startTime, event.stopTime);
+        final deforBendingReportData =
+            await deforBendingReportRepository.loadingDeforBendingDataRequest(
+                event.startTime, event.stopTime.add(Duration(days: 1)));
         deforBendingReportListNew.clear();
         if (deforBendingReportData is DeforBendingReport) {
           for (var item in deforBendingReportData.items) {
             for (var mau in item.mauKiemTraLucUon) {
               MyDeforBendingReportView _myDeforBendingReportView =
                   MyDeforBendingReportView(
+                      ngayBatDau:
+                          DateFormat('dd-MM-yyyy').format(item.ngayBatDau),
+                      ngayKetThuc:
+                          DateFormat('dd-MM-yyyy').format(item.ngayKetThuc),
                       mauSo: mau.id.toString(),
                       tenSanPham: item.sanPham.tenSanPham,
                       taiTrong: mau.taiTrong.toString(),
@@ -88,8 +93,8 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
       }
     } else if (event is DeforBendingReportEventPickDateRange) {
       final initialDateRange = DateTimeRange(
-        start: DateTime.now().subtract(Duration(hours: 24 * 3)),
-        end: DateTime.now().add(Duration(hours: 24)),
+        start: DateTime.now().subtract(Duration(hours: 24 * 2)),
+        end: DateTime.now(),
       );
       final newDateRange = await showDateRangePicker(
         firstDate: DateTime(DateTime.now().year - 5),
@@ -111,14 +116,19 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
     else if (event is DeforStaticReportEventSearchingClicked) {
       yield DeforStaticReportStateLoadingRequest();
       try {
-        final deforStaticReportData = await deforStaticReportRepository
-            .loadingDeforStaticDataRequest(event.startTime, event.stopTime);
+        final deforStaticReportData =
+            await deforStaticReportRepository.loadingDeforStaticDataRequest(
+                event.startTime, event.stopTime.add(Duration(days: 1)));
         deforStaticReportListNew.clear();
         if (deforStaticReportData is DeforStaticReport) {
           for (var item in deforStaticReportData.items) {
             for (var mau in item.mauKiemTraChiuTaiTinh) {
               MyDeforStaticReportView _myDeforStaticReportView =
                   MyDeforStaticReportView(
+                      ngayBatDau:
+                          DateFormat('dd-MM-yyyy').format(item.ngayBatDau),
+                      ngayKetThuc:
+                          DateFormat('dd-MM-yyyy').format(item.ngayKetThuc),
                       mauSo: mau.id.toString(),
                       tenSanPham: item.sanPham.tenSanPham,
                       tinhTrang: mau.ketQuaKiemTraTaiTinh,
@@ -169,8 +179,8 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
       }
     } else if (event is DeforStaticReportEventPickDateRange) {
       final initialDateRange = DateTimeRange(
-        start: DateTime.now().subtract(Duration(hours: 24 * 3)),
-        end: DateTime.now().add(Duration(hours: 24)),
+        start: DateTime.now().subtract(Duration(hours: 24 * 2)),
+        end: DateTime.now(),
       );
       final newDateRange = await showDateRangePicker(
         firstDate: DateTime(DateTime.now().year - 5),
@@ -192,14 +202,19 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
     else if (event is DeforRockReportEventSearchingClicked) {
       yield DeforRockReportStateLoadingRequest();
       try {
-        final deforRockReportData = await deforRockReportRepository
-            .loadingDeforRockDataRequest(event.startTime, event.stopTime);
+        final deforRockReportData =
+            await deforRockReportRepository.loadingDeforRockDataRequest(
+                event.startTime, event.stopTime.add(Duration(days: 1)));
         deforRockReportListNew.clear();
         if (deforRockReportData is DeforRockReport) {
           for (var item in deforRockReportData.items) {
             for (var mau in item.mauKiemTraRockTest) {
               MyDeforRockReportView myDeforRockReportView =
                   MyDeforRockReportView(
+                      ngayBatDau:
+                          DateFormat('dd-MM-yyyy').format(item.ngayBatDau),
+                      ngayKetThuc:
+                          DateFormat('dd-MM-yyyy').format(item.ngayKetThuc),
                       mauSo: mau.id.toString(),
                       tenSanPham: item.sanPham.tenSanPham,
                       taiTrong: mau.taiTrong.toString(),
@@ -252,8 +267,8 @@ class DeforReportBloc extends Bloc<DeforReportEvent, DeforReportState> {
       }
     } else if (event is DeforRockReportEventPickDateRange) {
       final initialDateRange = DateTimeRange(
-        start: DateTime.now().subtract(Duration(hours: 24 * 3)),
-        end: DateTime.now().add(Duration(hours: 24)),
+        start: DateTime.now().subtract(Duration(hours: 24 * 2)),
+        end: DateTime.now(),
       );
       final newDateRange = await showDateRangePicker(
         firstDate: DateTime(DateTime.now().year - 5),

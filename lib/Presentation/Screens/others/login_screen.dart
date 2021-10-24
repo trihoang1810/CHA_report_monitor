@@ -119,9 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   shrinkWrap: true,
                   padding: EdgeInsets.only(left: 24.0, right: 24.0),
                   children: <Widget>[
-                    SizedBox(
-                        height: SizeConfig.screenHeight *
-                            0.03841),
+                    SizedBox(height: SizeConfig.screenHeight * 0.03841),
                     SizedBox(height: SizeConfig.screenHeight * 0.05121),
                     MainAppName(
                         text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
@@ -130,15 +128,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       autofocus: false,
                       controller: userController,
                       decoration: InputDecoration(
+                        hintStyle: TextStyle(fontSize: 18),
+                        hintText: "Nhập tài khoản",
                         errorText: _isUsernameErr
                             ? "Tên đăng nhập phải dài hơn $minLengthAcc ký tự"
                             : null,
                         errorStyle: TextStyle(color: Colors.red, fontSize: 15),
-                        hintText: 'Nhập tài khoản',
-                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0,
-                            10.0),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0)),
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
                       ),
                       onChanged: (_) {
                         BlocProvider.of<LoginBloc>(context).add(
@@ -148,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                     ),
-                    SizedBox(height: SizeConfig.screenHeight * 0.0128),
+                    SizedBox(height: SizeConfig.screenHeight * 0.04),
                     Stack(
                       alignment: _isPasswordErr
                           ? AlignmentDirectional.topEnd
@@ -157,9 +156,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextFormField(
                           controller: passController,
                           autofocus: false,
-                          obscureText:
-                              _showPass,
+                          obscureText: _showPass,
                           decoration: InputDecoration(
+                            hintStyle: TextStyle(fontSize: 18),
                             errorText: _isPasswordErr
                                 ? "Mật khẩu phải chứa $minLength đến $maxLength ký tự"
                                 : null,
@@ -168,8 +167,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             hintText: 'Nhập mật khẩu',
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32.0)),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey)),
                           ),
                           onChanged: (_) {
                             BlocProvider.of<LoginBloc>(context).add(
