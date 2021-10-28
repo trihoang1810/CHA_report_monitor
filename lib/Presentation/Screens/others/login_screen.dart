@@ -2,7 +2,6 @@ import 'package:autocomplete_textfield_ns/autocomplete_textfield_ns.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app/Presentation/Dialog/dialog.dart';
-import 'package:mobile_app/models/login.dart';
 import 'package:mobile_app/Presentation/Widget/main_app_name.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
@@ -10,6 +9,7 @@ import 'package:mobile_app/business_logic/events/login_event.dart';
 import 'package:mobile_app/business_logic/states/login_state.dart';
 
 import 'package:mobile_app/presentation/widget/constant.dart';
+import 'package:mobile_app/utils/username_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -37,12 +37,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    _userName = _prefs.then((SharedPreferences prefs) {
-      return (prefs.getStringList('user-name-list') ?? ['admin']);
-    });
-    _userNameList = await getUserNameList();
+    _userNameList =
+        UsernamePreferences.getUsername() ?? ['admin1'];
   }
 
   @override
@@ -61,7 +59,6 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Constants.mainColor,
       ),
       backgroundColor: Colors.white,
-      // ignore: missing_required_param
       body: SingleChildScrollView(
         child: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, loginState) async {
@@ -69,10 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
               loadingDialog.show();
             } else if (loginState is LoginStateLoginSuccessful) {
               loadingDialog.dismiss();
-              final SharedPreferences prefs = await _prefs;
-              final buffer = prefs.getStringList('user-name-list') ?? [''];
-              prefs.setStringList(
-                  'user-name-list', [...buffer, userController.text]);
+              await UsernamePreferences.setUsername(userController.text);
               String employeeIdOverall =
                   loginState.loginData.employee.employeeId;
               String employeeFirstNameOverall =
@@ -163,11 +157,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderSide: BorderSide(color: Colors.grey)),
                       ),
                       suggestions: _userNameList,
-                      textChanged: (_) {
+                      textChanged: (text) {
                         BlocProvider.of<LoginBloc>(context).add(
                           LoginEventChecking(
-                              userName: userController.text,
-                              passWord: passController.text),
+                              userName: text, passWord: passController.text),
                         );
                       },
                     ),
@@ -224,6 +217,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               _isUsernameErr)
                           ? null
                           : () async {
+                              print(userController.text);
+                              print(passController.text);
                               BlocProvider.of<LoginBloc>(context).add(
                                   LoginEventLoginClicked(
                                       username: userController.text,
