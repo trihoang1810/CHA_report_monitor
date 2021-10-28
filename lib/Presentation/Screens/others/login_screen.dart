@@ -1,3 +1,4 @@
+import 'package:autocomplete_textfield_ns/autocomplete_textfield_ns.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app/Presentation/Dialog/dialog.dart';
@@ -9,6 +10,7 @@ import 'package:mobile_app/business_logic/events/login_event.dart';
 import 'package:mobile_app/business_logic/states/login_state.dart';
 
 import 'package:mobile_app/presentation/widget/constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,6 +18,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
+  List<String> _userNameList;
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  Future<List<String>> _userName;
   String text = "a";
   TextEditingController userController = new TextEditingController();
   TextEditingController passController =
@@ -26,6 +32,19 @@ class _LoginScreenState extends State<LoginScreen> {
   String errorTitle = "";
   String errorDetail = "";
   String errorButton = "";
+  Future<List<String>> getUserNameList() async {
+    return await _userName;
+  }
+
+  @override
+  void initState() async {
+    super.initState();
+    _userName = _prefs.then((SharedPreferences prefs) {
+      return (prefs.getStringList('user-name-list') ?? ['admin']);
+    });
+    _userNameList = await getUserNameList();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -50,6 +69,10 @@ class _LoginScreenState extends State<LoginScreen> {
               loadingDialog.show();
             } else if (loginState is LoginStateLoginSuccessful) {
               loadingDialog.dismiss();
+              final SharedPreferences prefs = await _prefs;
+              final buffer = prefs.getStringList('user-name-list') ?? [''];
+              prefs.setStringList(
+                  'user-name-list', [...buffer, userController.text]);
               String employeeIdOverall =
                   loginState.loginData.employee.employeeId;
               String employeeFirstNameOverall =
@@ -124,8 +147,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     MainAppName(
                         text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
                     SizedBox(height: SizeConfig.screenHeight * 0.05761),
-                    TextFormField(
-                      autofocus: false,
+                    SimpleAutoCompleteTextField(
+                      key: key,
                       controller: userController,
                       decoration: InputDecoration(
                         hintStyle: TextStyle(fontSize: 18),
@@ -139,7 +162,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey)),
                       ),
-                      onChanged: (_) {
+                      suggestions: _userNameList,
+                      textChanged: (_) {
                         BlocProvider.of<LoginBloc>(context).add(
                           LoginEventChecking(
                               userName: userController.text,
