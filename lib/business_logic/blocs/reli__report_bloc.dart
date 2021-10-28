@@ -125,7 +125,7 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
           // print(reliCBReportList.toString());
           yield ReliCBReportStateLoadingSuccessful(timestamp: event.timestamp);
         } else if (reliCBReportData is ErrorPackage) {
-          ReliCBReportStateLoadingFailure(
+          yield ReliCBReportStateLoadingFailure(
               timestamp: event.timestamp,
               errorPackage: ErrorPackage(
                   errorCode: reliCBReportData.errorCode,
