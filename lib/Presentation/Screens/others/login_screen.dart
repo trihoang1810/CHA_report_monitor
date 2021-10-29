@@ -1,4 +1,3 @@
-import 'package:autocomplete_textfield_ns/autocomplete_textfield_ns.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app/Presentation/Dialog/dialog.dart';
@@ -10,7 +9,6 @@ import 'package:mobile_app/business_logic/states/login_state.dart';
 
 import 'package:mobile_app/presentation/widget/constant.dart';
 import 'package:mobile_app/utils/username_preferences.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -18,10 +16,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
-  List<String> _userNameList;
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  Future<List<String>> _userName;
+  GlobalKey key = GlobalKey();
   String text = "a";
   TextEditingController userController = new TextEditingController();
   TextEditingController passController =
@@ -32,15 +27,11 @@ class _LoginScreenState extends State<LoginScreen> {
   String errorTitle = "";
   String errorDetail = "";
   String errorButton = "";
-  Future<List<String>> getUserNameList() async {
-    return await _userName;
-  }
 
   @override
   void initState() {
     super.initState();
-    _userNameList =
-        UsernamePreferences.getUsername() ?? ['admin1'];
+    userController.text = UsernamePreferences.getUsername() ?? 'admin';
   }
 
   @override
@@ -85,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   errorTitle = loginState.errorPackage.message;
                   errorDetail = loginState.errorPackage.detail;
                   errorButton = "OK";
-                } else if (loginState.errorPackage.message == "Lỗi lạ") {
+                } else if (loginState.errorPackage.message == "Lỗi hệ thống") {
                   errorTitle = loginState.errorPackage.message;
                   errorDetail = loginState.errorPackage.detail;
                   errorButton = "OK";
@@ -141,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     MainAppName(
                         text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
                     SizedBox(height: SizeConfig.screenHeight * 0.05761),
-                    SimpleAutoCompleteTextField(
+                    TextField(
                       key: key,
                       controller: userController,
                       decoration: InputDecoration(
@@ -156,12 +147,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey)),
                       ),
-                      suggestions: _userNameList,
-                      textChanged: (text) {
+                      onChanged: (_) {
                         BlocProvider.of<LoginBloc>(context).add(
-                          LoginEventChecking(
-                              userName: text, passWord: passController.text),
-                        );
+                          LoginEventChecking(userName: userController.text,passWord: passController.text
+                        ));
                       },
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.04),
@@ -189,9 +178,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           onChanged: (_) {
                             BlocProvider.of<LoginBloc>(context).add(
-                              LoginEventChecking(
-                                  userName: userController.text,
-                                  passWord: passController.text),
+                              LoginEventChecking(passWord: passController.text,
+                              userName: userController.text),
                             );
                           },
                         ),
@@ -217,8 +205,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               _isUsernameErr)
                           ? null
                           : () async {
-                              print(userController.text);
-                              print(passController.text);
                               BlocProvider.of<LoginBloc>(context).add(
                                   LoginEventLoginClicked(
                                       username: userController.text,

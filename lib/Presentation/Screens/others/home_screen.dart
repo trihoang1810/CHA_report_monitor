@@ -18,24 +18,22 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Center(
-            child: ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.only(left: 24.0, right: 24.0),
-              children: <Widget>[
-                SizedBox(height: SizeConfig.screenHeight * 0.0384),
-                SizedBox(height: SizeConfig.screenHeight * 0.05),
-                MainAppName(
-                    text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
-                SizedBox(height: SizeConfig.screenHeight * 0.1),
-                CustomizedButton(
-                  text: "Đăng nhập",
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/loginscreen');
-                  },
-                ),
-              ],
-            ),
+          ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.only(left: 24.0, right: 24.0),
+            children: <Widget>[
+              SizedBox(height: SizeConfig.screenHeight * 0.0384),
+              SizedBox(height: SizeConfig.screenHeight * 0.05),
+              MainAppName(
+                  text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
+              SizedBox(height: SizeConfig.screenHeight * 0.1),
+              CustomizedButton(
+                text: "Đăng nhập",
+                onPressed: () {
+                  Navigator.pushNamed(context, '/loginscreen');
+                },
+              ),
+            ],
           ),
           Column(
             children: [

@@ -7,10 +7,9 @@ class UsernamePreferences {
   }
 
   static Future setUsername(String username) async {
-    final buffer = _preferences.getStringList('username-list');
     return await _preferences
-        .setStringList('username-list', [...buffer, username]);
+        .setString('username', username);
   }
 
-  static List<String> getUsername() => _preferences.getStringList('username-list');
+  static String getUsername() => _preferences.getString('username');
 }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -42,9 +43,14 @@ class DeforBendingReportRepository {
     } on SocketException {
       return ErrorPackage(
           errorCode: "", detail: "Mất kết nối mạng", message: "Lỗi mạng");
+    } on TimeoutException {
+      return ErrorPackage(
+          errorCode: "",
+          detail: "Kết nối mạng không ổn định",
+          message: "Lỗi mạng");
     } catch (e) {
       return ErrorPackage(
-          errorCode: "", detail: e.toString(), message: "Lỗi lạ");
+          errorCode: "", detail: e.toString(), message: "Lỗi hệ thống");
     }
   }
 }
