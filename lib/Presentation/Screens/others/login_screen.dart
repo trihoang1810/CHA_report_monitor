@@ -8,6 +8,7 @@ import 'package:mobile_app/business_logic/events/login_event.dart';
 import 'package:mobile_app/business_logic/states/login_state.dart';
 
 import 'package:mobile_app/presentation/widget/constant.dart';
+import 'package:mobile_app/utils/password_preferences.dart';
 import 'package:mobile_app/utils/username_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -32,6 +33,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     userController.text = UsernamePreferences.getUsername() ?? 'admin';
+    passController.text = PasswordPreferences.getPassword() ?? '';
+
   }
 
   @override
@@ -58,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
             } else if (loginState is LoginStateLoginSuccessful) {
               loadingDialog.dismiss();
               await UsernamePreferences.setUsername(userController.text);
+              await PasswordPreferences.setPassword(passController.text);
               String employeeIdOverall =
                   loginState.loginData.employee.employeeId;
               String employeeFirstNameOverall =
