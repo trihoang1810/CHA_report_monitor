@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app/Presentation/Dialog/dialog.dart';
-import 'package:mobile_app/models/login.dart';
 import 'package:mobile_app/Presentation/Widget/main_app_name.dart';
 import 'package:mobile_app/Presentation/Widget/widget.dart';
 import 'package:mobile_app/business_logic/blocs/login_bloc.dart';
@@ -9,6 +8,8 @@ import 'package:mobile_app/business_logic/events/login_event.dart';
 import 'package:mobile_app/business_logic/states/login_state.dart';
 
 import 'package:mobile_app/presentation/widget/constant.dart';
+import 'package:mobile_app/utils/password_preferences.dart';
+import 'package:mobile_app/utils/username_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  GlobalKey key = GlobalKey();
   String text = "a";
   TextEditingController userController = new TextEditingController();
   TextEditingController passController =
@@ -26,6 +28,15 @@ class _LoginScreenState extends State<LoginScreen> {
   String errorTitle = "";
   String errorDetail = "";
   String errorButton = "";
+
+  @override
+  void initState() {
+    super.initState();
+    userController.text = UsernamePreferences.getUsername() ?? 'admin';
+    passController.text = PasswordPreferences.getPassword() ?? '';
+
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -42,7 +53,6 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Constants.mainColor,
       ),
       backgroundColor: Colors.white,
-      // ignore: missing_required_param
       body: SingleChildScrollView(
         child: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, loginState) async {
@@ -50,6 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
               loadingDialog.show();
             } else if (loginState is LoginStateLoginSuccessful) {
               loadingDialog.dismiss();
+              await UsernamePreferences.setUsername(userController.text);
+              await PasswordPreferences.setPassword(passController.text);
               String employeeIdOverall =
                   loginState.loginData.employee.employeeId;
               String employeeFirstNameOverall =
@@ -68,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   errorTitle = loginState.errorPackage.message;
                   errorDetail = loginState.errorPackage.detail;
                   errorButton = "OK";
-                } else if (loginState.errorPackage.message == "Lỗi lạ") {
+                } else if (loginState.errorPackage.message == "Lỗi hệ thống") {
                   errorTitle = loginState.errorPackage.message;
                   errorDetail = loginState.errorPackage.detail;
                   errorButton = "OK";
@@ -124,8 +136,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     MainAppName(
                         text: "PHÒNG GIÁM SÁT KIỂM TRA CHẤT LƯỢNG SẢN PHẨM"),
                     SizedBox(height: SizeConfig.screenHeight * 0.05761),
-                    TextFormField(
-                      autofocus: false,
+                    TextField(
+                      key: key,
                       controller: userController,
                       decoration: InputDecoration(
                         hintStyle: TextStyle(fontSize: 18),
@@ -141,10 +153,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       onChanged: (_) {
                         BlocProvider.of<LoginBloc>(context).add(
-                          LoginEventChecking(
-                              userName: userController.text,
-                              passWord: passController.text),
-                        );
+                          LoginEventChecking(userName: userController.text,passWord: passController.text
+                        ));
                       },
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.04),
@@ -172,9 +182,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           onChanged: (_) {
                             BlocProvider.of<LoginBloc>(context).add(
-                              LoginEventChecking(
-                                  userName: userController.text,
-                                  passWord: passController.text),
+                              LoginEventChecking(passWord: passController.text,
+                              userName: userController.text),
                             );
                           },
                         ),

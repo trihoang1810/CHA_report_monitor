@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -19,10 +20,11 @@ class LoginRepository {
       "password": "$password"
     };
     try {
-      final response = await this.httpClient.post(
-          Uri.parse(Constants.baseUrl + "/api/auth/"),
-          headers: headers,
-          body: jsonEncode(body));
+      final response = await this
+          .httpClient
+          .post(Uri.parse(Constants.baseUrl + "/api/auth/"),
+              headers: headers, body: jsonEncode(body))
+          .timeout(Constants.timeOutLimitation);
       final json = jsonDecode(response.body);
       if (response.statusCode == 200) {
         LoginData loginData = LoginData.fromJson(json);
@@ -38,9 +40,14 @@ class LoginRepository {
     } on SocketException {
       return ErrorPackage(
           errorCode: "", detail: "Không có kết nối mạng", message: "Lỗi mạng");
+    } on TimeoutException {
+      return ErrorPackage(
+          errorCode: "",
+          detail: "Kết nối mạng không ổn định",
+          message: "Lỗi mạng");
     } catch (e) {
       return ErrorPackage(
-          errorCode: "", detail: e.toString(), message: "Lỗi lạ");
+          errorCode: "", detail: e.toString(), message: "Lỗi hệ thống");
     }
   }
 }

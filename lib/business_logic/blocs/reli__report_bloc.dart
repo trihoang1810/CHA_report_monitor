@@ -153,7 +153,9 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
         //Chỗ này tránh các lỗi bậy bạ
         yield ReliCBReportStateLoadingFailure(
           errorPackage: ErrorPackage(
-              errorCode: "Exception", message: "Lỗi lạ", detail: e.toString()),
+              errorCode: "Exception",
+              message: "Lỗi hệ thống",
+              detail: e.toString()),
         );
       }
     } else if (event is ReliCBReportEventPickDateRange) {
