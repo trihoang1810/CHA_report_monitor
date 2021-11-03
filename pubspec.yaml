@@ -34,6 +34,8 @@ dependencies:
   cupertino_icons: ^1.0.3
   intl: ^0.17.0
   flutter_launcher_icons: ^0.9.0
+  shared_preferences: 2.0.8
+  autocomplete_textfield_ns: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
