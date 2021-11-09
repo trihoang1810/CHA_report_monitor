@@ -238,64 +238,91 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                     );
                                   } else if (state
                                       is ReliReportStateLoadingSuccessful) {
-                                    return Container(
-                                      width: SizeConfig.screenWidth * 0.8912,
-                                      height: SizeConfig.screenHeight * 0.5761,
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: DataTable(
-                                            headingTextStyle:
-                                                TextStyle(color: Colors.white),
-                                            headingRowColor:
-                                                MaterialStateColor.resolveWith(
-                                                    (states) =>
-                                                        Color(0xff5973c9)),
-                                            columns: <DataColumn>[
-                                              DataColumn(
-                                                label: Text('Tên SP'),
+                                    return reliReportList.length > 0
+                                        ? Container(
+                                            width:
+                                                SizeConfig.screenWidth * 0.8912,
+                                            height: SizeConfig.screenHeight *
+                                                0.5761,
+                                            decoration: BoxDecoration(
+                                                border: Border.all()),
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              child: SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: DataTable(
+                                                  headingTextStyle: TextStyle(
+                                                      color: Colors.white),
+                                                  headingRowColor:
+                                                      MaterialStateColor
+                                                          .resolveWith(
+                                                              (states) => Color(
+                                                                  0xff5973c9)),
+                                                  columns: <DataColumn>[
+                                                    DataColumn(
+                                                      label: Text('Tên SP'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('Ngày bắt đầu'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('Ngày kết thúc'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Số lần thử'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('T/gian lên'),
+                                                    ),
+                                                  ],
+                                                  rows: reliReportList
+                                                      .map(
+                                                        (reli) => DataRow(
+                                                          cells: <DataCell>[
+                                                            DataCell(Text(reli
+                                                                .tenSanPham)),
+                                                            DataCell(Text(reli
+                                                                .ngayBatDau
+                                                                .toString())),
+                                                            DataCell(Text(reli
+                                                                .ngayKetThuc
+                                                                .toString())),
+                                                            DataCell(Text(reli
+                                                                .soLanThu
+                                                                .toString())),
+                                                            DataCell(Text(reli
+                                                                .thoiGianDongEmNap)),
+                                                          ],
+                                                        ),
+                                                      )
+                                                      .toList(),
+                                                ), //thuộc về độ bền êm
                                               ),
-                                              DataColumn(
-                                                label: Text('Ngày bắt đầu'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Ngày kết thúc'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Số lần thử'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('T/gian lên'),
+                                            ),
+                                          )
+                                        : Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  SizedBox(height: 100),
+                                                  Center(
+                                                    child: ExceptionErrorState(
+                                                      title: 'Thông báo',
+                                                      message:
+                                                          'Không tìm thấy báo cáo trong ngày, vui lòng thử lại',
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
-                                            rows: reliReportList
-                                                .map(
-                                                  (reli) => DataRow(
-                                                    cells: <DataCell>[
-                                                      DataCell(Text(
-                                                          reli.tenSanPham)),
-                                                      DataCell(Text(reli
-                                                          .ngayBatDau
-                                                          .toString())),
-                                                      DataCell(Text(reli
-                                                          .ngayKetThuc
-                                                          .toString())),
-                                                      DataCell(Text(reli
-                                                          .soLanThu
-                                                          .toString())),
-                                                      DataCell(Text(reli
-                                                          .thoiGianDongEmNap)),
-                                                    ],
-                                                  ),
-                                                )
-                                                .toList(),
-                                          ), //thuộc về độ bền êm
-                                        ),
-                                      ),
-                                    );
+                                          );
                                   }
                                   //error state widget code here
                                   else if (state
@@ -312,7 +339,8 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                       ],
                                     );
                                   }
-                                  return reliReportList.length>0? Container(
+                                  return reliReportList.length > 0
+                                      ? Container(
                                           width:
                                               SizeConfig.screenWidth * 0.8912,
                                           height:
@@ -373,27 +401,28 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                             ),
                                           ),
                                         )
-                                      :Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          SizedBox(height: 100),
-                                          Center(
-                                            child: ExceptionErrorState(
-                                              imageDirectory:
-                                                  'lib/assets/touch.png',
-                                              title: 'Thông báo',
-                                              message:
-                                                  'Nhấn nút truy xuất để xem báo cáo',
+                                      : Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                SizedBox(height: 100),
+                                                Center(
+                                                  child: ExceptionErrorState(
+                                                    imageDirectory:
+                                                        'lib/assets/touch.png',
+                                                    title: 'Thông báo',
+                                                    message:
+                                                        'Nhấn nút truy xuất để xem báo cáo',
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  );
+                                          ],
+                                        );
                                 },
                               ),
                             ],
@@ -525,62 +554,89 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                     );
                                   } else if (state
                                       is ReliCBReportStateLoadingSuccessful) {
-                                    Container(
-                                      width: SizeConfig.screenWidth * 0.8912,
-                                      height: SizeConfig.screenHeight * 0.5761,
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: DataTable(
-                                            headingTextStyle:
-                                                TextStyle(color: Colors.white),
-                                            headingRowColor:
-                                                MaterialStateColor.resolveWith(
-                                                    (states) =>
-                                                        Color(0xff5973c9)),
-                                            columns: <DataColumn>[
-                                              DataColumn(
-                                                label: Text('Tên SP'),
+                                    return reliCBReportList.length > 0
+                                        ? Container(
+                                            width:
+                                                SizeConfig.screenWidth * 0.8912,
+                                            height: SizeConfig.screenHeight *
+                                                0.5761,
+                                            decoration: BoxDecoration(
+                                                border: Border.all()),
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              child: SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: DataTable(
+                                                  headingTextStyle: TextStyle(
+                                                      color: Colors.white),
+                                                  headingRowColor:
+                                                      MaterialStateColor
+                                                          .resolveWith(
+                                                              (states) => Color(
+                                                                  0xff5973c9)),
+                                                  columns: <DataColumn>[
+                                                    DataColumn(
+                                                      label: Text('Tên SP'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('Ngày bắt đầu'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('Ngày kết thúc'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Số lần thử'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('T/gian lên'),
+                                                    ),
+                                                  ],
+                                                  rows: reliCBReportList
+                                                      .map(
+                                                        (reliCB) => DataRow(
+                                                          cells: <DataCell>[
+                                                            DataCell(Text(reliCB
+                                                                .tenSanPham)),
+                                                            DataCell(Text(reliCB
+                                                                .ngayBatDau)),
+                                                            DataCell(Text(reliCB
+                                                                .ngayKetThuc)),
+                                                            DataCell(Text(reliCB
+                                                                .soLanThu
+                                                                .toString())),
+                                                            DataCell(Text(reliCB
+                                                                .thoiGianDongEmNap)),
+                                                          ],
+                                                        ),
+                                                      )
+                                                      .toList(),
+                                                ),
                                               ),
-                                              DataColumn(
-                                                label: Text('Ngày bắt đầu'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Ngày kết thúc'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Số lần thử'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('T/gian lên'),
+                                            ),
+                                          )
+                                        : Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  SizedBox(height: 100),
+                                                  Center(
+                                                    child: ExceptionErrorState(
+                                                      title: 'Thông báo',
+                                                      message:
+                                                          'Không tìm thấy báo cáo trong ngày, vui lòng thử lại',
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
-                                            rows: reliCBReportList
-                                                .map(
-                                                  (reliCB) => DataRow(
-                                                    cells: <DataCell>[
-                                                      DataCell(Text(
-                                                          reliCB.tenSanPham)),
-                                                      DataCell(Text(
-                                                          reliCB.ngayBatDau)),
-                                                      DataCell(Text(
-                                                          reliCB.ngayKetThuc)),
-                                                      DataCell(Text(reliCB
-                                                          .soLanThu
-                                                          .toString())),
-                                                      DataCell(Text(reliCB
-                                                          .thoiGianDongEmNap)),
-                                                    ],
-                                                  ),
-                                                )
-                                                .toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                                          );
                                   } else if (state
                                       is ReliCBReportStateLoadingFailure) {
                                     return Column(
@@ -595,8 +651,8 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                       ],
                                     );
                                   }
-                                  return reliCBReportList.length >0?
-                                   Container(
+                                  return reliCBReportList.length > 0
+                                      ? Container(
                                           width:
                                               SizeConfig.screenWidth * 0.8912,
                                           height:
@@ -655,20 +711,20 @@ class _ReliabilityReportScreenState extends State<ReliabilityReportScreen> {
                                             ),
                                           ),
                                         )
-                                  :Column(
-                                    children: [
-                                      SizedBox(height: 100),
-                                      Center(
-                                        child: ExceptionErrorState(
-                                          imageDirectory:
-                                              'lib/assets/touch.png',
-                                          title: 'Thông báo',
-                                          message:
-                                              'Nhấn nút truy xuất để xem báo cáo',
-                                        ),
-                                      ),
-                                    ],
-                                  );
+                                      : Column(
+                                          children: [
+                                            SizedBox(height: 100),
+                                            Center(
+                                              child: ExceptionErrorState(
+                                                imageDirectory:
+                                                    'lib/assets/touch.png',
+                                                title: 'Thông báo',
+                                                message:
+                                                    'Nhấn nút truy xuất để xem báo cáo',
+                                              ),
+                                            ),
+                                          ],
+                                        );
                                 },
                               ),
                             ],

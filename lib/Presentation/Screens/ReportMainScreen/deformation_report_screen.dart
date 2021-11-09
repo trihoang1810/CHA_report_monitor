@@ -276,89 +276,129 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                     );
                                   } else if (state
                                       is DeforBendingReportStateLoadingSuccessful) {
-                                    return Container(
-                                      //tùy từng widget mà sẽ có child hay children
-                                      width: SizeConfig.screenWidth * 0.8912,
-                                      height: SizeConfig.screenHeight * 0.5761,
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: DataTable(
-                                            headingTextStyle:
-                                                TextStyle(color: Colors.white),
-                                            headingRowColor:
-                                                MaterialStateColor.resolveWith(
-                                                    (states) =>
-                                                        Color(0xff5973c9)),
-                                            // headingRowColor: Color(0xff5973c9),
-                                            columns: <DataColumn>[
-                                              DataColumn(
-                                                label: Text('Tên SP'),
+                                    return deforBendingReportList.length > 0
+                                        ? Container(
+                                            //tùy từng widget mà sẽ có child hay children
+                                            width:
+                                                SizeConfig.screenWidth * 0.8912,
+                                            height: SizeConfig.screenHeight *
+                                                0.5761,
+                                            decoration: BoxDecoration(
+                                                border: Border.all()),
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              child: SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: DataTable(
+                                                  headingTextStyle: TextStyle(
+                                                      color: Colors.white),
+                                                  headingRowColor:
+                                                      MaterialStateColor
+                                                          .resolveWith(
+                                                              (states) => Color(
+                                                                  0xff5973c9)),
+                                                  // headingRowColor: Color(0xff5973c9),
+                                                  columns: <DataColumn>[
+                                                    DataColumn(
+                                                      label: Text('Tên SP'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('Ngày bắt đầu'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('Ngày kết thúc'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Mẫu số'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Tải trọng'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Thời gian'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('Độ cong vênh'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Tổng lỗi'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Ghi chú'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('NV kiểm tra'),
+                                                    ),
+                                                  ],
+                                                  rows: deforBendingReportList
+                                                      .map(
+                                                        (deforbending) =>
+                                                            DataRow(
+                                                          cells: <DataCell>[
+                                                            DataCell(Text(
+                                                                deforbending
+                                                                    .tenSanPham)),
+                                                            DataCell(Text(
+                                                                deforbending
+                                                                    .ngayBatDau)),
+                                                            DataCell(Text(
+                                                                deforbending
+                                                                    .ngayKetThuc)),
+                                                            DataCell(Text(
+                                                                deforbending
+                                                                    .mauSo
+                                                                    .toString())),
+                                                            DataCell(Text(
+                                                                deforbending
+                                                                    .taiTrong)),
+                                                            DataCell(Text(
+                                                                deforbending
+                                                                    .thoiGian)),
+                                                            DataCell(Text(
+                                                                deforbending
+                                                                    .doCongVenh)),
+                                                            DataCell(Text(
+                                                                deforbending
+                                                                    .tongLoi)),
+                                                            DataCell(Text(
+                                                                deforbending
+                                                                    .ghiChu)),
+                                                            DataCell(Text(
+                                                                deforbending
+                                                                    .nhanVienKiemTra)),
+                                                          ],
+                                                        ),
+                                                      )
+                                                      .toList(),
+                                                ),
                                               ),
-                                              DataColumn(
-                                                label: Text('Ngày bắt đầu'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Ngày kết thúc'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Mẫu số'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Tải trọng'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Thời gian'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Độ cong vênh'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Tổng lỗi'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Ghi chú'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('NV kiểm tra'),
+                                            ),
+                                          )
+                                        : Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  SizedBox(height: 100),
+                                                  Center(
+                                                    child: ExceptionErrorState(
+                                                      title: 'Thông báo',
+                                                      message:
+                                                          'Không tìm thấy báo cáo trong ngày, vui lòng thử lại',
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
-                                            rows: deforBendingReportList
-                                                .map(
-                                                  (deforbending) => DataRow(
-                                                    cells: <DataCell>[
-                                                      DataCell(Text(deforbending
-                                                          .tenSanPham)),
-                                                      DataCell(Text(deforbending
-                                                          .ngayBatDau)),
-                                                      DataCell(Text(deforbending
-                                                          .ngayKetThuc)),
-                                                      DataCell(Text(deforbending
-                                                          .mauSo
-                                                          .toString())),
-                                                      DataCell(Text(deforbending
-                                                          .taiTrong)),
-                                                      DataCell(Text(deforbending
-                                                          .thoiGian)),
-                                                      DataCell(Text(deforbending
-                                                          .doCongVenh)),
-                                                      DataCell(Text(deforbending
-                                                          .tongLoi)),
-                                                      DataCell(Text(
-                                                          deforbending.ghiChu)),
-                                                      DataCell(Text(deforbending
-                                                          .nhanVienKiemTra)),
-                                                    ],
-                                                  ),
-                                                )
-                                                .toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                                          );
                                   } else if (state
                                       is DeforBendingReportStateLoadingFailure) {
                                     return Column(
@@ -373,109 +413,123 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                       ],
                                     );
                                   }
-                                  return deforBendingReportList.length > 0? Container(
-                                      //tùy từng widget mà sẽ có child hay children
-                                      width: SizeConfig.screenWidth * 0.8912,
-                                      height: SizeConfig.screenHeight * 0.5761,
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: DataTable(
-                                            headingTextStyle:
-                                                TextStyle(color: Colors.white),
-                                            headingRowColor:
-                                                MaterialStateColor.resolveWith(
-                                                    (states) =>
-                                                        Color(0xff5973c9)),
-                                            // headingRowColor: Color(0xff5973c9),
-                                            columns: <DataColumn>[
-                                              DataColumn(
-                                                label: Text('Tên SP'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Ngày bắt đầu'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Ngày kết thúc'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Mẫu số'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Tải trọng'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Thời gian'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Độ cong vênh'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Tổng lỗi'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Ghi chú'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('NV kiểm tra'),
-                                              ),
-                                            ],
-                                            rows: deforBendingReportList
-                                                .map(
-                                                  (deforbending) => DataRow(
-                                                    cells: <DataCell>[
-                                                      DataCell(Text(deforbending
-                                                          .tenSanPham)),
-                                                      DataCell(Text(deforbending
-                                                          .ngayBatDau)),
-                                                      DataCell(Text(deforbending
-                                                          .ngayKetThuc)),
-                                                      DataCell(Text(deforbending
-                                                          .mauSo
-                                                          .toString())),
-                                                      DataCell(Text(deforbending
-                                                          .taiTrong)),
-                                                      DataCell(Text(deforbending
-                                                          .thoiGian)),
-                                                      DataCell(Text(deforbending
-                                                          .doCongVenh)),
-                                                      DataCell(Text(deforbending
-                                                          .tongLoi)),
-                                                      DataCell(Text(
-                                                          deforbending.ghiChu)),
-                                                      DataCell(Text(deforbending
-                                                          .nhanVienKiemTra)),
-                                                    ],
+                                  return deforBendingReportList.length > 0
+                                      ? Container(
+                                          //tùy từng widget mà sẽ có child hay children
+                                          width:
+                                              SizeConfig.screenWidth * 0.8912,
+                                          height:
+                                              SizeConfig.screenHeight * 0.5761,
+                                          decoration: BoxDecoration(
+                                              border: Border.all()),
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.vertical,
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: DataTable(
+                                                headingTextStyle: TextStyle(
+                                                    color: Colors.white),
+                                                headingRowColor:
+                                                    MaterialStateColor
+                                                        .resolveWith((states) =>
+                                                            Color(0xff5973c9)),
+                                                // headingRowColor: Color(0xff5973c9),
+                                                columns: <DataColumn>[
+                                                  DataColumn(
+                                                    label: Text('Tên SP'),
                                                   ),
-                                                )
-                                                .toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    ) :Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          SizedBox(height: 100),
-                                          Center(
-                                            child: ExceptionErrorState(
-                                              imageDirectory:
-                                                  'lib/assets/touch.png',
-                                              title: 'Thông báo',
-                                              message:
-                                                  'Nhấn nút truy xuất để xem báo cáo',
+                                                  DataColumn(
+                                                    label: Text('Ngày bắt đầu'),
+                                                  ),
+                                                  DataColumn(
+                                                    label:
+                                                        Text('Ngày kết thúc'),
+                                                  ),
+                                                  DataColumn(
+                                                    label: Text('Mẫu số'),
+                                                  ),
+                                                  DataColumn(
+                                                    label: Text('Tải trọng'),
+                                                  ),
+                                                  DataColumn(
+                                                    label: Text('Thời gian'),
+                                                  ),
+                                                  DataColumn(
+                                                    label: Text('Độ cong vênh'),
+                                                  ),
+                                                  DataColumn(
+                                                    label: Text('Tổng lỗi'),
+                                                  ),
+                                                  DataColumn(
+                                                    label: Text('Ghi chú'),
+                                                  ),
+                                                  DataColumn(
+                                                    label: Text('NV kiểm tra'),
+                                                  ),
+                                                ],
+                                                rows: deforBendingReportList
+                                                    .map(
+                                                      (deforbending) => DataRow(
+                                                        cells: <DataCell>[
+                                                          DataCell(Text(
+                                                              deforbending
+                                                                  .tenSanPham)),
+                                                          DataCell(Text(
+                                                              deforbending
+                                                                  .ngayBatDau)),
+                                                          DataCell(Text(
+                                                              deforbending
+                                                                  .ngayKetThuc)),
+                                                          DataCell(Text(
+                                                              deforbending.mauSo
+                                                                  .toString())),
+                                                          DataCell(Text(
+                                                              deforbending
+                                                                  .taiTrong)),
+                                                          DataCell(Text(
+                                                              deforbending
+                                                                  .thoiGian)),
+                                                          DataCell(Text(
+                                                              deforbending
+                                                                  .doCongVenh)),
+                                                          DataCell(Text(
+                                                              deforbending
+                                                                  .tongLoi)),
+                                                          DataCell(Text(
+                                                              deforbending
+                                                                  .ghiChu)),
+                                                          DataCell(Text(deforbending
+                                                              .nhanVienKiemTra)),
+                                                        ],
+                                                      ),
+                                                    )
+                                                    .toList(),
+                                              ),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ],
-                                  );
+                                        )
+                                      : Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                SizedBox(height: 100),
+                                                Center(
+                                                  child: ExceptionErrorState(
+                                                    imageDirectory:
+                                                        'lib/assets/touch.png',
+                                                    title: 'Thông báo',
+                                                    message:
+                                                        'Nhấn nút truy xuất để xem báo cáo',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
                                 },
                               ),
                             ],
@@ -604,77 +658,114 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                     );
                                   } else if (state
                                       is DeforStaticReportStateLoadingSuccessful) {
-                                    return Container(
-                                      width: SizeConfig.screenWidth * 0.8912,
-                                      height: SizeConfig.screenHeight * 0.5761,
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: DataTable(
-                                            headingTextStyle:
-                                                TextStyle(color: Colors.white),
-                                            headingRowColor:
-                                                MaterialStateColor.resolveWith(
-                                                    (states) =>
-                                                        Color(0xff5973c9)),
-                                            columns: <DataColumn>[
-                                              DataColumn(
-                                                label: Text('Tên SP'),
+                                    return deforStaticReportList.length > 0
+                                        ? Container(
+                                            width:
+                                                SizeConfig.screenWidth * 0.8912,
+                                            height: SizeConfig.screenHeight *
+                                                0.5761,
+                                            decoration: BoxDecoration(
+                                                border: Border.all()),
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              child: SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: DataTable(
+                                                  headingTextStyle: TextStyle(
+                                                      color: Colors.white),
+                                                  headingRowColor:
+                                                      MaterialStateColor
+                                                          .resolveWith(
+                                                              (states) => Color(
+                                                                  0xff5973c9)),
+                                                  columns: <DataColumn>[
+                                                    DataColumn(
+                                                      label: Text('Tên SP'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('Ngày bắt đầu'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('Ngày kết thúc'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Mẫu số'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Tình trạng'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Tổng lỗi'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Ghi chú'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('NV kiểm tra'),
+                                                    ),
+                                                  ],
+                                                  rows: deforStaticReportList
+                                                      .map(
+                                                        (deforstatic) =>
+                                                            DataRow(
+                                                          cells: <DataCell>[
+                                                            DataCell(Text(
+                                                                deforstatic
+                                                                    .tenSanPham)),
+                                                            DataCell(Text(
+                                                                deforstatic
+                                                                    .ngayBatDau)),
+                                                            DataCell(Text(
+                                                                deforstatic
+                                                                    .ngayKetThuc)),
+                                                            DataCell(Text(
+                                                                deforstatic
+                                                                    .mauSo
+                                                                    .toString())),
+                                                            DataCell(Text(
+                                                                deforstatic
+                                                                    .tinhTrang)),
+                                                            DataCell(Text(
+                                                                deforstatic
+                                                                    .tongLoi)),
+                                                            DataCell(Text(
+                                                                deforstatic
+                                                                    .ghiChu)),
+                                                            DataCell(Text(
+                                                                deforstatic
+                                                                    .nhanVienKiemTra)),
+                                                          ],
+                                                        ),
+                                                      )
+                                                      .toList(),
+                                                ),
                                               ),
-                                              DataColumn(
-                                                label: Text('Ngày bắt đầu'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Ngày kết thúc'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Mẫu số'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Tình trạng'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Tổng lỗi'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Ghi chú'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('NV kiểm tra'),
+                                            ),
+                                          )
+                                        : Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  SizedBox(height: 100),
+                                                  Center(
+                                                    child: ExceptionErrorState(
+                                                      title: 'Thông báo',
+                                                      message:
+                                                          'Không tìm thấy báo cáo trong ngày, vui lòng thử lại',
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
-                                            rows: deforStaticReportList
-                                                .map(
-                                                  (deforstatic) => DataRow(
-                                                    cells: <DataCell>[
-                                                      DataCell(Text(deforstatic
-                                                          .tenSanPham)),
-                                                      DataCell(Text(deforstatic
-                                                          .ngayBatDau)),
-                                                      DataCell(Text(deforstatic
-                                                          .ngayKetThuc)),
-                                                      DataCell(Text(deforstatic
-                                                          .mauSo
-                                                          .toString())),
-                                                      DataCell(Text(deforstatic
-                                                          .tinhTrang)),
-                                                      DataCell(Text(
-                                                          deforstatic.tongLoi)),
-                                                      DataCell(Text(
-                                                          deforstatic.ghiChu)),
-                                                      DataCell(Text(deforstatic
-                                                          .nhanVienKiemTra)),
-                                                    ],
-                                                  ),
-                                                )
-                                                .toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                                          );
                                   } else if (state
                                       is DeforStaticReportStateLoadingFailure) {
                                     return Column(
@@ -689,7 +780,8 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                       ],
                                     );
                                   }
-                                  return deforStaticReportList.length > 0? Container(
+                                  return deforStaticReportList.length > 0
+                                      ? Container(
                                           width:
                                               SizeConfig.screenWidth * 0.8912,
                                           height:
@@ -769,27 +861,28 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                             ),
                                           ),
                                         )
-                                      :Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          SizedBox(height: 100),
-                                          Center(
-                                            child: ExceptionErrorState(
-                                              imageDirectory:
-                                                  'lib/assets/touch.png',
-                                              title: 'Thông báo',
-                                              message:
-                                                  'Nhấn nút truy xuất để xem báo cáo',
+                                      : Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                SizedBox(height: 100),
+                                                Center(
+                                                  child: ExceptionErrorState(
+                                                    imageDirectory:
+                                                        'lib/assets/touch.png',
+                                                    title: 'Thông báo',
+                                                    message:
+                                                        'Nhấn nút truy xuất để xem báo cáo',
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  );
+                                          ],
+                                        );
                                 },
                               ),
                             ],
@@ -919,87 +1012,122 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                     );
                                   } else if (state
                                       is DeforRockReportStateLoadingSuccessful) {
-                                    return Container(
-                                      width: SizeConfig.screenWidth * 0.8912,
-                                      height: SizeConfig.screenHeight * 0.5761,
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: DataTable(
-                                            headingTextStyle:
-                                                TextStyle(color: Colors.white),
-                                            headingRowColor:
-                                                MaterialStateColor.resolveWith(
-                                                    (states) =>
-                                                        Color(0xff5973c9)),
-                                            columns: <DataColumn>[
-                                              DataColumn(
-                                                label: Text('Tên SP'),
+                                    return deforRockReportList.length > 0
+                                        ? Container(
+                                            width:
+                                                SizeConfig.screenWidth * 0.8912,
+                                            height: SizeConfig.screenHeight *
+                                                0.5761,
+                                            decoration: BoxDecoration(
+                                                border: Border.all()),
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              child: SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: DataTable(
+                                                  headingTextStyle: TextStyle(
+                                                      color: Colors.white),
+                                                  headingRowColor:
+                                                      MaterialStateColor
+                                                          .resolveWith(
+                                                              (states) => Color(
+                                                                  0xff5973c9)),
+                                                  columns: <DataColumn>[
+                                                    DataColumn(
+                                                      label: Text('Tên SP'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('Ngày bắt đầu'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('Ngày kết thúc'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Mẫu số'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Tải trọng'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Số lần thử'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text(
+                                                          'Kết quả đánh giá'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Tổng lỗi'),
+                                                    ),
+                                                    DataColumn(
+                                                      label: Text('Ghi chú'),
+                                                    ),
+                                                    DataColumn(
+                                                      label:
+                                                          Text('NV kiểm tra'),
+                                                    ),
+                                                  ],
+                                                  rows: deforRockReportList
+                                                      .map(
+                                                        (deforrock) => DataRow(
+                                                          cells: <DataCell>[
+                                                            DataCell(Text(
+                                                                deforrock
+                                                                    .tenSanPham)),
+                                                            DataCell(Text(
+                                                                deforrock
+                                                                    .ngayBatDau)),
+                                                            DataCell(Text(deforrock
+                                                                .ngayKetThuc)),
+                                                            DataCell(Text(
+                                                                deforrock.mauSo
+                                                                    .toString())),
+                                                            DataCell(Text(
+                                                                deforrock
+                                                                    .taiTrong)),
+                                                            DataCell(Text(
+                                                                deforrock
+                                                                    .soLanThu)),
+                                                            DataCell(Text(deforrock
+                                                                .ketQuaDanhGia)),
+                                                            DataCell(Text(
+                                                                deforrock
+                                                                    .tongLoi)),
+                                                            DataCell(Text(
+                                                                deforrock
+                                                                    .ghiChu)),
+                                                            DataCell(Text(deforrock
+                                                                .nhanVienKiemTra)),
+                                                          ],
+                                                        ),
+                                                      )
+                                                      .toList(),
+                                                ),
                                               ),
-                                              DataColumn(
-                                                label: Text('Ngày bắt đầu'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Ngày kết thúc'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Mẫu số'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Tải trọng'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Số lần thử'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Kết quả đánh giá'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Tổng lỗi'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('Ghi chú'),
-                                              ),
-                                              DataColumn(
-                                                label: Text('NV kiểm tra'),
+                                            ),
+                                          )
+                                        : Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  SizedBox(height: 100),
+                                                  Center(
+                                                    child: ExceptionErrorState(
+                                                      title: 'Thông báo',
+                                                      message:
+                                                          'Không tìm thấy báo cáo trong ngày, vui lòng thử lại',
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
-                                            rows: deforRockReportList
-                                                .map(
-                                                  (deforrock) => DataRow(
-                                                    cells: <DataCell>[
-                                                      DataCell(Text(deforrock
-                                                          .tenSanPham)),
-                                                      DataCell(Text(deforrock
-                                                          .ngayBatDau)),
-                                                      DataCell(Text(deforrock
-                                                          .ngayKetThuc)),
-                                                      DataCell(Text(deforrock
-                                                          .mauSo
-                                                          .toString())),
-                                                      DataCell(Text(
-                                                          deforrock.taiTrong)),
-                                                      DataCell(Text(
-                                                          deforrock.soLanThu)),
-                                                      DataCell(Text(deforrock
-                                                          .ketQuaDanhGia)),
-                                                      DataCell(Text(
-                                                          deforrock.tongLoi)),
-                                                      DataCell(Text(
-                                                          deforrock.ghiChu)),
-                                                      DataCell(Text(deforrock
-                                                          .nhanVienKiemTra)),
-                                                    ],
-                                                  ),
-                                                )
-                                                .toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                                          );
                                   } else if (state
                                       is DeforRockReportStateLoadingFailure) {
                                     return Column(
@@ -1107,26 +1235,27 @@ class _DeformationReportScreenState extends State<DeformationReportScreen> {
                                           ),
                                         )
                                       : Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          SizedBox(height: 100),
-                                          Center(
-                                            child: ExceptionErrorState(
-                                              imageDirectory:
-                                                  'lib/assets/touch.png',
-                                              title: 'Thông báo',
-                                              message:
-                                                  'Nhấn nút truy xuất để xem báo cáo',
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                SizedBox(height: 100),
+                                                Center(
+                                                  child: ExceptionErrorState(
+                                                    imageDirectory:
+                                                        'lib/assets/touch.png',
+                                                    title: 'Thông báo',
+                                                    message:
+                                                        'Nhấn nút truy xuất để xem báo cáo',
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  );
+                                          ],
+                                        );
                                 },
                               ),
                             ],
