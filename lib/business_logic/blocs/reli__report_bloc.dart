@@ -27,7 +27,8 @@ class ReliReportBloc extends Bloc<ReliReportEvent, ReliReportState> {
         //print('vao try relireport');
         final reliReportData =
             await reliReportRepository.loadingReliDataRequest(
-                event.startTime, event.stopTime.add(Duration(days: 1)));
+                event.startTime.subtract(Duration(days: 1)),
+                event.stopTime.add(Duration(days: 1)));
         reliReportListNew.clear();
         if (reliReportData is ReliReport) {
           for (var item in reliReportData.items) {
